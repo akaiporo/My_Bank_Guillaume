@@ -8,9 +8,11 @@ public class TransactionType {
 	
 	/* CONSTRUCTORS */
 	public TransactionType(String wording){
+		
 		if(wording.isEmpty()){
 			throw new IllegalArgumentException("Transaction type can't be null or empty");
 		}
+
 		this.wording = wording;
 	}
 	
@@ -18,13 +20,26 @@ public class TransactionType {
 	public int getId(){
 		return this.id;
 	}
-	public void setId(int val){
-		if(val <=0){
-			throw new IllegalArgumentException("Id must be strictly superior to 0");
-		}
-		else this.id = val;
-	}
 	public String getWording(){
 		return this.wording;
+	}
+	public void setId(int val){
+		if(val <= 0){
+			throw new IllegalArgumentException();
+		}
+		this.id = val;
+	}
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof TransactionType){
+			TransactionType tmp = (TransactionType)obj;
+		
+			if(tmp.getWording().equals(this.getWording())){
+				return true;
+			}
+			else return false;
+		}
+		else return false;	
 	}
 }

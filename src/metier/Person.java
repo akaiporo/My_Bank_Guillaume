@@ -5,9 +5,8 @@ import application.Tools;
 public class Person {
 	/**
 	 * 
-	 * @param id : identifier of the person 
-	 * @param advisor_name : name of the person
-	 * @param advisor_firstname : first name of the person
+	 * @param name : name of the person
+	 * @param firstname : first name of the person
 	 * @param phone_number : phone number of the person
 	 * @param email : email of the person
 	 */
@@ -19,12 +18,13 @@ public class Person {
 		if(firstname.isEmpty()) {
 			throw new IllegalArgumentException("The firstname cannot be empty");
 		}
-		if(Tools.eraseChar(phone_number,"\\s").length()<4||Tools.eraseChar(phone_number,"\\s").length()>12) {
-			throw new IllegalArgumentException("phone_number must contain between 4 and 12 numbers");
+		if(Tools.eraseChar(phone_number,"\\s").length()<4||Tools.eraseChar(phone_number,"\\s").length()>11) {
+			throw new IllegalArgumentException("phone_number must contain between 4 and 11 numbers");
 		}
 		if(!Tools.checkMail(email)){
 			throw new IllegalArgumentException("email must be of a valid format eg toto@titi.tutu");
 		}
+				
 		this.name = name;
 		this.firstname = firstname;
 		this.phone_number = phone_number;
@@ -36,11 +36,12 @@ public class Person {
 		return this.id;
 	}
 	public void setId(int val){
-		if(val <=0){
-			throw new IllegalArgumentException("Id must be strictly superior to 0");
+		if(val <= 0){
+			throw new IllegalArgumentException();
 		}
-		else this.id = val;
+		this.id = val;
 	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -55,6 +56,23 @@ public class Person {
 	
 	public String getEmail() {
 		return this.email;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Person){
+			Person tmp = (Person)obj;
+		
+			if(tmp.getName().equals(this.getName()) && 
+				tmp.getFirstName().equals(this.getFirstName()) &&	 
+				tmp.getPhoneNumber().equals(this.getPhoneNumber()) &&
+				tmp.getEmail().equals(this.getEmail())){
+				return true;
+			}
+			else return false;
+		}
+		else return false;
 	}
 	
 	private int id;

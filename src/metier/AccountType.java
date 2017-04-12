@@ -8,7 +8,6 @@ public class AccountType {
 	
 	/* CONSTRUCTOR */
 	public AccountType(String account_type){
-		//Si account_type est "null", l'appelle à isEmpty() lancera automatiquement une NullPointerException
 		if(account_type.isEmpty()){
 			throw new IllegalArgumentException();
 		}
@@ -19,14 +18,26 @@ public class AccountType {
 	public int getId(){
 		return this.id;
 	}
-	public void setId(int val){
-		if(val <=0){
-			throw new IllegalArgumentException("Id must be strictly superior to 0");
-		}
-		else this.id = val;
-	} 
 	public String getAccountType(){
 		return this.accountType;
 	}
+	public void setId(int val){
+		if(val <= 0){
+			throw new IllegalArgumentException();
+		}
+		this.id = val;
+	}
 	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof AccountType){
+			AccountType tmp = (AccountType)obj;
+		
+			if(tmp.getAccountType().equals(this.getAccountType())){
+				return true;
+			}
+			else return false;
+		}
+		else return false;	
+	}
 }

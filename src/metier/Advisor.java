@@ -18,14 +18,17 @@ public class Advisor extends Person {
 		}
 		if(date_assignment.getTime() > Tools.today().getTime()) {  
 			throw new IllegalArgumentException ("Date assigment in the future");
-		}	
+		}
+		if(agency == null) {
+			throw new NullPointerException("Agency cannot be null");
+		}
 				
 	this.date_assignment = date_assignment;
 	this.agency = agency;
 	
 	}
 	
-	public Date getDateAssigment() {
+	public Date getDateAssignment() {
 		return this.date_assignment;
 	}
 	
@@ -35,4 +38,5 @@ public class Advisor extends Person {
 	
 	private Date date_assignment;
 	private Agency agency;
+
 }

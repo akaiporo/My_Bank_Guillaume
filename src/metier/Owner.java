@@ -27,6 +27,7 @@ public class Owner extends Person {
 		this.login=login;
 		this.pwd=pwd;
 		this.address=address;
+		
 	}
 	
 	public Date getBirthdate() {

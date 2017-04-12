@@ -39,14 +39,15 @@ public class Bank {
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Bank){
-			Bank bank = (Bank)obj;
-			if(bank.getBankName().equals(this.getBankName()) && 
-			   bank.getBankCode().equals(this.getBankCode())){
+			Bank tmp = (Bank)obj;
+			Bank bank = new Bank(tmp.getBankName(), tmp.getBankCode());
+			if(bank.getBankName() == this.getBankName() && 
+			   bank.getBankCode() == this.getBankCode()){
 				return true;
 			}
 			else return false;
 		}
-		else return false;
+		else throw new IllegalArgumentException("Can't compare a bank and anon-bank object");
 	}
 	private int id;
 	private String bank_name;

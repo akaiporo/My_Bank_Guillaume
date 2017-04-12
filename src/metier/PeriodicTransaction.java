@@ -17,45 +17,45 @@ public class PeriodicTransaction {
 	private PeriodUnit periodUnit;
 	/**
 	 * 
-	 * @param wording			   : Libelé de a transaction
-	 * @param transaction_value    : Valeur de la transaction (positive ou négative)
-	 * @param date_operation       : Date de création de l'opération. Peut être dans le futur (planification)
-	 * @param end_date_transaction : Date de fin, si c'est une pération cyclique dont on connait la fin
-	 * @param day_number		   : énième jour du cycle. Dépend de periodUnit.	
+	 * @param wording			   : Libelï¿½ de a transaction
+	 * @param transaction_value    : Valeur de la transaction (positive ou nï¿½gative)
+	 * @param date_operation       : Date de crï¿½ation de l'opï¿½ration. Peut ï¿½tre dans le futur (planification)
+	 * @param end_date_transaction : Date de fin, si c'est une pï¿½ration cyclique dont on connait la fin
+	 * @param day_number		   : ï¿½niï¿½me jour du cycle. Dï¿½pend de periodUnit.	
 	 * @param description          : Facultatif
-	 * @param transactionType      : Type de transaction (cb, chèque, retrait...)
+	 * @param transactionType      : Type de transaction (cb, chï¿½que, retrait...)
 	 * @param category		       : Category (alimentaire, transport...)  
 	 * @param periodUnit		   : Mensuel, hebdomadaire, annuel, bi-mensuel				
 	 */
 	public PeriodicTransaction(String wording, Double transaction_value, Date date_operation, Date end_date_transaction,
-							  int day_number, String description, TransactionType transactionType,  TargetTransaction targetTransaction, Category category,
+							  int day_number, String description, TransactionType transactionType, TargetTransaction targetTransaction, Category category,
 							  PeriodUnit periodUnit){
 		if(wording.isEmpty()){
-			throw new IllegalArgumentException("Le libelé ne peut être vide");
+			throw new IllegalArgumentException("Le libelï¿½ ne peut ï¿½tre vide");
 		}
 		if(transaction_value == null){
-			throw new NullPointerException("La valeur de la ligne ne peut être vide ou null");
+			throw new NullPointerException("La valeur de la ligne ne peut ï¿½tre vide ou null");
 		}
 		if(date_operation == null){
-			throw new NullPointerException("La date de début ne peut être null");
+			throw new NullPointerException("La date de dï¿½but ne peut ï¿½tre null");
 		}
 		if(transactionType == null){
-			throw new NullPointerException("le type de transaction ne peut être null");
+			throw new NullPointerException("le type de transaction ne peut ï¿½tre null");
 		}
 		if(category == null){
-			throw new NullPointerException("le type de transaction ne peut être null");
+			throw new NullPointerException("le type de transaction ne peut ï¿½tre null");
 		}
 		if((periodUnit == null)){
 			if(day_number > 0)
-			throw new NullPointerException("Une period ou un jour d'échéance ne peuvent être déclaré l'un sans l'autre");
+			throw new NullPointerException("Une period ou un jour d'ï¿½chï¿½ance ne peuvent ï¿½tre dï¿½clarï¿½ l'un sans l'autre");
 		}
 		else if(day_number <= 0){
 			if(periodUnit!= null){
-				throw new NullPointerException("Une period ou un jour d'échéance ne peuvent être déclaré l'un sans l'autre");
+				throw new NullPointerException("Une period ou un jour d'ï¿½chï¿½ance ne peuvent ï¿½tre dï¿½clarï¿½ l'un sans l'autre");
 			}
 		}
 		if(targetTransaction == null){
-			throw new NullPointerException("la cible ne peut être null");
+			throw new NullPointerException("la cible ne peut ï¿½tre null");
 		}
 		this.wording = wording;
 		this.transaction_value = transaction_value;

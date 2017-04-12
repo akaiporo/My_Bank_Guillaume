@@ -55,22 +55,19 @@ public class Address {
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Address){
-			Address address = (Address)obj;
-
-			if(address.getLine1().equals(this.getLine1()) && 
-					address.getLine2().equals(this.getLine2()) &&	 
-					address.getPostalCode().equals(this.getPostalCode()) &&
-					address.getCity().equals(this.getCity())
-						){
-					return true;
-					}
+			Address tmp = (Address)obj;
+		
+			if(tmp.getLine1().equals(this.getLine1()) && 
+				tmp.getLine2().equals(this.getLine2()) &&	 
+				tmp.getPostalCode().equals(this.getPostalCode()) &&
+				tmp.getCity().equals(this.getCity())){
+				return true;
+			}
 			else return false;
 		}
-		else {
-			return false;
-		}
-		
+		else return false;
 	}
+	
 	private int id;
 	private String line1;
 	private String line2;

@@ -3,6 +3,7 @@ package metier;
 public class TargetTransaction {
 
 	public TargetTransaction(String target_name,String IBAN) {
+		
 		if (target_name.isEmpty()){
 			throw new IllegalArgumentException("wording cannot be empty");
 		}
@@ -12,6 +13,7 @@ public class TargetTransaction {
 		if (!IBAN.toUpperCase().startsWith("FR")){
 			throw new IllegalArgumentException("IBAN begins with 'FR' in France");
 		}
+		
 		this.target_name=target_name;
 		this.IBAN=IBAN;
 	}
@@ -20,10 +22,10 @@ public class TargetTransaction {
 		return this.id;
 	}
 	public void setId(int val){
-		if(val <=0){
-			throw new IllegalArgumentException("Id must be strictly superior to 0");
+		if(val <= 0){
+			throw new IllegalArgumentException();
 		}
-		else this.id = val;
+		this.id = val;
 	}
 	public String getTargetName(){
 		return this.target_name;
@@ -32,6 +34,19 @@ public class TargetTransaction {
 		return this.IBAN;
 	}
 	
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof TargetTransaction){
+			TargetTransaction tmp = (TargetTransaction)obj;
+			
+			if(tmp.getTargetName().equals(this.getTargetName()) && 
+			   tmp.getIBAN().equals(this.getIBAN())){
+				return true;
+			}
+			else return false;
+		}
+		else return false;
+	}
 	
 	private int id;
 	private String target_name;
