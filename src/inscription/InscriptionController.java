@@ -4,12 +4,13 @@ import application.Tools;
 
 public class InscriptionController {
 
+	
 	private String firstname;
 	private String lastname;
 	private String password;
 	private String confirm_password;
 	private String email;
-	
+	@Deprecated //Cf login_controller pour la bonne méthode
 	public InscriptionController(String fn, String ln, String pwd, String confpwd, String mail) {
 		this.firstname = fn;
 		this.lastname = ln;
