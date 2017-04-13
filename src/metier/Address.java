@@ -20,8 +20,11 @@ public class Address {
 		if(city.isEmpty()) {
 			throw new IllegalArgumentException("The city cannot be empty");
 		}
+		if(line2 == null){
+			this.line2 = "";
+		}
+		else this.line2 = line2;
 		this.line1 = line1;
-		this.line2 = line2;
 		this.postalcode = postalcode;
 		this.city = city;
 
