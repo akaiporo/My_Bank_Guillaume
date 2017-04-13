@@ -7,7 +7,6 @@ public class Category {
 		if (wording.isEmpty()){
 			throw new IllegalArgumentException("wording cannot be empty");
 		}
-		// category à tester pour voir si la catégorie mère existe
 		this.wording=wording;
 		this.category=category; 
 	}
@@ -33,9 +32,13 @@ public class Category {
 		if(obj instanceof Category){
 			Category tmp = (Category)obj;
 			
-			if(tmp.getWording().equals(this.getWording()) && 
-			   tmp.getCategory().equals(this.getCategory())){
-				return true;
+			if(tmp.getWording().equals(this.getWording())){
+				if(tmp.getCategory() != null){
+					return tmp.getCategory().equals(this.getCategory());
+				}
+				else {
+					return (tmp.getCategory() == null && this.getCategory() == null);
+				}
 			}
 			else return false;
 		}
