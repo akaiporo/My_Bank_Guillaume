@@ -6,6 +6,17 @@ import application.Tools;
 
 public class Owner extends Person {
 
+	/**
+	 * Constructor
+	 * @param owner_name
+	 * @param owner_firstname
+	 * @param phone_number
+	 * @param email
+	 * @param birthdate
+	 * @param login
+	 * @param pwd
+	 * @param address
+	 */
 	public Owner(String owner_name, String owner_firstname, String phone_number, String email, Date birthdate, String login, String pwd, Address address) {
 		super(owner_name, owner_firstname, phone_number, email);
 		if (birthdate == null){
