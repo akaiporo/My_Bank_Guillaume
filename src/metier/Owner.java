@@ -8,7 +8,7 @@ public class Owner extends Person {
 
 	/**
 	 * Constructor
-	 * @param owner_name
+	 * @param owner_name : The owner name
 	 * @param owner_firstname
 	 * @param phone_number
 	 * @param email
