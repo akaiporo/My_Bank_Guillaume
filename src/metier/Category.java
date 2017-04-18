@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -35,6 +37,8 @@ public class Category implements Serializable {
 	public String getWording(){
 		return this.wording;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_subCategory")
 	public Category getCategory(){
 		return this.category;
 	}
