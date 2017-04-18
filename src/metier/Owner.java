@@ -2,10 +2,18 @@ package metier;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 import application.Tools;
 
-public class Owner extends Person {
+@Entity
+@Table(name="Owner")
+@NamedQuery(name="Owner.findAll", query = "SELECT o FROM Owner o")
 
+public class Owner extends Person{
+	
 	/**
 	 * Constructor
 	 * @param owner_name : The owner name
@@ -38,6 +46,9 @@ public class Owner extends Person {
 		this.login=login;
 		this.pwd=pwd;
 		this.address=address;
+		
+	}
+	public Owner() {
 		
 	}
 	
