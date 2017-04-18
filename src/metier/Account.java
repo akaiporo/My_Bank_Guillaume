@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
 import application.Tools;
 
 @Entity
-@Table(name="Account")
+@Table(name="account")
 @NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -88,6 +88,9 @@ public class Account implements Serializable {
 		this.accountType = accountType;
 		this.alert_thresh = alert_thresh;
 	}
+	/**
+	 * Empty setter for the EntityManager
+	 */
 	public Account(){
 		
 	}
@@ -117,7 +120,7 @@ public class Account implements Serializable {
 	public int getOverdraft(){
 		return this.overdraft;
 	}
-	
+	 
 	public double getInterestRate(){
 		return this.interest_rate;
 	}
