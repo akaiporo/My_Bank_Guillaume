@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="periodictransaction")
-@NamedQuery(name="PeriodicTransaction.findAll", query="SELECT t FROM PeriodicTransaction t")
+@NamedQuery(name="PeriodicTransaction.findAll", query="SELECT p FROM PeriodicTransaction p")
 public class PeriodicTransaction {
 
 	/* VARIABLES */

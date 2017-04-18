@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="periodunit")
-@NamedQuery(name="PeriodUnit.findAll", query="SELECT t FROM PeriodUnit t")
+@NamedQuery(name="PeriodUnit.findAll", query="SELECT a FROM PeriodUnit a")
 
 public class PeriodUnit {
 	

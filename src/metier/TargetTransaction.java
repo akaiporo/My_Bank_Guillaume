@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="targettransaction")
-@NamedQuery(name="TargetTransaction.findAll", query="SELECT t FROM TargetTransaction t")
+@NamedQuery(name="TargetTransaction.findAll", query="SELECT a FROM TargetTransaction a")
 public class TargetTransaction {
 
 	public TargetTransaction(){
