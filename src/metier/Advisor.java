@@ -2,7 +2,12 @@ package metier;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -41,7 +46,8 @@ public class Advisor extends Person {
 	public Date getDateAssignment() {
 		return this.date_assignment;
 	}
-	
+	@ManyToOne
+	@JoinColumn(name="id_agency")
 	public Agency getAgency() {
 		return this.agency;
 	}

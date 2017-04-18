@@ -1,8 +1,16 @@
 package metier;
 
-import application.Tools;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-public class Person {
+import application.Tools;
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+public abstract class Person {
 	/**
 	 * 
 	 * @param name : name of the person
@@ -35,7 +43,8 @@ public class Person {
 	public Person(){
 		
 	}
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
