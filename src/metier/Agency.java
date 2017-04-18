@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -64,11 +67,13 @@ public class Agency {
 	public String getCounterCode() {
 		return this.counter_code;
 	}
-	
+	@ManyToOne
+	@JoinColumn(name="id_address")
 	public Address getAddress() {
 		return this.address;
 	}
-	
+	@ManyToOne
+	@JoinColumn(name="id_bank")
 	public Bank getBank() {
 		return this.bank;
 	}

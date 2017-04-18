@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -54,7 +56,6 @@ public class Bank implements Serializable {
 	public String getBankName() {
 		return this.bank_name;
 	}
-	
 	public String getBankCode() {
 		return this.bank_code;
 		
