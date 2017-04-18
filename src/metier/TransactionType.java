@@ -43,6 +43,9 @@ public class TransactionType implements Serializable{
 	public String getWording(){
 		return this.wording;
 	}
+	public void setWording(String wording){
+		this.wording = wording;
+	}
 	public void setId(int val){
 		if(val <= 0){
 			throw new IllegalArgumentException();

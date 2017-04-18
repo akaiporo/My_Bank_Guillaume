@@ -63,6 +63,9 @@ public class Address {
 	public CpCity getCpCity() {
 		return this.cpCity;
 	}
+	public void setCpCity(CpCity cpc){
+		this.cpCity = cpc;
+	}
 	
 	@Override
 	public boolean equals(Object obj){

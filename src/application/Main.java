@@ -1,9 +1,10 @@
 package application;
 	
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
@@ -22,19 +23,32 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			setPrimaryStage(primaryStage);
-			Parent root = FXMLLoader.load(getClass().getResource("/login/login_view.fxml")); //The first screen will always be the login screen
-			Scene scene = new Scene(root,800,400);
+			this.setPrimaryStage(primaryStage);
+			this.emf = Persistence.createEntityManagerFactory("My_Bank");
+			this.mediator = new Mediator( this.emf );
+			
+			Scene scene = new Scene(
+				ControllerBase.loadFxml("MainWindow.fxml", mediator),
+				400,400
+			);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			pStage.setScene(scene);
-			pStage.show();
+			primaryStage.setScene(scene);
+			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(Main.class, args);
+	@Override
+	public void stop() throws Exception {
+		this.emf.close();
+		super.stop();
 	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+	private Mediator mediator = null;
+	private EntityManagerFactory emf = null;
 
 }
