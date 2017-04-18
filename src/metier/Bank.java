@@ -1,11 +1,29 @@
 package metier;
 
-public class Bank {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity  // pour dire que ça va aller dans la BDD
+@Table(name="Bank")  // à quelle table c'est associé
+@NamedQuery(name="Bank.findAll", query = "SELECT b FROM Bank b")
+public class Bank implements Serializable {
+	private static final long serialVersionUID = 1L;
+	/*VARIABLES*/
+	private int id;
+	private String bank_name;
+	private String bank_code;
+	
+
 	/**
-	 * 
-	 * @param id
-	 * @param bank_name
-	 * @param bank_code
+	 * @param id			: id de la banque
+	 * @param bank_name		: nom de la banque
+	 * @param bank_code		: code de la banque (à 5 chiffres)
 	 */
 
 	public Bank(String bank_name, String bank_code) {
@@ -19,6 +37,11 @@ public class Bank {
 		this.bank_code = bank_code;
 		
 	}
+	public Bank() {
+		
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -49,9 +72,7 @@ public class Bank {
 		}
 		else throw new IllegalArgumentException("Can't compare a bank and anon-bank object");
 	}
-	private int id;
-	private String bank_name;
-	private String bank_code;
+	
 	
 
 }

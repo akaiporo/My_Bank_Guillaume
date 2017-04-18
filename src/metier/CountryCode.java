@@ -1,6 +1,21 @@
 package metier;
 
-public class CountryCode {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="CountryCode")
+@NamedQuery(name="CountryCode.findAll", query="SELECT c FROM CountryCode c")
+
+public class CountryCode  implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 
 	/* VARIABLES */
 	private int id;
@@ -15,8 +30,12 @@ public class CountryCode {
 		
 		this.countryCode = code;
 	}
-	
+	public CountryCode() {
+		
+	}
 	/* GETTERS & SETTERS */
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
