@@ -52,7 +52,7 @@ public class Address {
 	}
 	public String getLine1() {
 		return this.line1;
-	}
+	} 
 	
 	public String getLine2() {
 		return this.line2;
