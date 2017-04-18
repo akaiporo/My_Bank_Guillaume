@@ -1,7 +1,20 @@
 package metier;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="targettransaction")
+@NamedQuery(name="TargetTransaction.findAll", query="SELECT t FROM TargetTransaction t")
 public class TargetTransaction {
 
+	public TargetTransaction(){
+	}
 	public TargetTransaction(String target_name,String IBAN) {
 		
 		if (target_name.isEmpty()){
@@ -17,7 +30,8 @@ public class TargetTransaction {
 		this.target_name=target_name;
 		this.IBAN=IBAN;
 	}
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
@@ -27,9 +41,11 @@ public class TargetTransaction {
 		}
 		this.id = val;
 	}
+	@Column(name="target_name")
 	public String getTargetName(){
 		return this.target_name;
 	}
+	@Column(name="IBAN")
 	public String getIBAN(){
 		return this.IBAN;
 	}

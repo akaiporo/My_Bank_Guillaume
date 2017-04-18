@@ -1,6 +1,21 @@
 package metier;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="periodunit")
+@NamedQuery(name="PeriodUnit.findAll", query="SELECT t FROM PeriodUnit t")
+
 public class PeriodUnit {
+	
+	public PeriodUnit(){
+	}
 
 	public PeriodUnit(String unit) {
 		
@@ -11,6 +26,8 @@ public class PeriodUnit {
 		this.unit=unit;
 	}
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
@@ -20,6 +37,8 @@ public class PeriodUnit {
 		}
 		this.id = val;
 	}
+	
+	@Column(name="unit")
 	public String getUnit(){
 		return this.unit;
 	}

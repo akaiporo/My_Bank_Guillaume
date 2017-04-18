@@ -1,12 +1,29 @@
 package metier;
 
-public class TransactionType {
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="transactiontype")
+@NamedQuery(name="TransactionType.findAll", query="SELECT a FROM TransactionType a")
+public class TransactionType implements Serializable{
+	private static final long serialVersionUID = 1L;
 
 	/* VARIABLES */
 	private int id;
 	private String wording;
 	
 	/* CONSTRUCTORS */
+	public TransactionType(){
+	}
+	
 	public TransactionType(String wording){
 		
 		if(wording.isEmpty()){
@@ -17,9 +34,12 @@ public class TransactionType {
 	}
 	
 	/*GETTERS & SETTERS*/
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
+	@Column(name="wording")
 	public String getWording(){
 		return this.wording;
 	}

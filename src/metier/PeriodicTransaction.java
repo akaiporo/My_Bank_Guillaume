@@ -1,6 +1,20 @@
 package metier;
 
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="periodictransaction")
+@NamedQuery(name="PeriodicTransaction.findAll", query="SELECT t FROM PeriodicTransaction t")
 public class PeriodicTransaction {
 
 	/* VARIABLES */
@@ -27,6 +41,9 @@ public class PeriodicTransaction {
 	 * @param category		       : Category (alimentaire, transport...)  
 	 * @param periodUnit		   : Mensuel, hebdomadaire, annuel, bi-mensuel				
 	 */
+	public PeriodicTransaction(){
+	}
+	
 	public PeriodicTransaction(String wording, Double transaction_value, Date date_operation, Date end_date_transaction,
 							  int day_number, String description, TransactionType transactionType, TargetTransaction targetTransaction, Category category,
 							  PeriodUnit periodUnit){
@@ -70,6 +87,9 @@ public class PeriodicTransaction {
 	}
 	
 	/* GETTERS & SETTERS */
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
@@ -79,21 +99,29 @@ public class PeriodicTransaction {
 		}
 		this.id = val;
 	}
+	@Column(name="wording")
 	public String getWording(){
 		return this.wording;
 	}
+	@Column(name="transaction_value")
 	public double getTransactionValue(){
 		return this.transaction_value;
 	}
+	@Column(name="date_operation")
+	@Temporal(TemporalType.DATE)
 	public Date getDateOperation(){
 		return this.date_operation;
 	}
+	@Column(name="end_date_transaction")
+	@Temporal(TemporalType.DATE)
 	public Date getEndDateTransaction(){
 		return this.end_date_transaction;
 	}
+	@Column(name="day_number")
 	public int getDayNumber(){
 		return this.day_number;
 	}
+	@Column(name="description")
 	public String getDescription(){
 		return this.description;
 	}
