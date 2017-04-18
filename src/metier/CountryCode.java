@@ -42,6 +42,9 @@ public class CountryCode  implements Serializable {
 	public String getCountryCode(){
 		return this.countryCode;
 	}
+	private void setCountryCode(String code){
+		this.countryCode = code;
+	}
 	public void setId(int val){
 		if(val <= 0){
 			throw new IllegalArgumentException();

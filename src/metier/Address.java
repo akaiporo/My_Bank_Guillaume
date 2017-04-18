@@ -53,11 +53,15 @@ public class Address {
 	public String getLine1() {
 		return this.line1;
 	} 
-	
+	private void setLine1(String line1){
+		this.line1 = line1;
+	}
 	public String getLine2() {
 		return this.line2;
 	}
-	
+	private void setLine2(String line2){
+		this.line2 = line2;
+	}
 	@ManyToOne
 	@JoinColumn(name="id_postalcode")
 	public CpCity getCpCity() {

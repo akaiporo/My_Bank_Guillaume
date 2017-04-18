@@ -37,10 +37,16 @@ public class Category implements Serializable {
 	public String getWording(){
 		return this.wording;
 	}
+	public void setWording(String wording){
+		this.wording = wording;
+	}
 	@ManyToOne
 	@JoinColumn(name="id_subCategory")
 	public Category getCategory(){
 		return this.category;
+	}
+	public void setCategory(Category cat){
+		this.category = cat;
 	}
 	public void setId(int val){
 		if(val <= 0){

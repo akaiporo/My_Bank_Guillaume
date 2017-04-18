@@ -42,7 +42,9 @@ public class PeriodUnit {
 	public String getUnit(){
 		return this.unit;
 	}
-	
+	private void setUnit(String unit){
+		this.unit = unit;
+	}
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof PeriodUnit){

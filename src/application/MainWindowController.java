@@ -1,5 +1,6 @@
 package application;
 
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,10 +28,10 @@ public class MainWindowController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		try {
-			content.getChildren().setAll(loadFxml("TaskList.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
-			// TODO alert
+			e.printStackTrace();
 		}
 	}
 	

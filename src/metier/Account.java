@@ -3,6 +3,7 @@ package metier;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +32,7 @@ public class Account implements Serializable {
 	private Agency agency;
 	private CountryCode countryCode;
 	private AccountType accountType;
-	private ArrayList<PeriodicTransaction> transactions = new ArrayList<PeriodicTransaction>();
+	private List<PeriodicTransaction> transactions = new ArrayList<PeriodicTransaction>();
 	private int alert_thresh;
 	
 	/* CONSTRUCTORS */
@@ -109,35 +110,64 @@ public class Account implements Serializable {
 	public String getAccountNumber(){
 		return this.account_number;
 	}
+	private void setAccountNumber(String number){
+		this.account_number = number;
+	}
 	@Column(name="creation_date")
 	@Temporal(TemporalType.DATE)
 	public Date getCreationDate(){
 		return this.creation_date;
 	}
+	private void setCreationDate(Date date){
+		this.creation_date = date;
+	}
 	public double getFirstTotal(){
 		return this.first_total;
+	}
+	public void setFirstTotal(double total){
+		this.first_total = total;
 	}
 	public int getOverdraft(){
 		return this.overdraft;
 	}
-	 
+	private void setOverdraft(int val){
+		this.overdraft = val;
+	}
 	public double getInterestRate(){
 		return this.interest_rate;
+	}
+	private void setInterestRate(double interest){
+		this.interest_rate = interest;
 	}
 	public Agency getAgency(){
 		return this.agency;
 	}
+	private void setAgency(Agency agency){
+		this.agency = agency;
+	}
 	public CountryCode getCountryCode(){
 		return this.countryCode;
+	}
+	private void setCountryCode(CountryCode country){
+		this.countryCode = country;
 	}
 	public AccountType getAccountType(){
 		return this.accountType;
 	}
+	private void setAccountType(AccountType acc){
+		this.accountType = acc;
+	}
 	public int getAlertThresh(){
 		return this.alert_thresh;
 	}
-	public ArrayList<PeriodicTransaction> getTransactions() {
+	private void setAlertThresh(int alert){
+		this.alert_thresh = alert;
+	}
+	public List<PeriodicTransaction> getTransactions() {
 		return this.transactions;
+	}
+	public void setTransactions(ArrayList<PeriodicTransaction> trans){
+		this.transactions = trans;
 	}
 	
 	/* METHODS */

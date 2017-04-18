@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="periodictransaction")
-@NamedQuery(name="PeriodicTransaction.findAll", query="SELECT p FROM PeriodicTransaction p")
+@NamedQuery(name="PeriodicTransaction.findAll", query="SELECT t FROM PeriodicTransaction t")
 public class PeriodicTransaction {
 
 	/* VARIABLES */
@@ -105,46 +105,78 @@ public class PeriodicTransaction {
 	public String getWording(){
 		return this.wording;
 	}
+	public void setWording(String wording){
+		this.wording = wording;
+	}
 	@Column(name="transaction_value")
 	public double getTransactionValue(){
 		return this.transaction_value;
+	}
+	public void setTransactionValue(double val){
+		this.transaction_value = val;
 	}
 	@Column(name="date_operation")
 	@Temporal(TemporalType.DATE)
 	public Date getDateOperation(){
 		return this.date_operation;
 	}
+	
+	public void setDateOperation(Date date){
+		this.date_operation = date;
+	}
 	@Column(name="end_date_transaction")
 	@Temporal(TemporalType.DATE)
 	public Date getEndDateTransaction(){
 		return this.end_date_transaction;
 	}
+	
+	public void setEndDateTransaction(Date date){
+		this.end_date_transaction = date;
+	}
 	@Column(name="day_number")
 	public int getDayNumber(){
 		return this.day_number;
 	}
+	public void setDayNumber(int day){
+		this.day_number = day;
+	}
 	@Column(name="description")
 	public String getDescription(){
 		return this.description;
+	}
+	public void setDescription(String desc){
+		this.description = desc;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_transactiontype")
 	public TransactionType getTransactionType(){
 		return this.transactionType;
 	}
+	public void setTransactionType(TransactionType tt){
+		this.transactionType = tt;
+	}
 	@ManyToOne
 	@JoinColumn(name="id_targettransaction")
 	public TargetTransaction getTargetTransaction(){
 		return this.targetTransaction;
+	}
+	public void setTargetTransaction(TargetTransaction target){
+		this.targetTransaction = target;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_category")
 	public Category getCategory(){
 		return this.category;
 	}
+	public void setCategory(Category cat){
+		this.category = cat;
+	}
 	@ManyToOne
 	@JoinColumn(name="id_periodunit")
 	public PeriodUnit getPeriodUnit(){
 		return this.periodUnit;
+	}
+	public void setPeriodUnit(PeriodUnit pu){
+		this.periodUnit = pu;
 	}
 }

@@ -55,9 +55,14 @@ public class Bank implements Serializable {
 	public String getBankName() {
 		return this.bank_name;
 	}
+	private void setBankName(String name){
+		this.bank_name = name;
+	}
 	public String getBankCode() {
 		return this.bank_code;
-		
+	}
+	private void setBankCode(String code){
+		this.bank_code = code;
 	}
 	@Override
 	public boolean equals(Object obj){

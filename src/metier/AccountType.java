@@ -36,6 +36,9 @@ public class AccountType {
 	public String getAccountType(){
 		return this.accountType;
 	}
+	private void setAccountType(String acc){
+		this.accountType = acc;
+	}
 	public void setId(int val){
 		if(val <= 0){
 			throw new IllegalArgumentException();

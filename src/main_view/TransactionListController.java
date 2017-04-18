@@ -21,7 +21,7 @@ import metier.PeriodicTransaction;
 
 public class TransactionListController extends ControllerBase {
 
-	@FXML private TableView<PeriodicTransaction> listTasks;
+	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkDone;
 	@FXML private TextField txtLabel;
 	@FXML private DatePicker dateCreated;
@@ -31,10 +31,10 @@ public class TransactionListController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		EntityManager em = mediator.createEntityManager();
-		List<PeriodicTransaction> tasks = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
-		
+		@SuppressWarnings("unchecked")
+		List<PeriodicTransaction> Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
 		// Remplissage du tableview avec tasks
-		this.listTasks.setItems(FXCollections.observableList(tasks));
+		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
 	
 	@FXML

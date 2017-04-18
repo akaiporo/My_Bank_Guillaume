@@ -2,11 +2,14 @@ package metier;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import application.Tools;
 
@@ -53,21 +56,38 @@ public class Owner extends Person{
 	public Owner() {
 		super();
 	}
-	
+	@Column(name="birthdate")
+	@Temporal(TemporalType.DATE)
 	public Date getBirthdate() {
 		return this.birthdate;
+	}
+
+	private void setBirthdate(Date date){
+		this.birthdate = date;
 	}
 	public String getLogin() {
 		return this.login;
 	}
+	private void setLogin(String login){
+		this.login = login;
+	}
 	public String getPwd() {
 		return this.pwd;
+	}
+	private void setPwd(String pwd){
+		this.pwd = pwd;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_address")
 	public Address getAddress() {
 		return this.address;
 	}
+	private void setAddress(Address address){
+		this.address = address;
+	}
+	
+	
+	
 	
 	private Date birthdate;
 	private String login;

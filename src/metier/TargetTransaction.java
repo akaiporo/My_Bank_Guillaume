@@ -45,11 +45,16 @@ public class TargetTransaction {
 	public String getTargetName(){
 		return this.target_name;
 	}
+	private void setTargetName(String name){
+		this.target_name = name;
+	}
 	@Column(name="IBAN")
 	public String getIBAN(){
 		return this.IBAN;
 	}
-	
+	private void setIBAN(String iban){
+		this.IBAN = iban;
+	}
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof TargetTransaction){

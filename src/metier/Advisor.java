@@ -2,11 +2,14 @@ package metier;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import application.Tools;
 @Entity
@@ -39,16 +42,23 @@ public class Advisor extends Person {
 	public Advisor(){
 		super();
 	}
-	
+	@Column(name="date_assignment")
+	@Temporal(TemporalType.DATE)
 	public Date getDateAssignment() {
 		return this.date_assignment;
+	}
+	
+	private void setDateAssignment(Date date){
+		this.date_assignment = date;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_agency")
 	public Agency getAgency() {
 		return this.agency;
 	}
-	
+	private void setAgency(Agency agency){
+		this.agency = agency;
+	}
 	private Date date_assignment;
 	private Agency agency;
 

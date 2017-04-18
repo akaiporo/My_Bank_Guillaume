@@ -12,15 +12,15 @@
 <?import javafx.scene.control.cell.PropertyValueFactory ?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.capgemini.training.java.jfx.ui.TaskListController">
+<SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main_view.TransactionListController">
   <items>
-      <TableView fx:id="listTasks">
+      <TableView fx:id="listTransactions">
       <columns>
         <TableColumn prefWidth="155.0" text="Libellé" >
-        	<cellValueFactory><PropertyValueFactory property='Titre'/></cellValueFactory>
+        	<cellValueFactory><PropertyValueFactory property='Wording'/></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Réalisée" >
-        	<cellValueFactory><PropertyValueFactory property='Debut'/></cellValueFactory>
+        <TableColumn prefWidth="61.0" text="Valeur" >
+        	<cellValueFactory><PropertyValueFactory property='TransactionValue'/></cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>

@@ -63,21 +63,40 @@ public class Agency {
 	public String getAgencyName() {
 		return this.agency_name;
 	}
-	 
+	public void setAgencyName(String name){
+		this.agency_name = name;
+	}
 	public String getCounterCode() {
 		return this.counter_code;
+	}
+	public void setCounterCode(String code){
+		if(counter_code.length() != 5) {
+			throw new IllegalArgumentException("The counter code must cointain five caracters");
+		}
+		this.counter_code = code;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_address")
 	public Address getAddress() {
 		return this.address;
 	}
+	public void setAddress(Address add){
+		if(address == null) {
+			throw new NullPointerException("The agency address  cannot be null");
+		}
+		this.address = add;
+	}
 	@ManyToOne
 	@JoinColumn(name="id_bank")
 	public Bank getBank() {
 		return this.bank;
 	}
-	
+	public void setBank(Bank bank){
+		if(bank == null) {
+			throw new NullPointerException("The bank cannot be null");
+		}
+		this.bank = bank;
+	}
 	@Override // redéfinition de la fonction equals pour la comparaison de ts les champs quand on a  un objet
 	
 	public boolean equals(Object obj){
