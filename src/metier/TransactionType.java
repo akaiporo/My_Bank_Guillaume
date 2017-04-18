@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="transactiontype")
-@NamedQuery(name="TransactionType.findAll", query="SELECT t FROM TransactionType t")
+@NamedQuery(name="TransactionType.findAll", query="SELECT a FROM TransactionType a")
 public class TransactionType implements Serializable{
 	private static final long serialVersionUID = 1L;
 
