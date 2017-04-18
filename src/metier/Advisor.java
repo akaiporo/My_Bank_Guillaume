@@ -16,7 +16,7 @@ public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date
 	 * @param agency : Advisor agency
-	 */
+	 */ 
 
 	public Advisor(String advisor_name, String advisor_firstname, String phone_number, String email, Date date_assignment,Agency agency) {
 		super(advisor_name, advisor_firstname, phone_number, email);

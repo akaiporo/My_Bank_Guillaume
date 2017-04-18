@@ -29,7 +29,7 @@ public class CpCity {
 	
 	public CpCity(){
 		
-	}
+	} 
 	
 	public void setId(int id){
 		if(id <= 0){

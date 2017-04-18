@@ -51,7 +51,7 @@ public class Agency {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
-	}
+	} 
 	
 	public void setId(int val){
 		if(val <= 0){
