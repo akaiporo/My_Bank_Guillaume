@@ -49,7 +49,7 @@ public class Owner extends Person{
 		
 	}
 	public Owner() {
-		
+		super();
 	}
 	
 	public Date getBirthdate() {
