@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -56,6 +58,8 @@ public class Address {
 		return this.line2;
 	}
 	
+	@ManyToOne
+	@JoinColumn(name="id_postalcode")
 	public CpCity getCpCity() {
 		return this.cpCity;
 	}

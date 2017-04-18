@@ -1,5 +1,15 @@
 package metier;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="cpcity")
+@NamedQuery(name="cpcity.findAll", query="SELECT ad FROM CpCity ad")
 public class CpCity {
 
 	int id;
@@ -17,12 +27,18 @@ public class CpCity {
 		this.city = city;
 	}
 	
+	public CpCity(){
+		
+	}
+	
 	public void setId(int id){
 		if(id <= 0){
 			throw new IllegalArgumentException("Id can't be null or negativ");
 		}
 		this.id = id;
 	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
