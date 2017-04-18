@@ -63,7 +63,7 @@ public class Agency {
 	public String getAgencyName() {
 		return this.agency_name;
 	}
-	
+	 
 	public String getCounterCode() {
 		return this.counter_code;
 	}
