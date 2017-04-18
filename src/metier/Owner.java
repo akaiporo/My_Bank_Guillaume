@@ -3,6 +3,8 @@ package metier;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -61,6 +63,8 @@ public class Owner extends Person{
 	public String getPwd() {
 		return this.pwd;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_address")
 	public Address getAddress() {
 		return this.address;
 	}
