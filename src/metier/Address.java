@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="address")
-@NamedQuery(name="Address.findAll", query="SELECT add FROM AccountType add")
+@NamedQuery(name="address.findAll", query="SELECT add FROM Address add")
 public class Address {
 	/**
 	 * 
