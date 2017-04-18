@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import application.Tools;
 @Entity
 @Table(name="advisor")
-@NamedQuery(name="advisor.findAll", query="SELECT ad FROM AccountType ad")
+@NamedQuery(name="advisor.findAll", query="SELECT ad FROM Advisor ad")
 public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date
