@@ -8,6 +8,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@Table(name="accounttype")
 @NamedQuery(name="AccountType.findAll", query="SELECT at FROM AccountType at")
 public class AccountType {
 

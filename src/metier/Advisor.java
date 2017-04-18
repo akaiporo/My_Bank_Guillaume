@@ -2,8 +2,14 @@ package metier;
 
 import java.util.Date;
 
-import application.Tools;
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
+import application.Tools;
+@Entity
+@Table(name="advisor")
+@NamedQuery(name="advisor.findAll", query="SELECT ad FROM AccountType ad")
 public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date
@@ -26,6 +32,10 @@ public class Advisor extends Person {
 	this.date_assignment = date_assignment;
 	this.agency = agency;
 	
+	}
+	
+	public Advisor(){
+		super();
 	}
 	
 	public Date getDateAssignment() {

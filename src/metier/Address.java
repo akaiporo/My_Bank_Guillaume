@@ -1,7 +1,15 @@
 package metier;
 
-import javax.persistence.Transient;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="address")
+@NamedQuery(name="Address.findAll", query="SELECT add FROM AccountType add")
 public class Address {
 	/**
 	 * 
@@ -26,7 +34,11 @@ public class Address {
 		this.cpCity = cpcity;
 
 	}
-	
+	public Address(){
+		
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId() {
 		return this.id;
 	}
