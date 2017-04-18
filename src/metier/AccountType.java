@@ -1,5 +1,14 @@
 package metier;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@NamedQuery(name="AccountType.findAll", query="SELECT at FROM AccountType at")
 public class AccountType {
 
 	/* VARIABLES */
@@ -13,8 +22,13 @@ public class AccountType {
 		}
 		this.accountType = account_type;
 	}
+	public AccountType(){
+		
+	}
 	
 	/* GETTERS & SETTERS */
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
