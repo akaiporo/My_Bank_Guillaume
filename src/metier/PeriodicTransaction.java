@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -125,15 +127,23 @@ public class PeriodicTransaction {
 	public String getDescription(){
 		return this.description;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_transactiontype")
 	public TransactionType getTransactionType(){
 		return this.transactionType;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_targettransaction")
 	public TargetTransaction getTargetTransaction(){
 		return this.targetTransaction;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_category")
 	public Category getCategory(){
 		return this.category;
 	}
+	@ManyToOne
+	@JoinColumn(name="id_periodunit")
 	public PeriodUnit getPeriodUnit(){
 		return this.periodUnit;
 	}
