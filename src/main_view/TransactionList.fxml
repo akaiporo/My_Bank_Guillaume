@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory ?>
 <?import javafx.scene.layout.AnchorPane?>
-
+  
 <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main_view.TransactionListController">
   <items>
       <TableView fx:id="listTransactions">
