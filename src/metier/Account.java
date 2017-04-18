@@ -1,12 +1,26 @@
 package metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import application.Tools;
 
-public class Account {
-
+@Entity
+@Table(name="Account")
+@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
+public class Account implements Serializable {
+	private static final long serialVersionUID = 1L;
 	/* VARIABLES */
 	private int id;
 	private String account_number;
@@ -32,7 +46,7 @@ public class Account {
 	 * @param agency		 : Agence liée au compte;
 	 * @param countryCode	 : Code pays
 	 * @param accountType	 : Type de compte (Chèque, épargne, courant...)
-	 * @param alert_thresh   : Suil d'alerte. Mettre "null" si pas d'alerte
+	 * @param alert_thresh   : Suil d'alerte. Mettre "0" si pas d'alerte
 	 */
 	public Account(String account_number,Date date, double first_total, int overdraft,
 				   double interest_rate, Agency agency, CountryCode countryCode, AccountType accountType, int alert_thresh){
@@ -74,7 +88,12 @@ public class Account {
 		this.accountType = accountType;
 		this.alert_thresh = alert_thresh;
 	}
+	public Account(){
+		
+	}
 	/* GETTERS & SETTERS */
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public int getId(){
 		return this.id;
 	}
@@ -87,6 +106,8 @@ public class Account {
 	public String getAccountNumber(){
 		return this.account_number;
 	}
+	@Column(name="creation_date")
+	@Temporal(TemporalType.DATE)
 	public Date getCreationDate(){
 		return this.creation_date;
 	}
@@ -96,6 +117,7 @@ public class Account {
 	public int getOverdraft(){
 		return this.overdraft;
 	}
+	
 	public double getInterestRate(){
 		return this.interest_rate;
 	}
@@ -111,7 +133,7 @@ public class Account {
 	public int getAlertThresh(){
 		return this.alert_thresh;
 	}
-	public Iterable<PeriodicTransaction> getTransactions() {
+	public ArrayList<PeriodicTransaction> getTransactions() {
 		return this.transactions;
 	}
 	
@@ -121,13 +143,7 @@ public class Account {
 			throw new NullPointerException("La ligne à ajouter ne peut être vide");
 		}
 		else {
-			int index = 0;
-			for(PeriodicTransaction tr : this.getTransactions()){
-				if(transaction.getDateOperation().getTime() < tr.getDateOperation().getTime()){
-					this.transactions.add(index, transaction);
-				}
-				index++;
-			}
+			this.transactions.add(transaction);
 		}
 	}
 }
