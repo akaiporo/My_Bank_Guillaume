@@ -100,4 +100,14 @@ public class MainWindowController extends ControllerBase {
 			// TODO alert
 		}
 	}
+	
+	@FXML
+	private void handleButtonAddUser(){
+		try {
+			content.getChildren().setAll(loadFxml("../inscriptionView/InscriptionView.fxml")); // Le mettre dans 'content'
+		}
+		catch(IOException e) {
+			// TODO alert
+		}
+	}
 }
