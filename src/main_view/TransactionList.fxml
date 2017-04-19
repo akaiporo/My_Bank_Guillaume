@@ -18,6 +18,9 @@
         <TableColumn prefWidth="100.0" text="Libellé">
         	<cellValueFactory><PropertyValueFactory property="Wording" /></cellValueFactory>
         </TableColumn>
+         <TableColumn prefWidth="100.0" text="Valeur">
+        	<cellValueFactory><PropertyValueFactory property="TransactionValue" /></cellValueFactory>
+        </TableColumn>
         <TableColumn prefWidth="116.0" text="Description">
         	<cellValueFactory><PropertyValueFactory property="Description" /></cellValueFactory>
         </TableColumn>
@@ -29,7 +32,7 @@
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Cible">
         	<cellValueFactory><PropertyValueFactory property="TargetTransaction" /></cellValueFactory>
-        </TableColumn> 
+        </TableColumn>
         <TableColumn prefWidth="61.0" text="Category">
         	<cellValueFactory><PropertyValueFactory property="Category" /></cellValueFactory>
         </TableColumn>
