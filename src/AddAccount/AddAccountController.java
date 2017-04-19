@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import metier.Bank;
 
-public class AddAccountController extends ControllerBase {
+public class AddAccountController extends ControllerBase { 
 	
 	@FXML private TextField bank_name;
 	@FXML private TextField bank_code;
