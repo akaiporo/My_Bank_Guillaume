@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-@Entity  // pour dire que ça va aller dans la BDD
-@Table(name="Bank")  // à quelle table c'est associé
+@Entity  // pour dire que ï¿½a va aller dans la BDD
+@Table(name="Bank")  // ï¿½ quelle table c'est associï¿½
 @NamedQuery(name="Bank.findAll", query = "SELECT b FROM Bank b")
 public class Bank implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +24,7 @@ public class Bank implements Serializable {
 	/**
 	 * @param id			: id de la banque
 	 * @param bank_name		: nom de la banque
-	 * @param bank_code		: code de la banque (à 5 chiffres)
+	 * @param bank_code		: code de la banque (ï¿½ 5 chiffres)
 	 */
 
 	public Bank(String bank_name, String bank_code) {
@@ -76,6 +76,11 @@ public class Bank implements Serializable {
 			else return false;
 		}
 		else throw new IllegalArgumentException("Can't compare a bank and anon-bank object");
+	}
+	
+	@Override
+	public String toString() {
+		return this.bank_name;
 	}
 
 

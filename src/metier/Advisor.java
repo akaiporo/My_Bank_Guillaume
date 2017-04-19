@@ -59,6 +59,12 @@ public class Advisor extends Person {
 	private void setAgency(Agency agency){
 		this.agency = agency;
 	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s %s", this.getName(), this.getFirstName());
+	}
+	
 	private Date date_assignment;
 	private Agency agency;
 

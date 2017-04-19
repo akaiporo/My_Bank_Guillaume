@@ -58,4 +58,9 @@ public class AccountType {
 		}
 		else return false;	
 	}
+	
+	@Override
+	public String toString() {
+		return this.accountType;
+	}
 }
