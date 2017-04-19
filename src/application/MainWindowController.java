@@ -57,7 +57,7 @@ public class MainWindowController extends ControllerBase {
 						content.getChildren().setAll(root); // Le mettre dans 'content'
 					}
 					catch(IOException e) {
-						err = "Erreur lors de la préparation de l'affichage de la liste: "+e.getMessage();
+						err = "Erreur lors de la prï¿½paration de l'affichage de la liste: "+e.getMessage();
 					}
 				}
 				catch(IOException e) {
@@ -80,7 +80,7 @@ public class MainWindowController extends ControllerBase {
 	private void handleMenuFileQuit(ActionEvent event) {
 		Alert alert = new Alert(
 				AlertType.CONFIRMATION,
-				"Vous êtes sûr de vouloir quitter ?",
+				"Vous ï¿½tes sï¿½r de vouloir quitter ?",
 				ButtonType.OK,
 				ButtonType.CANCEL
 		);
@@ -88,6 +88,16 @@ public class MainWindowController extends ControllerBase {
 		
 		if(result.isPresent() && result.get() == ButtonType.OK) {
 			Platform.exit();
+		}
+	}
+	
+	@FXML
+	private void handleButtonAddAccount(){
+		try {
+			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
+		}
+		catch(IOException e) {
+			// TODO alert
 		}
 	}
 }
