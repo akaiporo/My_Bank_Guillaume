@@ -60,7 +60,8 @@ public class TransactionListController extends ControllerBase {
 	}
 	
 	@FXML
-	private void handleBtnApply(ActionEvent event) {
+	private void handleBtnNew(ActionEvent event) {
 
+		
 	}
 }

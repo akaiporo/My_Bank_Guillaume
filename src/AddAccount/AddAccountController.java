@@ -23,7 +23,7 @@ public class AddAccountController extends ControllerBase {
 	@FXML private TextField advisor_firstname;
 	@FXML private TextField advisor_phonenumber;
 	@FXML private TextField advisor_email;
-	@FXML private Button confirm_addaccount;
+	@FXML private Button OK;
 	@FXML private Button cancel_addaccount;
 	
 	@Override 
