@@ -37,27 +37,31 @@ public class TransactionListController extends ControllerBase {
 	@FXML private ChoiceBox<TargetTransaction> choiceTarget;
 	@FXML private ChoiceBox<TransactionType> choiceType;
 	@FXML private Button btnApply;
+	@FXML private Button btnDelete;
+	
+	//non FXML var
 		  private EntityManager em;
-
+		  private List<PeriodicTransaction> Transactions;
+		  private List<Category> categories;
+		  private List<TargetTransaction> targets;
+		  private List<TransactionType> transactionType;
+		  
 	@Override
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
 
 		//Initialisations des listes & combox box
-		@SuppressWarnings("unchecked")
-		List<PeriodicTransaction> Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
+		
+		this.Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 		
-		@SuppressWarnings("unchecked")
-		List<Category> categories = em.createNamedQuery("Category.findAllName").getResultList();
+		this.categories = em.createNamedQuery("Category.findAll").getResultList();
 		this.choiceCategory.setItems(FXCollections.observableList(categories));
 		
-		@SuppressWarnings("unchecked")
-		List<TargetTransaction> targets = em.createNamedQuery("TargetTransaction.findAllName").getResultList();
+		this.targets = em.createNamedQuery("TargetTransaction.findAll").getResultList();
 		this.choiceTarget.setItems(FXCollections.observableList(targets));
 		
-		@SuppressWarnings("unchecked")
-		List<TransactionType> transactionType = em.createNamedQuery("TransactionType.findAllName").getResultList();
+		this.transactionType = em.createNamedQuery("TransactionType.findAll").getResultList();
 		this.choiceType.setItems(FXCollections.observableList(transactionType));
 	}
 	
@@ -74,11 +78,21 @@ public class TransactionListController extends ControllerBase {
 		
 		try{
 			em.getTransaction().commit();
+			this.refreshTransaction(transaction);
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
 		
+	}
+	
+	private void refreshTransaction(PeriodicTransaction transaction){
+		this.Transactions.add(transaction);
+		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+	}
+	@FXML
+	private void handleBtnDelete(ActionEvent event){
+		System.out.print("LOL");
 	}
 }

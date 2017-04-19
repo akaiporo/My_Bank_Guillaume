@@ -73,6 +73,11 @@ public class TargetTransaction {
 		else return false;
 	}
 	
+	@Override
+	public String toString(){
+		return this.target_name;
+	}
+	
 	private int id;
 	private String target_name;
 	private String IBAN;

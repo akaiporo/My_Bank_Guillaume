@@ -58,6 +58,11 @@ public class PeriodUnit {
 		else return false;	
 	}
 	
+	@Override
+	public String toString(){
+		return this.unit;
+	}
+	
 	private int id;
 	private String unit;
 }

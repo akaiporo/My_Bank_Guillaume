@@ -78,6 +78,11 @@ public class Category implements Serializable {
 		else return false;
 	}
 	
+	@Override
+	public String toString(){
+		return this.wording;
+	}
+	
 	private int id;
 	private String wording;
 	private Category category;

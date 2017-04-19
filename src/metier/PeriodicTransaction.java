@@ -186,7 +186,10 @@ public class PeriodicTransaction {
 		return this.periodUnit;
 	}
 	public String getPeriodUnitName(){
-		return this.periodUnit.getUnit();
+		if(this.periodUnit != null){
+			return this.periodUnit.getUnit();
+		}
+		else return "";
 	}
 	public void setPeriodUnit(PeriodUnit pu){
 		this.periodUnit = pu;

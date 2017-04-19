@@ -25,22 +25,25 @@
         	<cellValueFactory><PropertyValueFactory property="DateOperation" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Type de transaction">
-        	<cellValueFactory><PropertyValueFactory property="TransactionTypeWording" /></cellValueFactory>
+        	<cellValueFactory><PropertyValueFactory property="TransactionType" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Cible">
-        	<cellValueFactory><PropertyValueFactory property="TargetTransactionName" /></cellValueFactory>
+        	<cellValueFactory><PropertyValueFactory property="TargetTransaction" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Category">
-        	<cellValueFactory><PropertyValueFactory property="CategoryWording" /></cellValueFactory>
+        	<cellValueFactory><PropertyValueFactory property="Category" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Type de cycle">
-        	<cellValueFactory><PropertyValueFactory property="PeriodUnitName" /></cellValueFactory>
+        	<cellValueFactory><PropertyValueFactory property="PeriodUnit" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Valeur du cycle">
         	<cellValueFactory><PropertyValueFactory property="DayNumber" /></cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="61.0" text="Fin de cycle">
         	<cellValueFactory><PropertyValueFactory property="EndDateTransaction" /></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Fin de cycle">
+           <cellValueFactory><Button fx:id="btnDelete" mnemonicParsing="false" onAction="#handleBtnDelete" text="Supprimer" />/cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>
