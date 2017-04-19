@@ -20,32 +20,47 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import metier.Category;
 import metier.PeriodicTransaction;
+import metier.TargetTransaction;
+import metier.TransactionType;
 
 public class TransactionListController extends ControllerBase {
 
 	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkDone;
 	@FXML private TextField txtLabel;
+	@FXML private TextField txtDescription;
+	@FXML private TextField txtValeur;
 	@FXML private DatePicker dateCreated;
 	@FXML private ChoiceBox<Category> choiceCategory;
+	@FXML private ChoiceBox<TargetTransaction> choiceTarget;
+	@FXML private ChoiceBox<TransactionType> choiceType;
 	@FXML private Button btnApply;
+		  private EntityManager em;
 
 	@Override
 	public void initialize(Mediator mediator) {
-		EntityManager em = mediator.createEntityManager();
+		em = mediator.createEntityManager();
 
+		//Initialisations des listes & combox box
 		@SuppressWarnings("unchecked")
 		List<PeriodicTransaction> Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
-		// Remplissage du tableview avec la liste des transactions
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+		
+		@SuppressWarnings("unchecked")
+		List<Category> categories = em.createNamedQuery("Category.findAllName").getResultList();
+		this.choiceCategory.setItems(FXCollections.observableList(categories));
+		
+		@SuppressWarnings("unchecked")
+		List<TargetTransaction> targets = em.createNamedQuery("TargetTransaction.findAllName").getResultList();
+		this.choiceTarget.setItems(FXCollections.observableList(targets));
+		
+		@SuppressWarnings("unchecked")
+		List<TransactionType> transactionType = em.createNamedQuery("TransactionType.findAllName").getResultList();
+		this.choiceType.setItems(FXCollections.observableList(transactionType));
 	}
 	
 	@FXML
 	private void handleBtnApply(ActionEvent event) {
 
-	}
-	@FXML
-	private void handleBtnNew(ActionEvent event) {
-		
 	}
 }
