@@ -42,9 +42,6 @@
         <TableColumn prefWidth="61.0" text="Fin de cycle">
         	<cellValueFactory><PropertyValueFactory property="EndDateTransaction" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Fin de cycle">
-           <cellValueFactory><Button fx:id="btnDelete" mnemonicParsing="false" onAction="#handleBtnDelete" text="Supprimer" />/cellValueFactory>
-        </TableColumn>
       </columns>
     </TableView>
     <AnchorPane prefHeight="181.0" prefWidth="510.0">
