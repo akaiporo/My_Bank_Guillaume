@@ -27,6 +27,7 @@ public class MainWindowController extends ControllerBase {
 	
 	@Override
 	public void initialize(Mediator mediator) {
+		System.out.print(mediator);
 		try {
 			content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml")); // Le mettre dans 'content'
 		}

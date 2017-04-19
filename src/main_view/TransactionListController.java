@@ -46,7 +46,6 @@ public class TransactionListController extends ControllerBase {
 	}
 	@FXML
 	private void handleBtnNew(ActionEvent event) {
-
+		
 	}
-
 }
