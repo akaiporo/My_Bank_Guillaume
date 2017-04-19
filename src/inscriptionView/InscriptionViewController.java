@@ -10,6 +10,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import metier.Address;
+import metier.CpCity;
+import metier.Owner;
+import metier.DateUtils;
 
 public class InscriptionViewController extends ControllerBase {
 	
@@ -41,15 +45,21 @@ public class InscriptionViewController extends ControllerBase {
 	}
 	@FXML
 	private void handleButtonOk(ActionEvent event) {
+	CpCity cpcity = new CpCity(postalcode.getText(),city.getText());
+	Address address = new Address(owner_id_address1.getText(),owner_id_address2.getText(),cpcity);
+	Owner owner = new Owner(owner_name.getText(),
+							owner_firstname.getText(),
+							owner_phonenumber.getText(),
+							owner_mail.getText(),
+							DateUtils.LocalDateToDate(owner_birthdate.getValue()),
+							login.getText(),
+							pwd.getText(),
+							address
+							);
 		
-		/*Owner owner = new Owner(login.getText(),pwd.getText(),confirm_pwd.getText(),owner_name.getText(),
-								owner_firstname.getText(), 
-								owner_mail.getText(),owner_phonenumber.getText(),
-								owner_birthdate.getValue());
-		
-		Address address = new Address(owner_id_address1.getText(),owner_id_address2.getText());
+	
 
-		CpCity cpcity = new CpCity(postalcode.getText(),city.getText());*/
+	
 
 	}
 	@FXML
