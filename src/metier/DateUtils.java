@@ -7,7 +7,7 @@ import java.time.ZoneId;
 
 public class DateUtils {
 
-	public static Date LocalDate2Date(LocalDate local) {
+	public static Date LocalDateToDate(LocalDate local) {
 		return Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant());
 	}
 	public static LocalDate DateToLocalDate(Date date) {
