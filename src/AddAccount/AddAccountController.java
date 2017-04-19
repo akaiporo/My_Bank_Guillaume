@@ -31,7 +31,7 @@ public class AddAccountController extends ControllerBase {
 		EntityManager em = mediator.createEntityManager();
 	}
 
-	private void handleButtonOK(ActionEvent event){
+	private void handleButtonOK (ActionEvent event){
 		Bank bank=new Bank (bank_code.getText(),bank_name.getText());
 	}
 

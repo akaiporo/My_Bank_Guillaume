@@ -19,8 +19,29 @@
         <TableColumn prefWidth="155.0" text="Libellé" >
         	<cellValueFactory><PropertyValueFactory property='Wording'/></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Valeur" >
-        	<cellValueFactory><PropertyValueFactory property='TransactionValue'/></cellValueFactory>
+        <TableColumn prefWidth="61.0" text="Description" >
+        	<cellValueFactory><PropertyValueFactory property='Description'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Date d'opération" >
+        	<cellValueFactory><PropertyValueFactory property='DateOperation'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Type de transaction" >
+        	<cellValueFactory><PropertyValueFactory property='TransactionTypeWording'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Cible" >
+        	<cellValueFactory><PropertyValueFactory property='TargetTransactionName'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Category" >
+        	<cellValueFactory><PropertyValueFactory property='CategoryWording'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Type de cycle" >
+        	<cellValueFactory><PropertyValueFactory property='PeriodUnitName'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Valeur du cycle" >
+        	<cellValueFactory><PropertyValueFactory property='DayNumber'/></cellValueFactory>
+        </TableColumn>
+        <TableColumn prefWidth="61.0" text="Fin de cycle" >
+        	<cellValueFactory><PropertyValueFactory property='EndDateTransaction'/></cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>

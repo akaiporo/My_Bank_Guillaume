@@ -27,7 +27,7 @@
       <Label layoutX="370.0" layoutY="113.0" text="First Name" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="113.0" />
       <Label layoutX="368.0" layoutY="180.0" text="Phone Number" AnchorPane.rightAnchor="151.0" AnchorPane.topAnchor="180.0" />
       <Label layoutX="370.0" layoutY="244.0" text="Email" AnchorPane.rightAnchor="201.0" AnchorPane.topAnchor="244.0" />
-      <Button id="confirm_addaccount" fx:id="confirm_addaccount" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" onAction="#handleButtonOK"/>
+      <Button id="OK" fx:id="OK" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" onAction="#handleButtonOK"/>
       <Button id="cancel_addaccount" fx:id="cancel_addaccount" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />
       <Label layoutX="368.0" layoutY="21.0" text="ADVISOR" AnchorPane.rightAnchor="178.0" AnchorPane.topAnchor="21.0">
          <font>
