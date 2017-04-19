@@ -152,6 +152,9 @@ public class PeriodicTransaction {
 	public TransactionType getTransactionType(){
 		return this.transactionType;
 	}
+	public String getTransactionTypeWording(){
+		return this.transactionType.getWording();
+	}
 	public void setTransactionType(TransactionType tt){
 		this.transactionType = tt;
 	}
@@ -159,6 +162,9 @@ public class PeriodicTransaction {
 	@JoinColumn(name="id_targettransaction")
 	public TargetTransaction getTargetTransaction(){
 		return this.targetTransaction;
+	}
+	public String getTargetTransactionName(){
+		return this.targetTransaction.getTargetName();
 	}
 	public void setTargetTransaction(TargetTransaction target){
 		this.targetTransaction = target;
@@ -168,6 +174,9 @@ public class PeriodicTransaction {
 	public Category getCategory(){
 		return this.category;
 	}
+	public String getCategoryWording(){
+		return this.category.getWording();
+	}
 	public void setCategory(Category cat){
 		this.category = cat;
 	}
@@ -175,6 +184,9 @@ public class PeriodicTransaction {
 	@JoinColumn(name="id_periodunit")
 	public PeriodUnit getPeriodUnit(){
 		return this.periodUnit;
+	}
+	public String getPeriodUnitName(){
+		return this.periodUnit.getUnit();
 	}
 	public void setPeriodUnit(PeriodUnit pu){
 		this.periodUnit = pu;

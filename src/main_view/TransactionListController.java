@@ -14,8 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import metier.Category;
 import metier.PeriodicTransaction;
 
@@ -31,9 +33,10 @@ public class TransactionListController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		EntityManager em = mediator.createEntityManager();
+
 		@SuppressWarnings("unchecked")
 		List<PeriodicTransaction> Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
-		// Remplissage du tableview avec tasks
+		// Remplissage du tableview avec la liste des transactions
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
 	
