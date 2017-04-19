@@ -5,12 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="targettransaction")
-@NamedQuery(name="TargetTransaction.findAll", query="SELECT a FROM TargetTransaction a")
+@NamedQueries({
+	@NamedQuery(name="TargetTransaction.findAll", query="SELECT a FROM TargetTransaction a"),
+	@NamedQuery(name="TargetTransaction.findAllName", query="SELECT a.targetName FROM TargetTransaction a")
+})
 public class TargetTransaction {
 
 	public TargetTransaction(){
