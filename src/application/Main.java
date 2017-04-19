@@ -28,8 +28,7 @@ public class Main extends Application {
 			this.mediator = new Mediator( this.emf );
 			
 			Scene scene = new Scene(
-				ControllerBase.loadFxml("MainWindow.fxml", mediator),
-				400,400
+				ControllerBase.loadFxml("MainWindow.fxml", mediator)
 			);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);

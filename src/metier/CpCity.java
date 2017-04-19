@@ -4,12 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="cpcity")
-@NamedQuery(name="cpcity.findAll", query="SELECT ad FROM CpCity ad")
+@NamedQueries({
+@NamedQuery(name="cpcity.findAllpostalcode", query="SELECT p FROM CpCity p"),
+@NamedQuery(name="cpcity.findAllcity", query ="SELECT c FROM CpCity c")
+})
 public class CpCity {
 
 	int id;

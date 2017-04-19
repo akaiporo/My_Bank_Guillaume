@@ -1,5 +1,7 @@
 package main_view;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 
@@ -61,7 +63,22 @@ public class TransactionListController extends ControllerBase {
 	
 	@FXML
 	private void handleBtnNew(ActionEvent event) {
-
+		Date date = Date.from(this.dateCreated.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+		PeriodicTransaction transaction = new PeriodicTransaction(this.txtLabel.getText(), Double.parseDouble(this.txtValeur.getText()), 
+											date,null, 0,this.txtDescription.getText(), 
+											this.choiceType.getValue(), this.choiceTarget.getValue(), 
+											this.choiceCategory.getValue(), null);
+		
+		em.getTransaction().begin();
+		em.persist(transaction);
+		
+		try{
+			em.getTransaction().commit();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}
 		
 	}
 }
