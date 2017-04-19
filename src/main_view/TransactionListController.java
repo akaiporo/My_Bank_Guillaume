@@ -73,7 +73,7 @@ public class TransactionListController extends ControllerBase {
 		this.choiceType.setItems(FXCollections.observableList(transactionType));
 		
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
-			@Override
+			@Override 
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
 				updateForm(newVal==null ? new PeriodicTransaction() : newVal); 
 				//Si newVal == null, on crée une nouvelle transaction vide,
