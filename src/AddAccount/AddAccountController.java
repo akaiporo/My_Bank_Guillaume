@@ -113,7 +113,6 @@ public class AddAccountController extends ControllerBase {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-		
 		/*try {
 			MainWindowController.content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml"));
 		}

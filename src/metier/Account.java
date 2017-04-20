@@ -36,7 +36,6 @@ public class Account implements Serializable {
 	private int alert_thresh;
 	
 	/* CONSTRUCTORS */
-	
 	/**
 	 * 
 	 * @param account_number : Num�ro de compte, entre 1 et 11 characters
