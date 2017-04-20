@@ -93,6 +93,7 @@ public class TransactionListController extends ControllerBase {
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
 		this.btnEdit.setDisable(false);
+		this.btnDelete.setDisable(false);
 		
 		this.currentTransaction = newTransaction;
 		this.txtLabel.setText(this.currentTransaction.getWording());
@@ -119,7 +120,6 @@ public class TransactionListController extends ControllerBase {
 		}
 		else if(result == ButtonType.YES){
 			boolean isNew = this.currentTransaction.getId()==0;
-			System.out.print("mdfdgs fdfd gfd ff fd  s dg s  sdr");
 			ObservableList<PeriodicTransaction> transactions = this.listTransactions.getItems();
 			boolean err=false;
 			
@@ -271,9 +271,36 @@ public class TransactionListController extends ControllerBase {
 		}
 	}
 	
+	@FXML 
+	public void deleteForm(){
+		PeriodicTransaction periodicTransaction = new PeriodicTransaction();
+		try{
+			periodicTransaction = em.find(PeriodicTransaction.class, this.currentTransaction.getId());
+			em.getTransaction().begin();
+			em.remove(periodicTransaction);
+			em.getTransaction().commit();
+		}
+		catch(Exception e){
+			return;
+		}
+		
+		this.removeTransaction(periodicTransaction);
+	}
+	
 	private void refreshTransaction(PeriodicTransaction transaction){
 		this.Transactions.add(transaction);
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+	}
+	private void removeTransaction(PeriodicTransaction transaction){
+		int index = 0;
+		for(PeriodicTransaction pt : Transactions){
+			if(pt.getId() == transaction.getId()){
+				this.listTransactions.getItems().remove(index);
+				return;
+			}
+			else index++;
+				
+		}
 	}
 	
 	private void processPersistenceException(PersistenceException e) {

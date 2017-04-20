@@ -30,7 +30,6 @@ public abstract class ControllerBase {
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));
 		Parent root = (Parent)loader.load();
 		ControllerBase controller = loader.getController();
-		
 		controller.initMediator(mediator);
 		return root;
 	}
