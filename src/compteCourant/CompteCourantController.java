@@ -1,4 +1,4 @@
-package main_view;
+package compteCourant;
 
 import java.time.ZoneId;
 import java.util.Date;
@@ -33,7 +33,7 @@ import metier.PeriodicTransaction;
 import metier.TargetTransaction;
 import metier.TransactionType;
 
-public class TransactionListController extends ControllerBase {
+public class CompteCourantController extends ControllerBase {
 
 	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkDone;
@@ -89,6 +89,7 @@ public class TransactionListController extends ControllerBase {
 				//Si non, on lui passe newVal
 			}
 		});
+		
 	}
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
@@ -176,17 +177,12 @@ public class TransactionListController extends ControllerBase {
 					periodicTransaction.setTargetTransaction(target);
 					periodicTransaction.setTransactionValue(val);
 				
-					this.modified = false;
-					em.getTransaction().commit();
-					if(isNew) {
-						this.refreshTransaction(this.currentTransaction);
-					}
-					else {
-						transactions.set(transactions.indexOf(this.currentTransaction), this.currentTransaction);
-					}
 					
+					em.getTransaction().commit();
+					this.refreshTransaction(this.currentTransaction);	
 				}
 				catch(RollbackException e) {
+					em.getTransaction().rollback();
 					return;
 				}
 				finally {
@@ -269,6 +265,9 @@ public class TransactionListController extends ControllerBase {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
+		finally{
+			em.close();
+		}
 	}
 	
 	@FXML 
@@ -282,6 +281,9 @@ public class TransactionListController extends ControllerBase {
 		}
 		catch(Exception e){
 			return;
+		}
+		finally{
+			em.close();
 		}
 		
 		this.removeTransaction(periodicTransaction);
