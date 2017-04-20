@@ -71,7 +71,7 @@
             <Label fx:id="errType" layoutX="27.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Un type d'opération doit être sélectionné" textFill="RED" visible="false" />
             <Label layoutX="25.0" layoutY="179.0" text="Type de transaction" />
             <Button fx:id="btnEdit" disable="true" layoutX="582.0" layoutY="187.0" mnemonicParsing="false" text="Éditer" onAction="#saveForm"/>
-            <Button fx:id="btnDelete" disable="true" layoutX="495.0" layoutY="187.0" mnemonicParsing="false" text="Supprimer" />
+            <Button fx:id="btnDelete" disable="true" layoutX="495.0" layoutY="187.0" mnemonicParsing="false" text="Supprimer" onAction="#deleteForm"/>
             
          </children>
       </AnchorPane>
