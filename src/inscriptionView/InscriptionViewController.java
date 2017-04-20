@@ -23,6 +23,7 @@ import javafx.scene.control.TextField;
 import metier.Address;
 import metier.CpCity;
 import metier.Owner;
+import metier.PeriodicTransaction;
 import metier.DateUtils;
 
 public class InscriptionViewController extends ControllerBase {
@@ -35,62 +36,68 @@ public class InscriptionViewController extends ControllerBase {
 	@FXML private TextField owner_mail;
 	@FXML private TextField owner_id_address1;
 	@FXML private TextField owner_id_address2;
-	@FXML private ChoiceBox <CpCity> postalcode;
-	@FXML private ChoiceBox <CpCity> city;
+	@FXML private TextField postalcode;
+	@FXML private ChoiceBox <String> city;
 	@FXML private TextField owner_phonenumber;
 	@FXML private DatePicker owner_birthdate;
 	@FXML private Button btn_ok;
 	@FXML private Button btn_cancel;
 	
-		
+	private EntityManager em;
+
+	
 	
 	@Override
 	public void initialize(Mediator mediator) {
 		
 		try {	
-			EntityManager em = mediator.createEntityManager();
-			List<CpCity> postalcodes = em.createNamedQuery("CpCity.findAllpostalcode",CpCity.class).getResultList();
-			List<CpCity> cities = em.createNamedQuery("CpCity.findAllcity",CpCity.class).getResultList();
+			em = mediator.createEntityManager();
 			
-			this.postalcode.setItems(FXCollections.observableList(postalcodes));
-			this.city.setItems(FXCollections.observableList(cities));
+			List<String> cities = em.createNamedQuery("cpcity.findAllcity", String.class).getResultList();
+			this.city.setItems(FXCollections.observableList(cities));	
 		}
 		catch(PersistenceException e) {
+			this.processPersistenceException(e);
 		}
-		
 	}
-	
-	
 	@FXML
 	private void handleButtonOk(ActionEvent event) {
-	CpCity cpcity = new CpCity(this.postalcode.getValue(),this.city.getValue());
-	Address address = new Address(owner_id_address1.getText(),owner_id_address2.getText(),cpcity);
-	Owner owner = new Owner(owner_name.getText(),
-							owner_firstname.getText(),
-							owner_phonenumber.getText(),
-							owner_mail.getText(),
-							DateUtils.LocalDateToDate(owner_birthdate.getValue()),
-							login.getText(),
-							pwd.getText(),
-							address
-							);
+		CpCity cpcity = new CpCity(postalcode.getText(),this.city.getValue());
+		Address address = new Address(owner_id_address1.getText(),owner_id_address2.getText(),cpcity);
+		Owner owner = new Owner(owner_name.getText(),
+								owner_firstname.getText(),
+								owner_phonenumber.getText(),
+								owner_mail.getText(),
+								DateUtils.LocalDateToDate(owner_birthdate.getValue()),
+								login.getText(),
+								pwd.getText(),
+								address
+								);
 		
+		em.getTransaction().begin();
+		em.persist(cpcity);
+		em.persist(address);
+		em.persist(owner);
+		em.getTransaction().commit();		
 	}
+
 	@FXML
-	private void handleBtnCancel(ActionEvent event) {
+	private void handleButtonCancel(ActionEvent event) {
 		Alert alert = new Alert(
 				AlertType.CONFIRMATION,
-				"Are you sure you want to cancel ?",
+				"Vous êtes sûr de vouloir quitter ?",
 				ButtonType.YES,
 				ButtonType.NO
 		);
 		Optional<ButtonType> result = alert.showAndWait();
 		
-		if(result.isPresent() && result.get() == ButtonType.YES) {
+		if(result.isPresent() && result.get() == ButtonType.OK) {
 			Platform.exit();
+			
 		}
-		
-
+	}
+	private void processPersistenceException(PersistenceException e) {
+		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
 		 
 }

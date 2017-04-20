@@ -11,67 +11,67 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="762.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main_view.TransactionListController">
+<SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="800" maxWidth="800" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compteCourant.CompteCourantController">
   <items>
-      <TableView fx:id="listTransactions" prefHeight="350.0" prefWidth="602.0">
+      <TableView fx:id="listTransactions" minHeight="150" prefHeight="150.0" prefWidth="750">
       <columns>
         <TableColumn prefWidth="100.0" text="Libellé">
         	<cellValueFactory><PropertyValueFactory property="Wording" /></cellValueFactory>
         </TableColumn>
-         <TableColumn prefWidth="100.0" text="Valeur">
+         <TableColumn prefWidth="69.0" text="Valeur">
         	<cellValueFactory><PropertyValueFactory property="TransactionValue" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="116.0" text="Description">
+        <TableColumn prefWidth="147.0" text="Description">
         	<cellValueFactory><PropertyValueFactory property="Description" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Date d'opération">
+        <TableColumn prefWidth="120.0" text="Date d'opération">
         	<cellValueFactory><PropertyValueFactory property="DateOperation" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Type de transaction">
+        <TableColumn minWidth="2.0" prefWidth="121.0" text="Type de transaction">
         	<cellValueFactory><PropertyValueFactory property="TransactionType" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Cible">
+        <TableColumn minWidth="0.0" prefWidth="0.0" text="Cible">
         	<cellValueFactory><PropertyValueFactory property="TargetTransaction" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Category">
+        <TableColumn minWidth="3.0" prefWidth="68.0" text="Category">
         	<cellValueFactory><PropertyValueFactory property="Category" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Type de cycle">
+        <TableColumn prefWidth="97.0" text="Type de cycle">
         	<cellValueFactory><PropertyValueFactory property="PeriodUnit" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Valeur du cycle">
+        <TableColumn prefWidth="102.0" text="Valeur du cycle">
         	<cellValueFactory><PropertyValueFactory property="DayNumber" /></cellValueFactory>
         </TableColumn>
-        <TableColumn prefWidth="61.0" text="Fin de cycle">
+        <TableColumn minWidth="4.0" prefWidth="84.0" text="Fin de cycle">
         	<cellValueFactory><PropertyValueFactory property="EndDateTransaction" /></cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>
-    <AnchorPane prefHeight="181.0" prefWidth="510.0">
+    <AnchorPane minHeight="230" prefHeight="230" prefWidth="510.0">
          <children>
             <Label layoutX="24.0" layoutY="83.0" text="Libellé" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="83.0" />
             <TextField fx:id="txtLabel" layoutX="24.0" layoutY="100.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="100.0" />
             <Label fx:id="errLibele" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Un libelé doit être entrée" textFill="RED" visible="false" />
-            <DatePicker fx:id="dateCreated" layoutX="288.0" layoutY="44.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="44.0" />
+            <DatePicker fx:id="dateCreated" layoutX="288.0" layoutY="44.0" prefHeight="25.0" prefWidth="301.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="545.0" AnchorPane.topAnchor="44.0" />
             <Label fx:id="errDate" layoutX="288.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une date doit être sélectionnée" textFill="RED" visible="false" />
             <ChoiceBox fx:id="choiceCategory" layoutX="26.0" layoutY="149.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="149.0" />
             <Label fx:id="errCategory" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une catégorie doit être sélectionnée" textFill="RED" visible="false" />
             <Label layoutX="24.0" layoutY="132.0" text="Catégorie" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="132.0" />
-            <Button fx:id="btnApply" layoutX="444.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleBtnNew" text="Nouvelle tâche" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
+            <Button fx:id="btnApply" layoutX="494.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleBtnNew" text="Nouvelle tâche" AnchorPane.rightAnchor="545.0" AnchorPane.topAnchor="187.0" />
             <Label layoutX="290.0" layoutY="23.0" text="Date de l'opération" AnchorPane.topAnchor="23.0" />
             <Label layoutX="290.0" layoutY="83.0" text="Description (optionnelle" AnchorPane.topAnchor="83.0" />
-            <TextField fx:id="txtDescription" layoutX="290.0" layoutY="100.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="100.0" />
+            <TextField fx:id="txtDescription" layoutX="290.0" layoutY="100.0" prefHeight="25.0" prefWidth="301.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="543.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="26.0" layoutY="23.0" text="Valeur" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="23.0" />
             <TextField fx:id="txtValeur" layoutX="26.0" layoutY="44.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="44.0" />
             <Label fx:id="errValue" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une valeur doit être entrée" textFill="RED" visible="false" />
-            <ChoiceBox fx:id="choiceTarget" layoutX="294.0" layoutY="149.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="294.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
+            <ChoiceBox fx:id="choiceTarget" layoutX="288.0" layoutY="149.0" prefHeight="25.0" prefWidth="301.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="545.0" AnchorPane.topAnchor="149.0" />
             <Label fx:id="errTarget" layoutX="294.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une cible doit être sélectionné" textFill="RED" visible="false" />
             <Label layoutX="294.0" layoutY="132.0" text="Cible" />
             <ChoiceBox fx:id="choiceType" layoutX="27.0" layoutY="196.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="196.0" />
             <Label fx:id="errType" layoutX="27.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Un type d'opération doit être sélectionné" textFill="RED" visible="false" />
             <Label layoutX="25.0" layoutY="179.0" text="Type de transaction" />
-            <Button fx:id="btnEdit" disable="true" layoutX="582.0" layoutY="187.0" mnemonicParsing="false" text="Éditer" onAction="#saveForm"/>
-            <Button fx:id="btnDelete" disable="true" layoutX="495.0" layoutY="187.0" mnemonicParsing="false" text="Supprimer" onAction="#deleteForm"/>
+            <Button fx:id="btnEdit" disable="true" layoutX="379.0" layoutY="187.0" mnemonicParsing="false" onAction="#saveForm" text="Éditer" />
+            <Button fx:id="btnDelete" disable="true" layoutX="294.0" layoutY="187.0" mnemonicParsing="false" onAction="#deleteForm" text="Supprimer" />
             
          </children>
       </AnchorPane>

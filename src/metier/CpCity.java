@@ -1,5 +1,6 @@
 package metier;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,14 +12,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cpcity")
 @NamedQueries({
-@NamedQuery(name="cpcity.findAllpostalcode", query="SELECT p FROM CpCity p"),
-@NamedQuery(name="cpcity.findAllcity", query ="SELECT c FROM CpCity c")
+@NamedQuery(name="cpcity.findAll", query="SELECT p FROM CpCity p"),
+@NamedQuery(name="cpcity.findAllcity", query ="SELECT p.city FROM CpCity p")
 })
 public class CpCity {
 
-	int id;
-	String postalCode;
-	String city;
+	private int id;
+	private String postalCode;
+	private String city;
 	
 	public CpCity(String postalcode, String city) {
 		if(postalcode.length() != 5){
@@ -49,8 +50,12 @@ public class CpCity {
 	public String getPostalCode(){
 		return this.postalCode;
 	}
+	@Column(name="city")
 	public String getCity(){
 		return this.city;
+	}
+	public String setCity(String city){
+		return this.city = city;
 	}
 	
 	@Override

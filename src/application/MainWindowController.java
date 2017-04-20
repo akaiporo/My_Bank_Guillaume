@@ -29,7 +29,7 @@ public class MainWindowController extends ControllerBase {
 	public void initialize(Mediator mediator) {
 		System.out.print(mediator);
 		try {
-			content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
 			e.printStackTrace();
