@@ -18,7 +18,7 @@ public class Main extends Application {
 
 	private void setPrimaryStage(Stage pStage) {
 	     Main.pStage = pStage;
-	     Main.pStage.setResizable(false);
+	     Main.pStage.setResizable(true);
 	}
 	@Override
 	public void start(Stage primaryStage) {
