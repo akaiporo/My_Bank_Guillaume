@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import metier.CountryCode;
 import application.Tools;
 
 @Entity
@@ -39,36 +39,36 @@ public class Account implements Serializable {
 	
 	/**
 	 * 
-	 * @param account_number : Numéro de compte, entre 1 et 11 characters
-	 * @param date           : Date de création du compte. Inférieur ou égal à la date du jour
-	 * @param first_total    : Solde de départ
-	 * @param overdraft		 : Découvert. Strictement supérieur (le traitement est fait après en négatif)
-	 * @param interest_rate  : Taux d'intérêt supérieur ou égal à 0;
-	 * @param agency		 : Agence liée au compte;
+	 * @param account_number : Numï¿½ro de compte, entre 1 et 11 characters
+	 * @param date           : Date de crï¿½ation du compte. Infï¿½rieur ou ï¿½gal ï¿½ la date du jour
+	 * @param first_total    : Solde de dï¿½part
+	 * @param overdraft		 : Dï¿½couvert. Strictement supï¿½rieur (le traitement est fait aprï¿½s en nï¿½gatif)
+	 * @param interest_rate  : Taux d'intï¿½rï¿½t supï¿½rieur ou ï¿½gal ï¿½ 0;
+	 * @param agency		 : Agence liï¿½e au compte;
 	 * @param countryCode	 : Code pays
-	 * @param accountType	 : Type de compte (Chèque, épargne, courant...)
+	 * @param accountType	 : Type de compte (Chï¿½que, ï¿½pargne, courant...)
 	 * @param alert_thresh   : Suil d'alerte. Mettre "0" si pas d'alerte
 	 */
 	public Account(String account_number,Date date, double first_total, int overdraft,
 				   double interest_rate, Agency agency, CountryCode countryCode, AccountType accountType, int alert_thresh){
 		if(account_number.length() > 11){
-			throw new IllegalArgumentException("Un numéro de compte ne peut être supérieur à 11");
+			throw new IllegalArgumentException("Un numï¿½ro de compte ne peut ï¿½tre supï¿½rieur ï¿½ 11");
 		}
 		if(account_number.length() == 0){
-			throw new IllegalArgumentException("Un numéro de compte ne peut être vide");
+			throw new IllegalArgumentException("Un numï¿½ro de compte ne peut ï¿½tre vide");
 		}
 		if(date == null){
-			throw new NullPointerException("La date de création ne peut être null");
+			throw new NullPointerException("La date de crï¿½ation ne peut ï¿½tre null");
 		}
 		if(date.getTime() > Tools.today().getTime()){
-			throw new IllegalArgumentException("La date de création ne peut être supérieure à la date du jour");
+			throw new IllegalArgumentException("La date de crï¿½ation ne peut ï¿½tre supï¿½rieure ï¿½ la date du jour");
 		}
 		if(overdraft < 0){
-			throw new IllegalArgumentException("Le découvert autorisé ne peut être inférieur à 0."
-					+ "Le traitement en valeur négative sera effectué plus tard");
+			throw new IllegalArgumentException("Le dï¿½couvert autorisï¿½ ne peut ï¿½tre infï¿½rieur ï¿½ 0."
+					+ "Le traitement en valeur nï¿½gative sera effectuï¿½ plus tard");
 		}
 		if(interest_rate < 0){
-			throw new IllegalArgumentException("Le taux d'intérêt ne peut être inférieur à 0");
+			throw new IllegalArgumentException("Le taux d'intï¿½rï¿½t ne peut ï¿½tre infï¿½rieur ï¿½ 0");
 		}
 		if(agency == null){
 			throw new NullPointerException("Un compte doit avoir une agence");
@@ -77,7 +77,7 @@ public class Account implements Serializable {
 			throw new NullPointerException("Un compte doit avoir un code pays");
 		}
 		if(accountType == null){
-			throw new NullPointerException("Un compte doit avoir un type de compte (épargne, chèque...");
+			throw new NullPointerException("Un compte doit avoir un type de compte (ï¿½pargne, chï¿½que...");
 		}
 		this.account_number= account_number;
 		this.creation_date = date;
@@ -110,7 +110,13 @@ public class Account implements Serializable {
 	public String getAccountNumber(){
 		return this.account_number;
 	}
-	private void setAccountNumber(String number){
+	public void setAccountNumber(String number){
+		if(number.length() > 11){
+			throw new IllegalArgumentException("Un numï¿½ro de compte ne peut ï¿½tre supï¿½rieur ï¿½ 11");
+		}
+		if(number.length() == 0){
+			throw new IllegalArgumentException("Un numï¿½ro de compte ne peut ï¿½tre vide");
+		}
 		this.account_number = number;
 	}
 	@Column(name="creation_date")
@@ -118,7 +124,13 @@ public class Account implements Serializable {
 	public Date getCreationDate(){
 		return this.creation_date;
 	}
-	private void setCreationDate(Date date){
+	public void setCreationDate(Date date){
+		if(date == null){
+			throw new NullPointerException("La date de crï¿½ation ne peut ï¿½tre null");
+		}
+		if(date.getTime() > Tools.today().getTime()){
+			throw new IllegalArgumentException("La date de crï¿½ation ne peut ï¿½tre supï¿½rieure ï¿½ la date du jour");
+		}
 		this.creation_date = date;
 	}
 	public double getFirstTotal(){
@@ -130,37 +142,50 @@ public class Account implements Serializable {
 	public int getOverdraft(){
 		return this.overdraft;
 	}
-	private void setOverdraft(int val){
+	public void setOverdraft(int val){
+		if(val < 0){
+			throw new IllegalArgumentException("Le dï¿½couvert autorisï¿½ ne peut ï¿½tre infï¿½rieur ï¿½ 0."
+					+ "Le traitement en valeur nï¿½gative sera effectuï¿½ plus tard");
+		}
 		this.overdraft = val;
 	}
 	public double getInterestRate(){
 		return this.interest_rate;
 	}
-	private void setInterestRate(double interest){
+	public void setInterestRate(double interest){
+		if(interest < 0){
+			throw new IllegalArgumentException("Le taux d'intï¿½rï¿½t ne peut ï¿½tre infï¿½rieur ï¿½ 0");
+		}
 		this.interest_rate = interest;
 	}
 	public Agency getAgency(){
 		return this.agency;
 	}
-	private void setAgency(Agency agency){
+	public void setAgency(Agency agency){
+		if(agency == null){
+			throw new NullPointerException("Un compte doit avoir une agence");
+		}
 		this.agency = agency;
 	}
 	public CountryCode getCountryCode(){
 		return this.countryCode;
 	}
-	private void setCountryCode(CountryCode country){
+	public void setCountryCode(CountryCode country){
 		this.countryCode = country;
 	}
 	public AccountType getAccountType(){
 		return this.accountType;
 	}
-	private void setAccountType(AccountType acc){
+	public void setAccountType(AccountType acc){
+		if(acc == null){
+			throw new NullPointerException("Un compte doit avoir un type de compte (ï¿½pargne, chï¿½que...");
+		}
 		this.accountType = acc;
 	}
 	public int getAlertThresh(){
 		return this.alert_thresh;
 	}
-	private void setAlertThresh(int alert){
+	public void setAlertThresh(int alert){
 		this.alert_thresh = alert;
 	}
 	public List<PeriodicTransaction> getTransactions() {
@@ -169,15 +194,22 @@ public class Account implements Serializable {
 	public void setTransactions(ArrayList<PeriodicTransaction> trans){
 		this.transactions = trans;
 	}
+	public void setCountryCode(String account_number){
+		this.countryCode=new CountryCode(this.countryCode.getCountryCode()+this.calculcateCountryCode(this.account_number));
+	}
 	
 	/* METHODS */
 	public void addTransactions(PeriodicTransaction transaction){
 		if(transaction == null){
-			throw new NullPointerException("La ligne à ajouter ne peut être vide");
+			throw new NullPointerException("La ligne ï¿½ ajouter ne peut ï¿½tre vide");
 		}
 		else {
 			this.transactions.add(transaction);
 		}
+	}
+	
+	private String calculcateCountryCode(String account_number){
+		return "76";
 	}
 }
 

@@ -2,6 +2,8 @@ package metier;
 
 import java.util.Date;
 
+import javax.persistence.AssociationOverride;
+import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,9 +14,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import application.Tools;
+
 @Entity
 @Table(name="advisor")
-@NamedQuery(name="advisor.findAll", query="SELECT ad FROM Advisor ad")
+@NamedQuery(name="Advisor.findAll", query="SELECT ad FROM Advisor ad")
 public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date
@@ -60,9 +63,21 @@ public class Advisor extends Person {
 		this.agency = agency;
 	}
 	
+	/*@Override
+	@Column(name="advisor_name")
+	public String getName(){
+		return this.getName();
+	}
+	
+	@Override
+	@Column(name="advisor_firstname")
+	public String getFirstName(){
+		return this.getFirstName();
+	}*/
+	
 	@Override
 	public String toString() {
-		return String.format("%s %s", this.getName(), this.getFirstName());
+		return String.format("%s %s", getName(), this.getFirstName());
 	}
 	
 	private Date date_assignment;

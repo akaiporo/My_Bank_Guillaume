@@ -2,7 +2,7 @@ package metier;
 
 import java.io.Serializable;
 
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -52,12 +52,14 @@ public class Bank implements Serializable {
 		}
 		else this.id = val;
 	}
+	@Column(name="bank_name")
 	public String getBankName() {
 		return this.bank_name;
 	}
 	private void setBankName(String name){
 		this.bank_name = name;
 	}
+	@Column(name="bank_code")
 	public String getBankCode() {
 		return this.bank_code;
 	}

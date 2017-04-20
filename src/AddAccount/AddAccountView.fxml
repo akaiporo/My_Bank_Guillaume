@@ -7,30 +7,25 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddAccount.CreateBankController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddAccount.AddAccountController">
    <children>
-      <Label layoutX="69.0" layoutY="29.0" text="Bank" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="30.0" />
-      <Label layoutX="286.0" layoutY="29.0" text="Agency" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="29.0" />
-      <Label layoutX="286.0" layoutY="89.0" text="Advisor" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="89.0" />
-      <Label layoutX="40.0" layoutY="151.0" text="Account type" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="151.0" />
-      <Label layoutX="41.0" layoutY="220.0" text="Initial balance (euro)" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="220.0" />
-      <Label layoutX="184.0" layoutY="220.0" text="Authorized overdraft (enter positive number in euro)" AnchorPane.leftAnchor="184.0" AnchorPane.topAnchor="220.0" />
-      <Label layoutX="245.0" layoutY="151.0" text="Account number" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="151.0" />
-      <Label layoutX="39.0" layoutY="280.0" text="Creation date" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
-      <Label layoutX="306.0" layoutY="280.0" text="Interest rate (%)" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="280.0" />
+      <Label layoutX="41.0" layoutY="27.0" text="Agency*" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="27.0" />
+      <Label layoutX="104.0" layoutY="86.0" text="Advisor" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="86.0" />
+      <Label layoutX="40.0" layoutY="151.0" text="Account type*" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="151.0" />
+      <Label layoutX="41.0" layoutY="220.0" text="Initial balance (euro)*" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="220.0" />
+      <Label layoutX="184.0" layoutY="220.0" text="Authorized overdraft (enter positive number in euro)*" AnchorPane.leftAnchor="184.0" AnchorPane.topAnchor="220.0" />
+      <Label layoutX="245.0" layoutY="151.0" text="Account number*" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="151.0" />
+      <Label layoutX="39.0" layoutY="280.0" text="Creation date*" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
+      <Label layoutX="306.0" layoutY="280.0" text="Interest rate (%)*" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="280.0" />
       <TextField id="first_total" fx:id="first_total" layoutX="41.0" layoutY="244.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="244.0" />
       <TextField id="overdraft" fx:id="overdraft" layoutX="182.0" layoutY="244.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="244.0" />
       <TextField id="account_number" fx:id="account_number" layoutX="245.0" layoutY="175.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="175.0" />
       <TextField id="interest_rate" fx:id="interest_rate" layoutX="306.0" layoutY="300.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="300.0" />
-      <ChoiceBox id="choiceBank" fx:id="choiceBank" layoutX="40.0" layoutY="75.0" prefWidth="150.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="50.0" />
-      <ChoiceBox id="choiceAgency" fx:id="choiceAgency" layoutX="286.0" layoutY="49.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="49.0" />
-      <ChoiceBox id="choiceAdvisor" fx:id="choiceAdvisor" layoutX="286.0" layoutY="109.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="286.0" AnchorPane.topAnchor="109.0" />
+      <ChoiceBox id="choiceAgency" fx:id="choiceAgency" layoutX="41.0" layoutY="47.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="47.0" />
+      <ChoiceBox id="choiceAdvisor" fx:id="choiceAdvisor" layoutX="104.0" layoutY="106.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="106.0" />
       <ChoiceBox id="choiceAccountType" fx:id="choiceAccountType" layoutX="40.0" layoutY="175.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="175.0" />
       <DatePicker id="creation_date" fx:id="creation_date" layoutX="40.0" layoutY="300.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0" />
-      <Button id="OK" fx:id="OK" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" />
-      <Button id="cancel" fx:id="cancel" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />
-      <Button id="new_bank" fx:id="new_bank" layoutX="205.0" layoutY="50.0" mnemonicParsing="false" text="New" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="50.0" />
-      <Button id="new_agency" fx:id="new_agency" layoutX="524.0" layoutY="49.0" mnemonicParsing="false" text="New" AnchorPane.leftAnchor="524.0" AnchorPane.topAnchor="49.0" />
-      <Button id="new_advisor" fx:id="new_advisor" layoutX="524.0" layoutY="109.0" mnemonicParsing="false" text="New" AnchorPane.leftAnchor="524.0" AnchorPane.topAnchor="109.0" />     
+      <Button id="OK" fx:id="OK" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonOK" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" />
+      <Button id="cancel" fx:id="cancel" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />     
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package metier;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,6 +34,8 @@ public class AccountType {
 	public int getId(){
 		return this.id;
 	}
+	
+	@Column(name="account_type")
 	public String getAccountType(){
 		return this.accountType;
 	}

@@ -30,8 +30,6 @@ public class CreateBankController extends ControllerBase {
 	@FXML private TextField advisor_phonenumber;
 	@FXML private TextField advisor_email;
 	@FXML private Button OK;
-	@FXML private Button cancel_addaccount;
-
 	@FXML private Button cancel;
 
 	

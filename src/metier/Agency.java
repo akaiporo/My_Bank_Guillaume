@@ -1,5 +1,6 @@
 package metier;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="agency")
-@NamedQuery(name="agency.findAll", query="SELECT ag FROM Agency ag")
+@NamedQuery(name="Agency.findAll", query="SELECT ag FROM Agency ag")
 public class Agency {
 	/**
 	 * 
@@ -59,18 +60,21 @@ public class Agency {
 		}
 		this.id = val;
 	}
-	
+	@Column(name="agency_name")
 	public String getAgencyName() {
 		return this.agency_name;
 	}
 	public void setAgencyName(String name){
 		this.agency_name = name;
 	}
+	
+	@Column(name="counter_code")
 	public String getCounterCode() {
 		return this.counter_code;
 	}
+	
 	public void setCounterCode(String code){
-		if(counter_code.length() != 5) {
+		if(code.length() != 5) {
 			throw new IllegalArgumentException("The counter code must cointain five caracters");
 		}
 		this.counter_code = code;
@@ -81,7 +85,7 @@ public class Agency {
 		return this.address;
 	}
 	public void setAddress(Address add){
-		if(address == null) {
+		if(add == null) {
 			throw new NullPointerException("The agency address  cannot be null");
 		}
 		this.address = add;
