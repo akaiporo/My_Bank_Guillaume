@@ -4,14 +4,18 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 import application.ControllerBase;
 import application.Mediator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -20,13 +24,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import metier.Category;
 import metier.PeriodicTransaction;
 import metier.TargetTransaction;
@@ -44,7 +45,15 @@ public class TransactionListController extends ControllerBase {
 	@FXML private ChoiceBox<TargetTransaction> choiceTarget;
 	@FXML private ChoiceBox<TransactionType> choiceType;
 	@FXML private Button btnApply;
+	@FXML private Button btnEdit;
 	@FXML private Button btnDelete;
+	@FXML private Label errDate;
+	@FXML private Label errLibele;
+	@FXML private Label errType;
+	@FXML private Label errTarget;
+	@FXML private Label errCategory;
+	@FXML private Label errValue;
+
 	
 	//non FXML var
 		  private EntityManager em;
@@ -83,6 +92,8 @@ public class TransactionListController extends ControllerBase {
 	}
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
+		this.btnEdit.setDisable(false);
+		
 		this.currentTransaction = newTransaction;
 		this.txtLabel.setText(this.currentTransaction.getWording());
 		this.txtDescription.setText(this.currentTransaction.getDescription());
@@ -96,13 +107,157 @@ public class TransactionListController extends ControllerBase {
 		return true;
 	}
 	@FXML
-	private void handleBtnNew(ActionEvent event) {
-		Date date = Date.from(this.dateCreated.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-		PeriodicTransaction transaction = new PeriodicTransaction(this.txtLabel.getText(), Double.parseDouble(this.txtValeur.getText()), 
-											date,null, 0,this.txtDescription.getText(), 
-											this.choiceType.getValue(), this.choiceTarget.getValue(), 
-											this.choiceCategory.getValue(), null);
+	public void saveForm() {
+		Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche est modifiée. Enregistrer les modifications ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
 		
+		alert.showAndWait();
+		
+		ButtonType result = alert.getResult();
+		
+		if(result == ButtonType.CANCEL) {
+			return;			
+		}
+		else if(result == ButtonType.YES){
+			boolean isNew = this.currentTransaction.getId()==0;
+			System.out.print("mdfdgs fdfd gfd ff fd  s dg s  sdr");
+			ObservableList<PeriodicTransaction> transactions = this.listTransactions.getItems();
+			boolean err=false;
+			
+			if(this.dateCreated.getValue()==null) {
+				this.errDate.setVisible(true);
+				err=true;
+			}
+			if(this.txtLabel.getText().isEmpty()) {
+				this.errLibele.setVisible(true);
+				err=true;
+			}
+			if(this.txtValeur.getText().isEmpty()) {
+				this.errValue.setVisible(true);
+				err=true;
+			}
+			if(this.choiceType.getValue()==null) {
+				this.errType.setVisible(true);
+				err=true;
+			}
+			if(this.choiceTarget.getValue()==null) {
+				this.errTarget.setVisible(true);
+				err=true;
+			}	
+			if(this.choiceCategory.getValue()==null) {
+				this.errCategory.setVisible(true);
+				err=true;
+			}	
+			if(err) {
+				return;
+			}
+			this.currentTransaction.setDateOperation(Date.from(this.dateCreated.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			Date dateOP = this.currentTransaction.getDateOperation();
+			this.currentTransaction.setWording(this.txtLabel.getText());
+			String wording = this.currentTransaction.getWording();
+			this.currentTransaction.setCategory(this.choiceCategory.getValue());
+			Category cat = this.currentTransaction.getCategory();
+			this.currentTransaction.setTransactionType(this.choiceType.getValue());
+			TransactionType type = this.currentTransaction.getTransactionType();
+			this.currentTransaction.setTargetTransaction(this.choiceTarget.getValue());
+			TargetTransaction target = this.currentTransaction.getTargetTransaction();
+			this.currentTransaction.setTransactionValue(Double.parseDouble(this.txtValeur.getText()));
+			double val = this.currentTransaction.getTransactionValue();
+	
+			try {
+				EntityManager em = getMediator().createEntityManager();
+				PeriodicTransaction periodicTransaction = em.find(PeriodicTransaction.class, this.currentTransaction.getId());
+				try {					
+					em.getTransaction().begin();
+			
+					periodicTransaction.setCategory(cat);
+					periodicTransaction.setDateOperation(dateOP);
+					periodicTransaction.setWording(wording);
+					periodicTransaction.setTransactionType(type);
+					periodicTransaction.setTargetTransaction(target);
+					periodicTransaction.setTransactionValue(val);
+				
+					this.modified = false;
+					em.getTransaction().commit();
+					if(isNew) {
+						this.refreshTransaction(this.currentTransaction);
+					}
+					else {
+						transactions.set(transactions.indexOf(this.currentTransaction), this.currentTransaction);
+					}
+					
+				}
+				catch(RollbackException e) {
+					return;
+				}
+				finally {
+					em.close();
+				}
+			}
+			catch(PersistenceException e) {
+				this.processPersistenceException(e);
+				return;
+			}
+		}
+	}
+	
+	@FXML
+	private void handleBtnNew(ActionEvent event) {
+		PeriodicTransaction transaction = new PeriodicTransaction();
+		transaction.setDescription(this.txtDescription.getText());
+		transaction.setDayNumber(0);
+		transaction.setEndDateTransaction(null);
+		transaction.setPeriodUnit(null);
+		
+		try{
+			double value = Double.parseDouble(this.txtValeur.getText());
+			transaction.setTransactionValue(value);
+			this.errValue.setVisible(false);
+		}
+		catch(Exception e){
+			this.errValue.setVisible(true);
+			return;
+		}
+		try{
+			transaction.setWording(this.txtLabel.getText());
+			this.errLibele.setVisible(false);
+		}
+		catch(Exception e){
+			this.errLibele.setVisible(true);
+			return;
+		}
+		try{
+			Date date = Date.from(this.dateCreated.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+			transaction.setDateOperation(date);
+			this.errDate.setVisible(false);
+		}
+		catch(Exception e){
+			this.errDate.setVisible(true);
+			return;
+		}
+		try{
+			transaction.setCategory(this.choiceCategory.getValue());
+			this.errCategory.setVisible(false);
+		}
+		catch(Exception e){
+			this.errCategory.setVisible(true);
+			return;
+		}
+		try{
+			transaction.setTransactionType(this.choiceType.getValue());
+			this.errType.setVisible(false);
+		}
+		catch(Exception e){
+			this.errType.setVisible(true);
+			return;
+		}
+		try{
+			transaction.setTargetTransaction(this.choiceTarget.getValue());
+			this.errTarget.setVisible(false);
+		}
+		catch(Exception e){
+			this.errTarget.setVisible(true);
+			return;
+		}
 		em.getTransaction().begin();
 		em.persist(transaction);
 		
@@ -120,4 +275,10 @@ public class TransactionListController extends ControllerBase {
 		this.Transactions.add(transaction);
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
+	
+	private void processPersistenceException(PersistenceException e) {
+		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
+	}
+	
+
 }
