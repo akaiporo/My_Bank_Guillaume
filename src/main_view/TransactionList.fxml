@@ -13,7 +13,7 @@
 
 <SplitPane dividerPositions="0.4" orientation="VERTICAL" prefHeight="384.0" prefWidth="762.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main_view.TransactionListController">
   <items>
-      <TableView fx:id="listTransactions" prefHeight="150.0" prefWidth="602.0">
+      <TableView fx:id="listTransactions" prefHeight="350.0" prefWidth="602.0">
       <columns>
         <TableColumn prefWidth="100.0" text="Libellé">
         	<cellValueFactory><PropertyValueFactory property="Wording" /></cellValueFactory>
@@ -51,19 +51,28 @@
          <children>
             <Label layoutX="24.0" layoutY="83.0" text="Libellé" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="83.0" />
             <TextField fx:id="txtLabel" layoutX="24.0" layoutY="100.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="errLibele" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Un libelé doit être entrée" textFill="RED" visible="false" />
             <DatePicker fx:id="dateCreated" layoutX="288.0" layoutY="44.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="288.0" AnchorPane.rightAnchor="26.0" AnchorPane.topAnchor="44.0" />
+            <Label fx:id="errDate" layoutX="288.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une date doit être sélectionnée" textFill="RED" visible="false" />
             <ChoiceBox fx:id="choiceCategory" layoutX="26.0" layoutY="149.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="149.0" />
+            <Label fx:id="errCategory" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une catégorie doit être sélectionnée" textFill="RED" visible="false" />
             <Label layoutX="24.0" layoutY="132.0" text="Catégorie" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="132.0" />
-            <Button layoutX="444.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleBtnNew" text="Nouvelle tâche" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
+            <Button fx:id="btnApply" layoutX="444.0" layoutY="187.0" mnemonicParsing="false" onAction="#handleBtnNew" text="Nouvelle tâche" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="187.0" />
             <Label layoutX="290.0" layoutY="23.0" text="Date de l'opération" AnchorPane.topAnchor="23.0" />
             <Label layoutX="290.0" layoutY="83.0" text="Description (optionnelle" AnchorPane.topAnchor="83.0" />
             <TextField fx:id="txtDescription" layoutX="290.0" layoutY="100.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="290.0" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="100.0" />
             <Label layoutX="26.0" layoutY="23.0" text="Valeur" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="23.0" />
             <TextField fx:id="txtValeur" layoutX="26.0" layoutY="44.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="44.0" />
+            <Label fx:id="errValue" layoutX="26.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une valeur doit être entrée" textFill="RED" visible="false" />
             <ChoiceBox fx:id="choiceTarget" layoutX="294.0" layoutY="149.0" prefHeight="25.0" prefWidth="446.0" AnchorPane.leftAnchor="294.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
+            <Label fx:id="errTarget" layoutX="294.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Une cible doit être sélectionné" textFill="RED" visible="false" />
             <Label layoutX="294.0" layoutY="132.0" text="Cible" />
             <ChoiceBox fx:id="choiceType" layoutX="27.0" layoutY="196.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="196.0" />
+            <Label fx:id="errType" layoutX="27.0" layoutY="294.0" prefHeight="17.0" prefWidth="840.0" text="Un type d'opération doit être sélectionné" textFill="RED" visible="false" />
             <Label layoutX="25.0" layoutY="179.0" text="Type de transaction" />
+            <Button fx:id="btnEdit" disable="true" layoutX="582.0" layoutY="187.0" mnemonicParsing="false" text="Éditer" onAction="#saveForm"/>
+            <Button fx:id="btnDelete" disable="true" layoutX="495.0" layoutY="187.0" mnemonicParsing="false" text="Supprimer" />
+            
          </children>
       </AnchorPane>
   </items>

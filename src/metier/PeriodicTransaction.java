@@ -122,6 +122,9 @@ public class PeriodicTransaction {
 	}
 	
 	public void setDateOperation(Date date){
+		if(date == null){
+			throw new NullPointerException("La date ne peut être null");
+		}
 		this.date_operation = date;
 	}
 	@Column(name="end_date_transaction")
@@ -138,6 +141,9 @@ public class PeriodicTransaction {
 		return this.day_number;
 	}
 	public void setDayNumber(int day){
+		if(day < 0){
+			throw new IllegalArgumentException("La cycle ne peut être négatif");
+		}
 		this.day_number = day;
 	}
 	@Column(name="description")
@@ -152,10 +158,10 @@ public class PeriodicTransaction {
 	public TransactionType getTransactionType(){
 		return this.transactionType;
 	}
-	public String getTransactionTypeWording(){
-		return this.transactionType.getWording();
-	}
 	public void setTransactionType(TransactionType tt){
+		if(tt == null){
+			throw new NullPointerException("Le type ne peut être null");
+		}
 		this.transactionType = tt;
 	}
 	@ManyToOne
@@ -163,10 +169,10 @@ public class PeriodicTransaction {
 	public TargetTransaction getTargetTransaction(){
 		return this.targetTransaction;
 	}
-	public String getTargetTransactionName(){
-		return this.targetTransaction.getTargetName();
-	}
 	public void setTargetTransaction(TargetTransaction target){
+		if(target == null){
+			throw new NullPointerException("La cible ne peut être null");
+		}
 		this.targetTransaction = target;
 	}
 	@ManyToOne
@@ -174,22 +180,16 @@ public class PeriodicTransaction {
 	public Category getCategory(){
 		return this.category;
 	}
-	public String getCategoryWording(){
-		return this.category.getWording();
-	}
 	public void setCategory(Category cat){
+		if(cat == null){
+			throw new NullPointerException("La catégorie ne peut être null");
+		}
 		this.category = cat;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_periodunit")
 	public PeriodUnit getPeriodUnit(){
 		return this.periodUnit;
-	}
-	public String getPeriodUnitName(){
-		if(this.periodUnit != null){
-			return this.periodUnit.getUnit();
-		}
-		else return "";
 	}
 	public void setPeriodUnit(PeriodUnit pu){
 		this.periodUnit = pu;
