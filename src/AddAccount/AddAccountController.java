@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.RollbackException;
 
 import application.ControllerBase;
 import application.Mediator;
@@ -21,6 +22,7 @@ import metier.Account;
 import metier.AccountType;
 import metier.Advisor;
 import metier.Agency;
+import metier.CountryCode;
 import metier.DateUtils;
 
 public class AddAccountController extends ControllerBase {
@@ -34,12 +36,11 @@ public class AddAccountController extends ControllerBase {
 	@FXML private ChoiceBox <Agency> choiceAgency;
 	@FXML private ChoiceBox <Advisor> choiceAdvisor;
 	@FXML private ChoiceBox <AccountType> choiceAccountType;
+	@FXML private ChoiceBox <CountryCode> choiceCountryCode;
 	@FXML private DatePicker date_creation;
 	@FXML private Button OK;
 	@FXML private Button cancel;
-	@FXML private Button new_bank;
-	@FXML private Button new_agency;
-	@FXML private Button new_advisor;
+
 	
 	@Override
 	public void initialize(Mediator mediator){
@@ -60,12 +61,12 @@ public class AddAccountController extends ControllerBase {
 		}
 		
 	}
-	
+	@FXML
 	private void handleButtonOK (ActionEvent event){
 		try{
 			currentAccount.setAgency(choiceAgency.getValue());
 		}
-		catch (NullPointerException e){//display "Veuillez choisir une agence ou en ajouter une"
+		catch (NullPointerException e){//display "Please choose an existing agency or create one"
 		}
 		try{
 			currentAccount.setAccountNumber(this.account_number.getText());
@@ -92,16 +93,26 @@ public class AddAccountController extends ControllerBase {
 		}
 		catch(IllegalArgumentException e){//display error
 		}
-		currentAccount.setCountryCode(this.account_number.getText());
+		try{
+			currentAccount.setCountryCode(choiceCountryCode.getValue());
+		}
+		catch (NullPointerException e){//display "Please choose existing country code"
+		}
 		try{
 			currentAccount.setAccountType(choiceAccountType.getValue());
 		}
-		catch (NullPointerException e){//display "Veuillez choisir un type de compte ou en ajouter un"
+		catch (NullPointerException e){//display "Please choose existing account type"
 		}
 		
 		em.getTransaction().begin();
 		em.persist(currentAccount);
-		em.getTransaction().commit();
+		try{
+			em.getTransaction().commit();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			em.getTransaction().rollback();
+		}
 		
 		/*try {
 			MainWindowController.content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml"));
@@ -112,6 +123,10 @@ public class AddAccountController extends ControllerBase {
 		
 		
 		//loader.getController()....   pour conserver l'info currentAccount
+		
+	}
+	@FXML
+	private void handleButtonCancel (ActionEvent event){
 		
 	}
 	

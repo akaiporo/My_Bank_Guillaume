@@ -194,9 +194,6 @@ public class Account implements Serializable {
 	public void setTransactions(ArrayList<PeriodicTransaction> trans){
 		this.transactions = trans;
 	}
-	public void setCountryCode(String account_number){
-		this.countryCode=new CountryCode(this.countryCode.getCountryCode()+this.calculcateCountryCode(this.account_number));
-	}
 	
 	/* METHODS */
 	public void addTransactions(PeriodicTransaction transaction){

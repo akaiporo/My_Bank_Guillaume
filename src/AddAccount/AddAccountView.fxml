@@ -17,6 +17,7 @@
       <Label layoutX="245.0" layoutY="151.0" text="Account number*" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="151.0" />
       <Label layoutX="39.0" layoutY="280.0" text="Creation date*" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
       <Label layoutX="306.0" layoutY="280.0" text="Interest rate (%)*" AnchorPane.leftAnchor="306.0" AnchorPane.topAnchor="280.0" />
+      <Label layoutX="395.0" layoutY="27.0" text="Country*" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="27.0" /> 
       <TextField id="first_total" fx:id="first_total" layoutX="41.0" layoutY="244.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="244.0" />
       <TextField id="overdraft" fx:id="overdraft" layoutX="182.0" layoutY="244.0" prefHeight="25.0" prefWidth="52.0" AnchorPane.leftAnchor="182.0" AnchorPane.topAnchor="244.0" />
       <TextField id="account_number" fx:id="account_number" layoutX="245.0" layoutY="175.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.leftAnchor="245.0" AnchorPane.topAnchor="175.0" />
@@ -24,8 +25,9 @@
       <ChoiceBox id="choiceAgency" fx:id="choiceAgency" layoutX="41.0" layoutY="47.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="47.0" />
       <ChoiceBox id="choiceAdvisor" fx:id="choiceAdvisor" layoutX="104.0" layoutY="106.0" prefHeight="25.0" prefWidth="221.0" AnchorPane.leftAnchor="104.0" AnchorPane.topAnchor="106.0" />
       <ChoiceBox id="choiceAccountType" fx:id="choiceAccountType" layoutX="40.0" layoutY="175.0" prefHeight="25.0" prefWidth="150.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="175.0" />
-      <DatePicker id="creation_date" fx:id="creation_date" layoutX="40.0" layoutY="300.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0" />
+      <ChoiceBox id="choiceCountryCode" fx:id="choiceCountryCode" layoutX="395.0" layoutY="47.0" prefHeight="25.0" prefWidth="60.0" AnchorPane.leftAnchor="395.0" AnchorPane.topAnchor="47.0" />
+      <DatePicker id="creation_date" fx:id="date_creation" layoutX="40.0" layoutY="300.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0" />
       <Button id="OK" fx:id="OK" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonOK" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" />
-      <Button id="cancel" fx:id="cancel" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />     
+      <Button id="cancel" fx:id="cancel" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonCancel" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />
    </children>
 </AnchorPane>
