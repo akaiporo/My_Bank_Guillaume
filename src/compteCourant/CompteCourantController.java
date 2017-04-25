@@ -262,7 +262,8 @@ public class CompteCourantController extends ControllerBase {
 			this.errTarget.setVisible(true);
 			return;
 		}
-		Boolean isNew = true;
+		em.persist(transaction);
+		
 		for(PeriodicTransaction pt : this.Transactions){
 			if(pt.equals(transaction)){
 				Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche existe déjà. Voulez-vous tout de même l'ajouter ?", ButtonType.YES, ButtonType.NO);
@@ -271,21 +272,16 @@ public class CompteCourantController extends ControllerBase {
 				if(result == ButtonType.NO) {
 					return;			
 				}
-				if(result == ButtonType.YES){
-					em.persist(transaction);
-				}
 			}
 		}
-		if(isNew){
-			try{
-				em.getTransaction().begin();
-				em.getTransaction().commit();
-				this.refreshTransaction(transaction);
-			}
-			catch(Exception e){
-				e.printStackTrace();
-				em.getTransaction().rollback();
-			}
+		try{
+			em.getTransaction().begin();
+			em.getTransaction().commit();
+			this.refreshTransaction(transaction);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			em.getTransaction().rollback();
 		}
 		
 		this.refreshTransaction();
