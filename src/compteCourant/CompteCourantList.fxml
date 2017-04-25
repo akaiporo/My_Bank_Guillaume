@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -10,44 +11,75 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 
-<SplitPane fx:id="splitPane" dividerPositions="0.4" maxWidth="1.7976931348623157E308" minWidth="-Infinity" orientation="VERTICAL" prefHeight="384.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compteCourant.CompteCourantController">
+
+<SplitPane fx:id="splitPane" dividerPositions="0.5, 0.5" maxWidth="1.7976931348623157E308" minWidth="-Infinity" orientation="VERTICAL" prefHeight="384.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compteCourant.CompteCourantController">
   <items>
+      <HBox maxHeight="40.0" minHeight="40.0" prefHeight="40.0" prefWidth="998.0">
+         <children>
+            <ChoiceBox fx:id="choiceAccount" prefHeight="25.0" prefWidth="348.0" onAction="#handleAccount">
+               <HBox.margin>
+                  <Insets left="5.0" top="8.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
       <TableView fx:id="listTransactions" minHeight="150" prefHeight="150.0" prefWidth="750">
       <columns>
         <TableColumn prefWidth="100.0" text="Libellé">
-        	<cellValueFactory><PropertyValueFactory property="Wording" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="Wording" />
+               </cellValueFactory>
         </TableColumn>
          <TableColumn prefWidth="69.0" text="Valeur">
-        	<cellValueFactory><PropertyValueFactory property="TransactionValue" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="TransactionValue" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="147.0" text="Description">
-        	<cellValueFactory><PropertyValueFactory property="Description" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="Description" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="120.0" text="Date d'opération">
-        	<cellValueFactory><PropertyValueFactory property="DateOperation" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="DateOperation" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn minWidth="2.0" prefWidth="121.0" text="Type de transaction">
-        	<cellValueFactory><PropertyValueFactory property="TransactionType" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="TransactionType" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn minWidth="0.0" prefWidth="68.0" text="Cible">
-        	<cellValueFactory><PropertyValueFactory property="TargetTransaction" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="TargetTransaction" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn minWidth="0.0" prefWidth="89.0" text="Category">
-        	<cellValueFactory><PropertyValueFactory property="Category" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="Category" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn minWidth="0.0" prefWidth="84.0" text="Type de cycle">
-        	<cellValueFactory><PropertyValueFactory property="PeriodUnit" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="PeriodUnit" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn prefWidth="105.0" text="Valeur du cycle">
-        	<cellValueFactory><PropertyValueFactory property="DayNumber" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="DayNumber" />
+               </cellValueFactory>
         </TableColumn>
         <TableColumn minWidth="0.0" prefWidth="95.0" text="Fin de cycle">
-        	<cellValueFactory><PropertyValueFactory property="EndDateTransaction" /></cellValueFactory>
+        	<cellValueFactory>
+                  <PropertyValueFactory property="EndDateTransaction" />
+               </cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>
-    <AnchorPane minHeight="230" prefHeight="230" prefWidth="994.0">
+    <AnchorPane minHeight="230" prefHeight="230.0" prefWidth="994.0">
          <children>
             <Label layoutX="128.0" layoutY="81.0" text="Libellé" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="81.0" />
             <TextField fx:id="txtLabel" layoutX="129.0" layoutY="98.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="98.0" />
@@ -73,7 +105,7 @@
             <Button fx:id="btnEdit" disable="true" layoutX="521.0" layoutY="185.0" mnemonicParsing="false" onAction="#saveForm" text="Éditer" />
             <Button fx:id="btnDelete" disable="true" layoutX="436.0" layoutY="185.0" mnemonicParsing="false" onAction="#deleteForm" text="Supprimer" />
             
-         </children>
+                                 </children>
       </AnchorPane>
   </items>
 </SplitPane>

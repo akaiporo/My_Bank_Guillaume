@@ -12,7 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +23,9 @@ import application.Tools;
 
 @Entity
 @Table(name="account")
-@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a") 
+@NamedQueries(value = {
+	@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a") }
+)
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 	/* VARIABLES */
@@ -203,10 +207,12 @@ public class Account implements Serializable {
 	public void setAlertThresh(int alert){
 		this.alert_thresh = alert;
 	}
+	@OneToMany
+	@JoinColumn(name="id_account")
 	public List<PeriodicTransaction> getTransactions() {
 		return this.transactions;
 	}
-	public void setTransactions(ArrayList<PeriodicTransaction> trans){
+	public void setTransactions(List<PeriodicTransaction> trans){
 		this.transactions = trans;
 	}
 	
@@ -222,6 +228,11 @@ public class Account implements Serializable {
 	
 	private String calculcateCountryCode(String account_number){
 		return "76";
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s %s %s", this.accountType.getAccountType(), this.agency.getAgencyName(), this.account_number);
 	}
 }
 
