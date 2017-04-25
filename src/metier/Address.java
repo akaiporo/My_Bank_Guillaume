@@ -71,7 +71,7 @@ public class Address {
 		this.cpCity = cpc;
 	}
 	
-	@Override
+	/*@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Address){
 			Address tmp = (Address)obj;
@@ -84,7 +84,7 @@ public class Address {
 			else return false;
 		}
 		else return false;
-	}
+	}*/
 	
 	private int id;
 	private String line1;

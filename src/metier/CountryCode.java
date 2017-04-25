@@ -2,6 +2,7 @@ package metier;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,9 +40,11 @@ public class CountryCode  implements Serializable {
 	public int getId(){
 		return this.id;
 	}
+	@Column(name="country_code")
 	public String getCountryCode(){
 		return this.countryCode;
 	}
+	
 	private void setCountryCode(String code){
 		this.countryCode = code;
 	}
@@ -63,5 +66,10 @@ public class CountryCode  implements Serializable {
 			else return false;
 		}
 		else return false;	
+	}
+	
+	@Override
+	public String toString() {
+		return this.countryCode;
 	}
 }
