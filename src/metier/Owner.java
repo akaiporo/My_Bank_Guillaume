@@ -51,7 +51,7 @@ public class Owner extends Person{
 		this.login=login;
 		this.pwd=pwd;
 		this.address=address;
-		
+			
 	}
 	public Owner() {
 		super();
@@ -62,19 +62,33 @@ public class Owner extends Person{
 		return this.birthdate;
 	}
 
-	private void setBirthdate(Date date){
+	public void setBirthdate(Date date){
 		this.birthdate = date;
 	}
+	public void setOwnerName(String owner_name){
+		this.owner_name = owner_name;
+	}
+	public void setOwnerFirstname(String owner_firstname){
+		this.owner_firstname = owner_firstname;
+	}
+	public void setOwnerEmail(String owner_mail){
+		this.owner_mail = owner_mail;
+	}
+	public void setOwnerPhonenumber(String owner_phonenumber){
+		this.owner_phonenumber = owner_phonenumber;
+	}
+	@Column(name="login")
 	public String getLogin() {
 		return this.login;
 	}
-	private void setLogin(String login){
+	public void setLogin(String login){
 		this.login = login;
 	}
+	@Column(name="pwd")
 	public String getPwd() {
 		return this.pwd;
 	}
-	private void setPwd(String pwd){
+	public void setPwd(String pwd){
 		this.pwd = pwd;
 	}
 	@ManyToOne
@@ -87,12 +101,14 @@ public class Owner extends Person{
 	}
 	
 	
-	
-	
 	private Date birthdate;
 	private String login;
 	private String pwd;
 	private Address address;
+	private String owner_name;
+	private String owner_firstname;
+	private String owner_mail;
+	private String owner_phonenumber;
 	
 
 }

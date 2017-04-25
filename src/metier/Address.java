@@ -1,5 +1,6 @@
 package metier;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,12 +51,14 @@ public class Address {
 		}
 		this.id = val;
 	}
+	@Column(name="line1")
 	public String getLine1() {
 		return this.line1;
 	} 
 	private void setLine1(String line1){
 		this.line1 = line1;
 	}
+	@Column(name="line2")
 	public String getLine2() {
 		return this.line2;
 	}
