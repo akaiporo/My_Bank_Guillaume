@@ -106,6 +106,7 @@ public class Account implements Serializable {
 		}
 		this.id = val;
 	}
+	@Column(name="account_number")
 	public String getAccountNumber(){
 		return this.account_number;
 	}
@@ -132,12 +133,14 @@ public class Account implements Serializable {
 		}
 		this.creation_date = date;
 	}
+	@Column(name="first_total")
 	public double getFirstTotal(){
 		return this.first_total;
 	}
 	public void setFirstTotal(double total){
 		this.first_total = total;
 	}
+	@Column(name="overdraft")
 	public int getOverdraft(){
 		return this.overdraft;
 	}
@@ -148,6 +151,7 @@ public class Account implements Serializable {
 		}
 		this.overdraft = val;
 	}
+	@Column(name="interest_rate")
 	public double getInterestRate(){
 		return this.interest_rate;
 	}
@@ -181,6 +185,7 @@ public class Account implements Serializable {
 		}
 		this.accountType = acc;
 	}
+	@Column(name="alert_thresh")
 	public int getAlertThresh(){
 		return this.alert_thresh;
 	}
