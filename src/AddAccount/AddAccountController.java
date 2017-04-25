@@ -29,7 +29,10 @@ import metier.DateUtils;
 
 public class AddAccountController extends ControllerBase {
 	private EntityManager em;
-	Account currentAccount=new Account();
+	protected Account currentAccount=new Account();
+	private Agency newAgency=new Agency();
+	private Advisor newAdvisor=new Advisor();
+	
 	
 	@FXML private TextField first_total;
 	@FXML private TextField overdraft;
@@ -51,11 +54,13 @@ public class AddAccountController extends ControllerBase {
 			em = mediator.createEntityManager();
 			
 			List<Agency> agencies = em.createNamedQuery("Agency.findAll", Agency.class).getResultList();
-			agencies.add(null); //permettra d'ajouter une nouvelle agence
+			newAgency.setAgencyName("(new agency)");
+			agencies.add(newAgency); //permettra d'ajouter une nouvelle agence
 			this.choiceAgency.setItems(FXCollections.observableList(agencies));
 			
 			List<Advisor> advisors = em.createNamedQuery("Advisor.findAll", Advisor.class).getResultList();
-			advisors.add(null);
+			//newAdvisor.setName("(new advisor)");
+			advisors.add(newAdvisor);
 			this.choiceAdvisor.setItems(FXCollections.observableList(advisors));
 		
 			List<AccountType> accounttypes = em.createNamedQuery("AccountType.findAll", AccountType.class).getResultList();
@@ -72,7 +77,7 @@ public class AddAccountController extends ControllerBase {
 	@FXML
 	private void nullAgency (ActionEvent event){
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
-		if (catAgency.getValue()==null){
+		if (catAgency.getValue()==newAgency){
 			System.out.println("new agency"); // a effacer apres
 			/*
 			 * TODO : load new subscene addAgency
@@ -148,8 +153,8 @@ public class AddAccountController extends ControllerBase {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			em.getTransaction().rollback();
+			return;
 		}
 		
 		//accountPane.getParent();

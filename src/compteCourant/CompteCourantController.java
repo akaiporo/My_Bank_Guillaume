@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert.AlertType;
+import metier.Account;
 import metier.Category;
 import metier.PeriodicTransaction;
 import metier.TargetTransaction;
@@ -47,6 +48,7 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private ChoiceBox<Category> choiceCategory;
 	@FXML private ChoiceBox<TargetTransaction> choiceTarget;
 	@FXML private ChoiceBox<TransactionType> choiceType;
+	@FXML private ChoiceBox<Account> choiceAccount;
 	@FXML private Button btnApply;
 	@FXML private Button btnEdit;
 	@FXML private Button btnDelete;
@@ -64,16 +66,20 @@ public class CompteCourantController extends ControllerBase {
 		  private List<Category> categories;
 		  private List<TargetTransaction> targets;
 		  private List<TransactionType> transactionType;
-		  private boolean modified = false;
+		  private List<Account> accounts;
 		  private PeriodicTransaction currentTransaction;
 		  
 	@Override
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
-				
-		this.Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
-		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+		this.accounts = em.createNamedQuery("Account.findAll").getResultList();
+		this.choiceAccount.setItems(FXCollections.observableList(accounts));
+		this.choiceAccount.getSelectionModel().selectFirst();
 		
+		Account tmp = this.choiceAccount.getSelectionModel().getSelectedItem();
+		Account account = em.find(Account.class, tmp.getId());
+		this.initTransactionList(account);
+	
 		this.categories = em.createNamedQuery("Category.findAll").getResultList();
 		this.choiceCategory.setItems(FXCollections.observableList(categories));
 		
@@ -94,6 +100,28 @@ public class CompteCourantController extends ControllerBase {
 		
 	}
 	
+	private void initTransactionList(Account account){
+		this.Transactions = account.getTransactions();
+		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+	}
+	
+	private void setTransactionList(Account account){
+		if(Transactions != null){
+			this.listTransactions.getItems().removeAll(Transactions);
+		}
+		this.Transactions = account.getTransactions();
+		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+	}
+	 
+	@FXML
+	public void handleAccount(ActionEvent event){
+		em = this.getMediator().createEntityManager();
+		ChoiceBox choiceAccount = (ChoiceBox)event.getTarget();
+		Account account = (Account)choiceAccount.getValue();
+		account = em.find(Account.class, account.getId());
+		this.setTransactionList(account);
+	}
+	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
 		System.out.println(newTransaction);
 		this.btnEdit.setDisable(false);
@@ -108,7 +136,6 @@ public class CompteCourantController extends ControllerBase {
 			this.choiceCategory.setValue(this.currentTransaction.getCategory());
 			this.choiceType.setValue(this.currentTransaction.getTransactionType());
 			this.choiceTarget.setValue(this.currentTransaction.getTargetTransaction());
-			this.modified = false;
 			return true;
 		}
 		catch(Exception e){
