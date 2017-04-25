@@ -56,14 +56,20 @@ public class Bank implements Serializable {
 	public String getBankName() {
 		return this.bank_name;
 	}
-	private void setBankName(String name){
+	public void setBankName(String name){
+		if(name.isEmpty()) {
+			throw new IllegalArgumentException("The bank name cannot be empty");
+		}
 		this.bank_name = name;
 	}
 	@Column(name="bank_code")
 	public String getBankCode() {
 		return this.bank_code;
 	}
-	private void setBankCode(String code){
+	public void setBankCode(String code){
+		if(code.isEmpty()) {
+			throw new IllegalArgumentException ("The bank code cannot be empty");
+		}
 		this.bank_code = code;
 	}
 	@Override
@@ -77,7 +83,7 @@ public class Bank implements Serializable {
 			}
 			else return false;
 		}
-		else throw new IllegalArgumentException("Can't compare a bank and anon-bank object");
+		else throw new IllegalArgumentException("Can't compare a bank and a non-bank object");
 	}
 	
 	@Override
