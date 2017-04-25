@@ -199,7 +199,23 @@ public class PeriodicTransaction {
 	public boolean equals(Object obj) {
 		if(obj instanceof PeriodicTransaction){
 			PeriodicTransaction tmp = (PeriodicTransaction)obj;
-			if(tmp.getEndDateTransaction() == null &&  tmp.getPeriodUnit() == null &&   tmp.getDayNumber() == 0){
+			
+			if(tmp.getEndDateTransaction() == null &&  (tmp.getPeriodUnit() != null &&  tmp.getDayNumber() != 0)){
+				if(tmp.getWording().equals(this.getWording()) &&
+						   tmp.getDateOperation().equals(this.getDateOperation()) &&
+						   tmp.getDayNumber() == this.getDayNumber() &&
+						   tmp.getDescription().equals(this.getDescription()) &&
+						   tmp.getPeriodUnit().equals(this.getPeriodUnit()) &&
+						   tmp.getTargetTransaction().equals(getTargetTransaction()) &&
+						   tmp.getTransactionValue() == this.getTransactionValue() &&
+						   tmp.getTransactionType().equals(this.getTransactionType()) &&
+						   tmp.getCategory().equals(this.getCategory())){
+								return true;
+				}
+				else return false;
+			}
+			
+			else if(tmp.getEndDateTransaction() == null &&  tmp.getPeriodUnit() == null &&  tmp.getDayNumber() == 0){
 				if(tmp.getWording().equals(this.getWording()) &&
 				   tmp.getDateOperation().equals(this.getDateOperation()) &&
 				   tmp.getDescription().equals(this.getDescription()) &&
@@ -229,5 +245,5 @@ public class PeriodicTransaction {
 		}
 		else return false;
 	}
-	
+
 }
