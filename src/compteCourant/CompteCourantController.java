@@ -25,8 +25,10 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert.AlertType;
 import metier.Category;
 import metier.PeriodicTransaction;
@@ -35,6 +37,7 @@ import metier.TransactionType;
 
 public class CompteCourantController extends ControllerBase {
 
+	@FXML private SplitPane splitPane;
 	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkDone;
 	@FXML private TextField txtLabel;
@@ -67,8 +70,7 @@ public class CompteCourantController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
-		
-		//Initialisations des listes & combox box
+				
 		this.Transactions = em.createNamedQuery("PeriodicTransaction.findAll").getResultList();
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 		
@@ -84,7 +86,7 @@ public class CompteCourantController extends ControllerBase {
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
 			@Override 
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
-				updateForm(newVal==null ? new PeriodicTransaction() : newVal); 
+				updateForm(newVal); 
 				//Si newVal == null, on crée une nouvelle transaction vide,
 				//Si non, on lui passe newVal
 			}
@@ -93,24 +95,31 @@ public class CompteCourantController extends ControllerBase {
 	}
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
+		System.out.println(newTransaction);
 		this.btnEdit.setDisable(false);
 		this.btnDelete.setDisable(false);
 		
 		this.currentTransaction = newTransaction;
-		this.txtLabel.setText(this.currentTransaction.getWording());
-		this.txtDescription.setText(this.currentTransaction.getDescription());
-		this.txtValeur.setText(Double.toString(this.currentTransaction.getTransactionValue()));
-		this.dateCreated.setValue(this.currentTransaction.getDateOperation().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-		this.choiceCategory.setValue(this.currentTransaction.getCategory());
-		this.choiceType.setValue(this.currentTransaction.getTransactionType());
-		this.choiceTarget.setValue(this.currentTransaction.getTargetTransaction());
-		this.btnApply.setDisable(true);
-		this.modified = false;
-		return true;
+		try{
+			this.txtLabel.setText(this.currentTransaction.getWording());
+			this.txtDescription.setText(this.currentTransaction.getDescription());
+			this.txtValeur.setText(Double.toString(this.currentTransaction.getTransactionValue()));
+			this.dateCreated.setValue(this.currentTransaction.getDateOperation().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+			this.choiceCategory.setValue(this.currentTransaction.getCategory());
+			this.choiceType.setValue(this.currentTransaction.getTransactionType());
+			this.choiceTarget.setValue(this.currentTransaction.getTargetTransaction());
+			this.modified = false;
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}
+		
+
 	}
 	@FXML
 	public void saveForm() {
-		Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche est modifiée. Enregistrer les modifications ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+		Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche est modifiée. Enregistrer les modifications ?", ButtonType.YES, ButtonType.CANCEL);
 		
 		alert.showAndWait();
 		
@@ -164,12 +173,13 @@ public class CompteCourantController extends ControllerBase {
 			this.currentTransaction.setTransactionValue(Double.parseDouble(this.txtValeur.getText()));
 			double val = this.currentTransaction.getTransactionValue();
 	
+			
 			try {
 				EntityManager em = getMediator().createEntityManager();
 				PeriodicTransaction periodicTransaction = em.find(PeriodicTransaction.class, this.currentTransaction.getId());
+				em.getTransaction().begin();
 				try {					
-					em.getTransaction().begin();
-			
+				
 					periodicTransaction.setCategory(cat);
 					periodicTransaction.setDateOperation(dateOP);
 					periodicTransaction.setWording(wording);
@@ -179,14 +189,11 @@ public class CompteCourantController extends ControllerBase {
 				
 					
 					em.getTransaction().commit();
-					this.refreshTransaction(this.currentTransaction);	
+					this.refreshTransaction();	
 				}
 				catch(RollbackException e) {
 					em.getTransaction().rollback();
 					return;
-				}
-				finally {
-					em.close();
 				}
 			}
 			catch(PersistenceException e) {
@@ -203,6 +210,7 @@ public class CompteCourantController extends ControllerBase {
 		transaction.setDayNumber(0);
 		transaction.setEndDateTransaction(null);
 		transaction.setPeriodUnit(null);
+		
 		
 		try{
 			double value = Double.parseDouble(this.txtValeur.getText());
@@ -254,37 +262,48 @@ public class CompteCourantController extends ControllerBase {
 			this.errTarget.setVisible(true);
 			return;
 		}
-		em.getTransaction().begin();
-		em.persist(transaction);
+		Boolean isNew = true;
+		for(PeriodicTransaction pt : this.Transactions){
+			if(pt.equals(transaction)){
+				Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche existe déjà. Voulez-vous tout de même l'ajouter ?", ButtonType.YES, ButtonType.NO);
+				alert.showAndWait();
+				ButtonType result = alert.getResult();
+				if(result == ButtonType.NO) {
+					return;			
+				}
+				if(result == ButtonType.YES){
+					em.persist(transaction);
+				}
+			}
+		}
+		if(isNew){
+			try{
+				em.getTransaction().begin();
+				em.getTransaction().commit();
+				this.refreshTransaction(transaction);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				em.getTransaction().rollback();
+			}
+		}
 		
-		try{
-			em.getTransaction().commit();
-			this.refreshTransaction(transaction);
-		}
-		catch(Exception e){
-			e.printStackTrace();
-			em.getTransaction().rollback();
-		}
-		finally{
-			em.close();
-		}
+		this.refreshTransaction();
 	}
 	
 	@FXML 
 	public void deleteForm(){
 		PeriodicTransaction periodicTransaction = new PeriodicTransaction();
 		try{
-			periodicTransaction = em.find(PeriodicTransaction.class, this.currentTransaction.getId());
 			em.getTransaction().begin();
+			periodicTransaction = em.find(PeriodicTransaction.class, this.currentTransaction.getId());
 			em.remove(periodicTransaction);
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
 			return;
 		}
-		finally{
-			em.close();
-		}
+		
 		
 		this.removeTransaction(periodicTransaction);
 	}
@@ -292,6 +311,12 @@ public class CompteCourantController extends ControllerBase {
 	private void refreshTransaction(PeriodicTransaction transaction){
 		this.Transactions.add(transaction);
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+	}
+	//Refresh a vue, la méthode "setVisible" permettant de trigger un change event (et donc de refresh la vue)
+	//A optimiser
+	private void refreshTransaction(){
+		this.listTransactions.getColumns().get(0).setVisible(false);
+		this.listTransactions.getColumns().get(0).setVisible(true);
 	}
 	private void removeTransaction(PeriodicTransaction transaction){
 		int index = 0;
@@ -309,5 +334,4 @@ public class CompteCourantController extends ControllerBase {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
 	
-
 }

@@ -64,7 +64,9 @@ public class Category implements Serializable {
 	public boolean equals(Object obj){
 		if(obj instanceof Category){
 			Category tmp = (Category)obj;
-			
+			if(tmp.getWording() == null){
+				tmp.setWording("");
+			}
 			if(tmp.getWording().equals(this.getWording())){
 				if(tmp.getCategory() != null){
 					return tmp.getCategory().equals(this.getCategory());
