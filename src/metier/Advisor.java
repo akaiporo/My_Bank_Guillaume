@@ -18,6 +18,7 @@ import application.Tools;
 @Entity
 @Table(name="advisor")
 @NamedQuery(name="Advisor.findAll", query="SELECT ad FROM Advisor ad")
+//@AttributeOverride(name="name" column=@Column(name="advisor_name"))
 public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date

@@ -10,8 +10,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 
 import application.Tools;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@MappedSuperclass
 public abstract class Person {
 	/**
 	 * 
@@ -68,10 +70,22 @@ public abstract class Person {
 	public String getPhoneNumber() {
 		return this.phone_number;
 	}
-	
 	public String getEmail() {
 		return this.email;
 	}
+	
+	/*public void setName (String nam) {
+		this.name=nam;
+	}
+	public void setFirstName (String nam) {
+		this.firstname=nam;
+	}
+	public void setPhoneNumber (String phone) {
+		this.phone_number=phone;
+	}
+	public void setEmail (String mail) {
+		this.email=mail;
+	}*/
 	
 	
 	@Override
