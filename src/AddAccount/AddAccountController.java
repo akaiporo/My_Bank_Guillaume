@@ -80,7 +80,6 @@ public class AddAccountController extends ControllerBase {
 	
 	@FXML
 	private void addAgency (ActionEvent event){
-		
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
 		Agency tmp=(Agency)catAgency.getValue();
 		if (tmp.getAgencyName().equals("(new agency)")){
@@ -88,6 +87,7 @@ public class AddAccountController extends ControllerBase {
 				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAgency/AddAgencyView.fxml"));
 			}
 			catch(IOException e){	
+				System.out.println(e.getMessage());
 			}
 		}
 	}

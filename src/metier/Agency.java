@@ -106,13 +106,13 @@ public class Agency {
 	public boolean equals(Object obj){
 		if(obj instanceof Agency){
 			Agency tmp = (Agency)obj;
-			if(((tmp.getAgencyName()==null && this.getAgencyName()==null) | tmp.getAgencyName().equals(this.getAgencyName()))
+			if(((tmp.getAgencyName()==null ||this.getAgencyName()==null) || tmp.getAgencyName().equals(this.getAgencyName()))
 				&& 
-				((tmp.getCounterCode()==null && this.getCounterCode()==null) | tmp.getCounterCode().equals(this.getCounterCode()))
+				((tmp.getCounterCode()==null || this.getCounterCode()==null) || tmp.getCounterCode().equals(this.getCounterCode()))
 				&&	 
-				((tmp.getAddress()==null && this.getAddress()==null) | tmp.getAddress().equals(this.getAddress()))
+				((tmp.getAddress()==null || this.getAddress()==null) || tmp.getAddress().equals(this.getAddress()))
 				&&
-				((tmp.getBank()==null && this.getBank()==null) | tmp.getBank().equals(this.getBank()))
+				((tmp.getBank()==null || this.getBank()==null) || tmp.getBank().equals(this.getBank()))
 			){
 				return true;
 			}
