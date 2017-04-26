@@ -162,7 +162,7 @@ public class CompteCourantController extends ControllerBase {
 			this.choiceType.setValue(this.currentTransaction.getTransactionType());
 			this.choiceTarget.setValue(this.currentTransaction.getTargetTransaction());
 			if(this.currentTransaction.getPeriodUnit() != null || this.currentTransaction.getDayNumber() != 0){
-				this.chkCycle.setSelected(true);
+				this.chkCycle.setSelected(true); 
 				this.initCycleOptionsVisibility(true);
 				this.choiceCycle.setValue(this.currentTransaction.getPeriodUnit());
 				this.txtCycle.setText(Integer.toString(this.currentTransaction.getDayNumber()));
