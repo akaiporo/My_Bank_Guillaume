@@ -86,7 +86,9 @@ public class Bank implements Serializable {
 			}
 			else return false;
 		}
-		else throw new IllegalArgumentException("Can't compare a bank and a non-bank object");
+		else {
+			throw new IllegalArgumentException("Can't compare a bank and a non-bank object");
+		}
 	}
 	
 	@Override
