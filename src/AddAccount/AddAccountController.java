@@ -21,6 +21,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
 import metier.AccountType;
@@ -34,7 +35,7 @@ public class AddAccountController extends ControllerBase {
 	protected Account currentAccount=new Account();
 	private Agency newAgency=new Agency();
 	private Advisor newAdvisor=new Advisor();
-	
+	private StackPane content;
 	
 	@FXML private TextField first_total;
 	@FXML private TextField overdraft;
@@ -78,7 +79,7 @@ public class AddAccountController extends ControllerBase {
 	}
 	
 	@FXML
-	private void nullAgency (ActionEvent event){
+	private void addAgency (ActionEvent event){
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
 		if (catAgency.getValue()==newAgency){
 			System.out.println("new agency"); // a effacer apres
@@ -89,7 +90,7 @@ public class AddAccountController extends ControllerBase {
 	}
 	
 	@FXML
-	private void nullAdvisor (ActionEvent event){
+	private void addAdvisor (ActionEvent event){
 		ChoiceBox catAdvisor = (ChoiceBox)event.getTarget();
 		if (catAdvisor.getValue()==null){
 			System.out.println("new advisor"); // a effacer apres
@@ -101,7 +102,7 @@ public class AddAccountController extends ControllerBase {
 	
 	@FXML
 	private void handleButtonOK (ActionEvent event){
-		try{
+		/*try{
 			currentAccount.setAgency(choiceAgency.getValue());
 		}
 		catch (NullPointerException e){
@@ -158,47 +159,41 @@ public class AddAccountController extends ControllerBase {
 		catch(Exception e){
 			em.getTransaction().rollback();
 			return;
+		}*/
+		
+		try{ 
+			this.content.getChildren.setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+		}
+		catch (IOException e){
 		}
 		
-		//accountPane.getParent().getChildren().setAll();
-		//MainWindowController.getChildren().clear();
-		
 		/*public void loadPage(String pageName) {
-	        try {                    
-	            URL url = getClass().getResource(pageName);
-	            FXMLLoader fxmlLoader = new FXMLLoader();
-	            fxmlLoader.setLocation(url);
-	            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-	            AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
-
-	            ParentControl.getChildren().clear();///name of pane where you want to put the fxml.
-	            ParentControl.getChildren().add(page);
-
-	        } 
-	        catch (IOException e) {
-	   
-	        }
+	      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(pageName));
+	      fxmlLoader.setLocation(getClass().getResource(pageName));
+	      fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+	      AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
+	      ParentControl.getChildren().clear();///name of pane where you want to put the fxml.
+	      ParentControl.getChildren().add(page);
+	        
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/View.fxml")); 
+			AnchorPane root = (AnchorPane) fxmlLoader.load(); 
+			ViewController controller = (ViewController) fxmlLoader.getController(); 
+			controller.addCircle(); 
 	    }*/
 
-		
-		//FXMLLoader loader = new FXMLLoader(MainWindowController.class.getResource(fxml));
-		
 		/*
 		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante
 		loader.getController()....  
-		
-		TODO : charger la sous scene principale
-		try {
-			MainWindowController.content.getChildren().setAll(loadFxml("../main_view/TransactionList.fxml"));
-		}
-		catch(IOException e) {
-			// TODO alert
-		}
 		*/
 	}
+	
+	public void setParentContent(StackPane content){
+		this.content = content;
+		}
+	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		
+		//load page principale, attention pour une inscription il faut disable ce button
 	}
 	
 	private void processPersistenceException(PersistenceException e) {

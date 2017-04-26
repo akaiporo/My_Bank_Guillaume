@@ -1,4 +1,4 @@
-package CreateBank;
+package AddBank;
 
 import javax.persistence.EntityManager;
 
@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import metier.Bank;
 
 
-public class CreateBankController extends ControllerBase {
+public class AddBankController extends ControllerBase {
 	private EntityManager em;
 	Bank currentBank=new Bank();
 	

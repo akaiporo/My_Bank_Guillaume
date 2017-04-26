@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreateBank.CreateBankController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddBank.AddBankController">
    <children>
       <TextField id="bank_name" fx:id="bank_name" layoutX="40.0" layoutY="149.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="149.0" />
       <TextField id="bank_code" fx:id="bank_code" layoutX="40.0" layoutY="220.0" prefHeight="25.0" prefWidth="156.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="220.0" />

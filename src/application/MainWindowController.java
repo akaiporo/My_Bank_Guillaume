@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Optional;
 
+import AddAccount.AddAccountController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,6 +96,9 @@ public class MainWindowController extends ControllerBase {
 	@FXML
 	private void handleButtonAddAccount(){
 		try {
+			FXMLLoader loader = new FXMLLoader(AddAccountController.class.getResource("../AddAccount/AddAccountView.fxml"));
+			AddAccountController accountController = loader.getController();
+			accountController.setParentContent(this.content);
 			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
