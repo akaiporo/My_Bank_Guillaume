@@ -1,4 +1,4 @@
-package passwordRecupView;
+package passwordRecup;
 
 import application.ControllerBase;
 import application.Mediator;
@@ -12,7 +12,7 @@ public class PasswordRecupController extends ControllerBase {
 	@FXML private Button btn_ok;
 	@FXML private Button btn_cancel;
 	@Override
-	public void initialize(Mediator mediator) {
+	public void initialize(Mediator mediator) {  
 		
 		
 	}

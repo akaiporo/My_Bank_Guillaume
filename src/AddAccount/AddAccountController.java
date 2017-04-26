@@ -6,13 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import application.ControllerBase;
-import application.Main;
 import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -166,26 +164,12 @@ public class AddAccountController extends ControllerBase {
 		catch (IOException e){
 		}
 		
-		/*public void loadPage(String pageName) {
-	      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(pageName));
-	      fxmlLoader.setLocation(getClass().getResource(pageName));
-	      fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
-	      AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
-	      ParentControl.getChildren().clear();///name of pane where you want to put the fxml.
-	      ParentControl.getChildren().add(page);
-	        
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/View.fxml")); 
-			AnchorPane root = (AnchorPane) fxmlLoader.load(); 
-			ViewController controller = (ViewController) fxmlLoader.getController(); 
-			controller.addCircle(); 
-	    }*/
-
+		
 		/*
 		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante
 		loader.getController()....  
 		*/
 	}
-	
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
