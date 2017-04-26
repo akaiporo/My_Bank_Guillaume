@@ -35,7 +35,6 @@ public class AddAccountController extends ControllerBase {
 	protected Account currentAccount=new Account();
 	private Agency newAgency=new Agency();
 	private Advisor newAdvisor=new Advisor();
-	private StackPane content;
 	
 	@FXML private TextField first_total;
 	@FXML private TextField overdraft;
@@ -187,9 +186,6 @@ public class AddAccountController extends ControllerBase {
 		*/
 	}
 	
-	public void setParentContent(StackPane content){
-		this.content = content;
-		}
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

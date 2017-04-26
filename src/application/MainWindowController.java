@@ -64,9 +64,6 @@ public class MainWindowController extends ControllerBase {
 	private void handleButtonAddAccount(){
 		try {
 			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
-			FXMLLoader loader = new FXMLLoader(AddAccountController.class.getResource("../AddAccount/AddAccountView.fxml"));
-			AddAccountController accountController = loader.getController();
-			accountController.setParentContent(this.content);
 		}
 		catch(IOException e) {
 			// TODO alert
