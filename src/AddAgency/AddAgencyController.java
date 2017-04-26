@@ -55,6 +55,7 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
+	
 	@FXML
 	private void addBank (ActionEvent event){
 		ChoiceBox catBank = (ChoiceBox)event.getTarget();
