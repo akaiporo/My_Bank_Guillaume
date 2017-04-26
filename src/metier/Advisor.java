@@ -18,7 +18,6 @@ import application.Tools;
 @Entity
 @Table(name="advisor")
 @NamedQuery(name="Advisor.findAll", query="SELECT ad FROM Advisor ad")
-//@AttributeOverride(name="name" column=@Column(name="advisor_name"))
 public class Advisor extends Person {
 	/**
 	 * @param date_assignment : Advisor assignment date
@@ -64,17 +63,29 @@ public class Advisor extends Person {
 		this.agency = agency;
 	}
 	
-	/*@Override
-	@Column(name="advisor_name")
-	public String getName(){
-		return this.getName();
-	}
-	
 	@Override
-	@Column(name="advisor_firstname")
-	public String getFirstName(){
-		return this.getFirstName();
-	}*/
+	public boolean equals(Object obj){
+		if(obj instanceof Advisor){
+			Advisor tmp = (Advisor)obj;
+		
+			if(((tmp.getName()==null || this.getName()==null) || tmp.getName().equals(this.getName()))
+				&& 
+				((tmp.getFirstName()==null || this.getFirstName()==null) || tmp.getFirstName().equals(this.getFirstName())) 
+				&&	 
+				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
+				&&
+				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail()))
+				&&
+				((tmp.getDateAssignment()==null||this.getDateAssignment()==null) || tmp.getDateAssignment().equals(this.getDateAssignment()))
+				&&
+				((tmp.getAgency()==null||this.getAgency()==null) || tmp.getAgency().equals(this.getAgency())))
+			{
+				return true;
+			}
+			else return false;
+		}
+		else return false;
+	}
 	
 	@Override
 	public String toString() {

@@ -72,13 +72,15 @@ public class Bank implements Serializable {
 		}
 		this.bank_code = code;
 	}
+	
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Bank){
 			Bank tmp = (Bank)obj;
-			Bank bank = new Bank(tmp.getBankName(), tmp.getBankCode());
-			if(bank.getBankName() == this.getBankName() && 
-			   bank.getBankCode() == this.getBankCode()){
+			if(((tmp.getBankName()==null || this.getBankName()==null) || tmp.getBankName().equals(this.getBankName())) 
+				&& 
+			   ((tmp.getBankCode()==null || this.getBankCode()==null) || tmp.getBankCode().equals(this.getBankCode())))
+			{
 				return true;
 			}
 			else return false;

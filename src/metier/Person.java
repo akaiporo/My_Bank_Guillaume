@@ -13,7 +13,6 @@ import application.Tools;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-//@MappedSuperclass
 public abstract class Person {
 	/**
 	 * 
@@ -93,10 +92,14 @@ public abstract class Person {
 		if(obj instanceof Person){
 			Person tmp = (Person)obj;
 		
-			if(tmp.getName().equals(this.getName()) && 
-				tmp.getFirstName().equals(this.getFirstName()) &&	 
-				tmp.getPhoneNumber().equals(this.getPhoneNumber()) &&
-				tmp.getEmail().equals(this.getEmail())){
+			if(((tmp.getName()==null || this.getName()==null) || tmp.getName().equals(this.getName()))
+				&& 
+				((tmp.getFirstName()==null || this.getFirstName()==null) || tmp.getFirstName().equals(this.getFirstName())) 
+				&&	 
+				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
+				&&
+				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail())))
+			{
 				return true;
 			}
 			else return false;
