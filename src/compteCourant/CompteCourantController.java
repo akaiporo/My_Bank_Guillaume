@@ -297,7 +297,6 @@ public class CompteCourantController extends ControllerBase {
 		PeriodicTransaction transaction = new PeriodicTransaction();
 		transaction.setAccount(this.currentAccount);
 		transaction.setDescription(this.txtDescription.getText());
-		transaction.setEndDateTransaction(Date.from(this.dateCycle.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		transaction.setPeriodUnit(this.choiceCycle.getValue());
 		
 		try{
@@ -323,6 +322,15 @@ public class CompteCourantController extends ControllerBase {
 		}
 		catch(Exception e){
 			this.errLibele.setVisible(true);
+			return;
+		}
+		try{
+			Date date = (Date.from(this.dateCycle.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+			transaction.setEndDateTransaction(date);
+			this.errDate.setVisible(false);
+		}
+		catch(Exception e){
+			this.errDate.setVisible(true);
 			return;
 		}
 		try{
