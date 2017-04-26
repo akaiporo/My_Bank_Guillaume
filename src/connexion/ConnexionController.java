@@ -66,7 +66,7 @@ public class ConnexionController extends ControllerBase {
 		}
 	
 		try {
-			if((owner.getLogin()).exists()) {
+			if((owner.getLogin()).ex) {
 				String value = login.getText();
 			}	
 		}
