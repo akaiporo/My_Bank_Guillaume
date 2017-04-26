@@ -24,7 +24,7 @@
       <Label layoutX="54.0" layoutY="312.0" text="City*" />
       <Button id="OK" fx:id="OK" layoutX="474.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonOK" text="OK" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="93.0" />
       <Button id="cancel" fx:id="cancel" layoutX="520.0" layoutY="347.0" mnemonicParsing="false" onAction="#handleButtonCancel" text="Cancel" AnchorPane.bottomAnchor="28.0" AnchorPane.rightAnchor="28.0" />
-      <ChoiceBox id="choiceBank" fx:id="choiceBank" layoutX="348.0" layoutY="68.0" prefHeight="25.0" prefWidth="207.0" />
-      <ChoiceBox id="choiceCity" fx:id="choiceCity" layoutX="88.0" layoutY="308.0" prefHeight="25.0" prefWidth="216.0" />
+      <ChoiceBox id="choiceBank" fx:id="choiceBank" layoutX="348.0" layoutY="68.0" prefHeight="25.0" prefWidth="207.0" onAction="#addBank" />
+      <ChoiceBox id="choiceCity" fx:id="choiceCity" layoutX="88.0" layoutY="308.0" prefHeight="25.0" prefWidth="216.0" onAction="#addCity" />
    </children>
 </AnchorPane>

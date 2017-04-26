@@ -22,10 +22,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
 import metier.AccountType;
-import metier.Address;
 import metier.Advisor;
 import metier.Agency;
-import metier.Bank;
 import metier.CountryCode;
 import metier.DateUtils;
 
@@ -34,7 +32,6 @@ public class AddAccountController extends ControllerBase {
 	private EntityManager em;
 	protected Account currentAccount=new Account();
 	private Agency newAgency=new Agency();
-	
 	private Advisor newAdvisor=new Advisor();
 	
 	@FXML private TextField first_total;
@@ -95,18 +92,21 @@ public class AddAccountController extends ControllerBase {
 	@FXML
 	private void addAdvisor (ActionEvent event){
 		ChoiceBox catAdvisor = (ChoiceBox)event.getTarget();
-		if (catAdvisor.getValue()==null){
-			try{ 
-				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAdvisor/AddAdvisorView.fxml"));
-			}
-			catch (IOException e){
-			}
+		Advisor tmp=(Advisor)catAdvisor.getValue();
+		if (tmp.getName().equals("(new") &&
+			tmp.getFirstName().equals("advisor)")){
+				try{ 
+					System.out.println("add advisor");
+					MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAdvisor/AddAdvisorView.fxml"));
+				}
+				catch (IOException e){
+				}
 		}
 	}
 	
 	@FXML
 	private void handleButtonOK (ActionEvent event){
-		/*try{
+		try{
 			currentAccount.setAgency(choiceAgency.getValue());
 		}
 		catch (NullPointerException e){
@@ -163,7 +163,7 @@ public class AddAccountController extends ControllerBase {
 		catch(Exception e){
 			em.getTransaction().rollback();
 			return;
-		}*/
+		}
 		
 		try{ 
 			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
