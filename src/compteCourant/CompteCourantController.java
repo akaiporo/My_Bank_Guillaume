@@ -32,6 +32,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
 import metier.Category;
+import metier.PeriodUnit;
 import metier.PeriodicTransaction;
 import metier.TargetTransaction;
 import metier.TransactionType;
@@ -40,15 +41,18 @@ public class CompteCourantController extends ControllerBase {
 
 	@FXML private SplitPane splitPane;
 	@FXML private TableView<PeriodicTransaction> listTransactions;
-	@FXML private CheckBox chkDone;
+	@FXML private CheckBox chkCycle;
 	@FXML private TextField txtLabel;
 	@FXML private TextField txtDescription;
 	@FXML private TextField txtValeur;
+	@FXML private TextField txtCycle;
 	@FXML private DatePicker dateCreated;
+	@FXML private DatePicker dateCycle;
 	@FXML private ChoiceBox<Category> choiceCategory;
 	@FXML private ChoiceBox<TargetTransaction> choiceTarget;
 	@FXML private ChoiceBox<TransactionType> choiceType;
 	@FXML private ChoiceBox<Account> choiceAccount;
+	@FXML private ChoiceBox<PeriodUnit> choiceCycle;
 	@FXML private Button btnApply;
 	@FXML private Button btnEdit;
 	@FXML private Button btnDelete;
@@ -58,6 +62,9 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private Label errTarget;
 	@FXML private Label errCategory;
 	@FXML private Label errValue;
+	@FXML private Label labelCycleValue;
+	@FXML private Label labelCycleEnd;
+	@FXML private Label labelCycleType;
 
 	
 	//non FXML var
@@ -67,6 +74,8 @@ public class CompteCourantController extends ControllerBase {
 		  private List<TargetTransaction> targets;
 		  private List<TransactionType> transactionType;
 		  private List<Account> accounts;
+		  private List<PeriodUnit> periodUnits;
+		  private Account currentAccount;
 		  private PeriodicTransaction currentTransaction;
 		  
 	@Override
@@ -89,6 +98,12 @@ public class CompteCourantController extends ControllerBase {
 		this.transactionType = em.createNamedQuery("TransactionType.findAll").getResultList();
 		this.choiceType.setItems(FXCollections.observableList(transactionType));
 		
+		this.periodUnits = em.createNamedQuery("PeriodUnit.findAll").getResultList();
+		this.choiceCycle.setItems(FXCollections.observableList(periodUnits));
+		
+		this.chkCycle.setSelected(false);
+		this.initCycleOptionsVisibility(false);
+		
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
 			@Override 
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
@@ -105,11 +120,21 @@ public class CompteCourantController extends ControllerBase {
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
 	
+	//Crée la liste des transactions lors d'un changement de compte
 	private void setTransactionList(Account account){
-		if(Transactions != null){
-			this.listTransactions.getItems().removeAll(Transactions);
+		//Si c'est la première fois qu'on lance l'apply, la liste est vide
+		//On récupère donc la liste de transaction générées avec la création du compte passer en paramètre
+		if(Transactions == null){
+			this.Transactions = account.getTransactions();
+
 		}
-		this.Transactions = account.getTransactions();
+		//Si non, on clear la liste et on la recrée avec le nouveau compte. 
+		else{
+			this.listTransactions.getItems().removeAll(Transactions);
+			Query q =  em.createQuery("SELECT pt FROM PeriodicTransaction pt WHERE pt.account = :account");
+			q.setParameter("account",account);
+			this.Transactions = q.getResultList();
+		}
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
 	 
@@ -117,9 +142,9 @@ public class CompteCourantController extends ControllerBase {
 	public void handleAccount(ActionEvent event){
 		em = this.getMediator().createEntityManager();
 		ChoiceBox choiceAccount = (ChoiceBox)event.getTarget();
-		Account account = (Account)choiceAccount.getValue();
-		account = em.find(Account.class, account.getId());
-		this.setTransactionList(account);
+		this.currentAccount = (Account)choiceAccount.getValue();
+		this.currentAccount = em.find(Account.class, currentAccount.getId());
+		this.setTransactionList(currentAccount);
 	}
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
@@ -136,6 +161,22 @@ public class CompteCourantController extends ControllerBase {
 			this.choiceCategory.setValue(this.currentTransaction.getCategory());
 			this.choiceType.setValue(this.currentTransaction.getTransactionType());
 			this.choiceTarget.setValue(this.currentTransaction.getTargetTransaction());
+			if(this.currentTransaction.getPeriodUnit() != null || this.currentTransaction.getDayNumber() != 0){
+				this.chkCycle.setSelected(true);
+				this.initCycleOptionsVisibility(true);
+				this.choiceCycle.setValue(this.currentTransaction.getPeriodUnit());
+				this.txtCycle.setText(Integer.toString(this.currentTransaction.getDayNumber()));
+				if(this.currentTransaction.getEndDateTransaction() != null){
+					this.dateCycle.setValue(this.currentTransaction.getEndDateTransaction().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+				}
+			}
+			else {
+				this.chkCycle.setSelected(false);
+				this.initCycleOptionsVisibility(false);
+				this.choiceCycle.setValue(null);
+				this.txtCycle.setText("0");
+				this.dateCycle.setValue(null);
+			}
 			return true;
 		}
 		catch(Exception e){
@@ -230,15 +271,41 @@ public class CompteCourantController extends ControllerBase {
 		}
 	}
 	
+	private void initCycleOptionsVisibility(boolean visibility){
+		this.choiceCycle.setVisible(visibility);
+		this.txtCycle.setVisible(visibility);
+		this.dateCycle.setVisible(visibility);
+		this.labelCycleEnd.setVisible(visibility);
+		this.labelCycleValue.setVisible(visibility);
+		this.labelCycleType.setVisible(visibility);
+	}
+	
+	@FXML
+	private void showCycleOptions(ActionEvent event){
+			if(this.chkCycle.isSelected()){
+				this.initCycleOptionsVisibility(true);
+			}
+			else{
+				this.initCycleOptionsVisibility(false);
+			}
+	}
+	
 	@FXML
 	private void handleBtnNew(ActionEvent event) {
 		PeriodicTransaction transaction = new PeriodicTransaction();
+		transaction.setAccount(this.currentAccount);
 		transaction.setDescription(this.txtDescription.getText());
-		transaction.setDayNumber(0);
-		transaction.setEndDateTransaction(null);
-		transaction.setPeriodUnit(null);
+		transaction.setEndDateTransaction(Date.from(this.dateCycle.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		transaction.setPeriodUnit(this.choiceCycle.getValue());
 		
-		
+		try{
+			int value = Integer.parseInt(this.txtCycle.getText());
+			transaction.setDayNumber(value);
+			this.errValue.setVisible(false);
+		}
+		catch(Exception e){
+			return;
+		}
 		try{
 			double value = Double.parseDouble(this.txtValeur.getText());
 			transaction.setTransactionValue(value);

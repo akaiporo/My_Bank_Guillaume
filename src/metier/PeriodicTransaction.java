@@ -31,6 +31,8 @@ public class PeriodicTransaction {
 	private TargetTransaction targetTransaction;
 	private Category category;
 	private PeriodUnit periodUnit;
+	//Utile uniquement pour faire le lien avec la bdd
+	private Account account;
 	/**
 	 * 
 	 * @param wording			   : Libel� de a transaction
@@ -193,6 +195,15 @@ public class PeriodicTransaction {
 	}
 	public void setPeriodUnit(PeriodUnit pu){
 		this.periodUnit = pu;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="id_account")
+	public Account getAccount(){
+		return this.account;
+	}
+	public void setAccount(Account acc){
+		this.account = acc;
 	}
 	
 	@Override
