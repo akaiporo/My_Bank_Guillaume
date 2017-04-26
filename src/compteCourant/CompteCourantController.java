@@ -11,6 +11,8 @@ import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
 import application.ControllerBase;
+import application.Main;
+import application.MainWindowController;
 import application.Mediator;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -108,8 +111,6 @@ public class CompteCourantController extends ControllerBase {
 			@Override 
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
 				updateForm(newVal); 
-				//Si newVal == null, on crée une nouvelle transaction vide,
-				//Si non, on lui passe newVal
 			}
 		});
 		
@@ -148,6 +149,7 @@ public class CompteCourantController extends ControllerBase {
 	}
 	
 	private boolean updateForm(PeriodicTransaction newTransaction) {
+		
 		System.out.println(newTransaction);
 		this.btnEdit.setDisable(false);
 		this.btnDelete.setDisable(false);
