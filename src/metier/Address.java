@@ -55,14 +55,21 @@ public class Address {
 	public String getLine1() {
 		return this.line1;
 	} 
-	private void setLine1(String line1){
+	public void setLine1(String line1){
+		if(line1.isEmpty()) {
+			throw new IllegalArgumentException("The line1 cannot be empty");
+		}
 		this.line1 = line1;
 	}
 	@Column(name="line2")
 	public String getLine2() {
 		return this.line2;
 	}
-	private void setLine2(String line2){
+	public void setLine2(String line2){
+		if(line2 == null){
+			this.line2 = "";
+		}
+		else this.line2 = line2;
 		this.line2 = line2;
 	}
 	@ManyToOne
