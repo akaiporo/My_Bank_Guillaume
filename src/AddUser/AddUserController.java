@@ -28,7 +28,7 @@ import metier.Owner;
 import metier.CpCity;
 import metier.DateUtils;
 
-public class AddUserController extends ControllerBase {
+public class AddUserController extends ControllerBase { 
 	private EntityManager em;
 	Owner owner = new Owner();
 	private String newCity;
