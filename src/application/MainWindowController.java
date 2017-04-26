@@ -7,10 +7,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import AddAccount.AddAccountController;
-<<<<<<< HEAD
 import compteCourant.CompteCourantController;
-=======
->>>>>>> branch 'master' of https://github.com/akaiporo/my_bank_Guillaume.git
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,12 +28,13 @@ public class MainWindowController extends ControllerBase {
 */	
 	@FXML
 	private StackPane content;
+	public static StackPane contentPane;
 	
 	@Override
 	public void initialize(Mediator mediator) {
 		try {
 			content.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml")); // Le mettre dans 'content'
-			
+			contentPane = content;
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -65,10 +63,10 @@ public class MainWindowController extends ControllerBase {
 	@FXML
 	private void handleButtonAddAccount(){
 		try {
+			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
 			FXMLLoader loader = new FXMLLoader(AddAccountController.class.getResource("../AddAccount/AddAccountView.fxml"));
 			AddAccountController accountController = loader.getController();
 			accountController.setParentContent(this.content);
-			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
 			// TODO alert
