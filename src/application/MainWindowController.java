@@ -71,9 +71,9 @@ public class MainWindowController extends ControllerBase {
 	}
 	
 	@FXML
-	private void handleButtonConnexion(){
+	private void handleButtonAuthentification(){
 		try {
-			content.getChildren().setAll(loadFxml("../connexion/ConnexionView.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
 			// TODO alert
