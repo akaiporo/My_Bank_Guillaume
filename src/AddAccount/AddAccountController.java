@@ -19,19 +19,22 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
 import metier.AccountType;
+import metier.Address;
 import metier.Advisor;
 import metier.Agency;
+import metier.Bank;
 import metier.CountryCode;
 import metier.DateUtils;
+
 
 public class AddAccountController extends ControllerBase {
 	private EntityManager em;
 	protected Account currentAccount=new Account();
 	private Agency newAgency=new Agency();
+	
 	private Advisor newAdvisor=new Advisor();
 	
 	@FXML private TextField first_total;
@@ -77,12 +80,15 @@ public class AddAccountController extends ControllerBase {
 	
 	@FXML
 	private void addAgency (ActionEvent event){
+		
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
-		if (catAgency.getValue()==newAgency){
-			System.out.println("new agency"); // a effacer apres
-			/*
-			 * TODO : load new subscene addAgency
-			 */
+		Agency tmp=(Agency)catAgency.getValue();
+		if (tmp.getAgencyName().equals("(new agency)")){
+			try{
+				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAgency/AddAgencyView.fxml"));
+			}
+			catch(IOException e){	
+			}
 		}
 	}
 	
@@ -90,10 +96,11 @@ public class AddAccountController extends ControllerBase {
 	private void addAdvisor (ActionEvent event){
 		ChoiceBox catAdvisor = (ChoiceBox)event.getTarget();
 		if (catAdvisor.getValue()==null){
-			System.out.println("new advisor"); // a effacer apres
-			/*
-			 * TODO : load new subscene addAdvisor
-			 */
+			try{ 
+				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAdvisor/AddAdvisorView.fxml"));
+			}
+			catch (IOException e){
+			}
 		}
 	}
 	
@@ -164,16 +171,20 @@ public class AddAccountController extends ControllerBase {
 		catch (IOException e){
 		}
 		
-		
 		/*
-		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante
-		loader.getController()....  
+		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante  
 		*/
 	}
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		//load page principale, attention pour une inscription il faut disable ce button
+		try{ 
+			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+		}
+		catch (IOException e){
+		}
+		 //attention pour une inscription il faut disable ce button
+		//conserver les infos d'avant clic : quel est le currentAccount?
 	}
 	
 	private void processPersistenceException(PersistenceException e) {

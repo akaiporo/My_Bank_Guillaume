@@ -107,13 +107,16 @@ public class Agency {
 		if(obj instanceof Agency){
 			Agency tmp = (Agency)obj;
 		
-			if(tmp.getAgencyName().equals(this.getAgencyName()) && 
-					tmp.getCounterCode().equals(this.getCounterCode()) &&	 
-					tmp.getAddress().equals(this.getAddress()) &&
-					tmp.getBank().equals(this.getBank())
-						){
-					return true;
-					}
+			if(((tmp.getAgencyName()==null && this.getAgencyName()==null) | tmp.getAgencyName().equals(this.getAgencyName()))
+				&& 
+				((tmp.getCounterCode()==null && this.getCounterCode()==null) | tmp.getCounterCode().equals(this.getCounterCode()))
+				&&	 
+				((tmp.getAddress()==null && this.getAddress()==null) | tmp.getAddress().equals(this.getAddress()))
+				&&
+				((tmp.getBank()==null && this.getBank()==null) | tmp.getBank().equals(this.getBank()))
+			){
+				return true;
+			}
 			else return false;
 		}
 		else {
