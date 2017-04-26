@@ -162,7 +162,9 @@ public class AddAccountController extends ControllerBase {
 		}*/
 		
 		try{ 
-			this.content.getChildren.setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+			System.out.println(this.content.getChildren());
+			this.content.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+			
 		}
 		catch (IOException e){
 		}
