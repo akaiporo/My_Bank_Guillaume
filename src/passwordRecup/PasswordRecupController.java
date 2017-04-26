@@ -1,4 +1,4 @@
-package passwordRecupView;
+package passwordRecup;
 
 import application.ControllerBase;
 import application.Mediator;

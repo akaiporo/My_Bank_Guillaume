@@ -1,10 +1,13 @@
 package AddUser;
 
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.swing.JOptionPane;
+
 import application.ControllerBase;
 import application.Mediator;
 import javafx.application.Platform;
@@ -20,11 +23,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import metier.Owner;
+import metier.CpCity;
 import metier.DateUtils;
 
 public class AddUserController extends ControllerBase {
 	private EntityManager em;
 	Owner owner = new Owner();
+	private String newCity;
 
 	@FXML private TextField login;
 	@FXML private TextField pwd;
@@ -61,11 +66,27 @@ public class AddUserController extends ControllerBase {
 			em = mediator.createEntityManager();
 			
 			List<String> cities = em.createNamedQuery("cpcity.findAllcity", String.class).getResultList();
-			cities.add(null);
+			cities.add("(new city)");
 			this.city.setItems(FXCollections.observableList(cities));
 		}
 		catch(PersistenceException e) {
 			this.processPersistenceException(e);
+		}
+	}
+	@FXML
+	private void newCity (ActionEvent event) {
+		ChoiceBox catCity  = (ChoiceBox)event.getTarget();
+		if(catCity.getValue() == newCity) {
+			System.out.println("new city");
+			/*String ville = event.getActionCommand();
+				if (ville.equals("new city")) {
+					JOptionPane.showInputDialog(null, "Please enter a city!", 
+							"AddCity", JOptionPane.QUESTION_MESSAGE);	
+				}*/
+			
+			/* rajouter une scene ou 
+			 * boite de dialogue
+			 * pour ajouter une ville */
 		}
 	}
 	
@@ -134,120 +155,6 @@ public class AddUserController extends ControllerBase {
 			em.getTransaction().rollback();
 		}
 		
-	/*	
-		
-		CpCity cpcity = new CpCity(postalcode.getText(),this.city.getValue());
-		Address address = new Address(owner_id_address1.getText(),owner_id_address2.getText(),cpcity);
-		Owner owner = new Owner(owner_name.getText(),
-								owner_firstname.getText(),
-								owner_phonenumber.getText(),
-								owner_mail.getText(),
-								DateUtils.LocalDateToDate(owner_birthdate.getValue()),
-								login.getText(),
-								pwd.getText(),
-								address
-								);
-		
-		private boolean saveForm() {
-			boolean isNew = this.cur.getId()==0;
-			
-			Owner owner = this.owner.getItems();
-			boolean err=false;
-
-		if(this.login.getText().isEmpty()) {
-			this.errlogin.setVisible(true);
-			err=true;
-		}
-		if(this.pwd.getText().isEmpty()) {
-			this.errpwd.setVisible(true);
-			err=true;
-		}
-		if(this.owner_name.getText().isEmpty()) {
-			this.errname.setVisible(true);
-			err=true;
-		}
-		if(this.owner_firstname.getText().isEmpty()) {
-			this.errfirstname.setVisible(true);
-			err=true;
-		}
-		if(this.owner_mail.getText().isEmpty()) {
-			this.errmail.setVisible(true);
-			err=true;
-		}
-		if(this.owner_id_address1.getText().isEmpty()) {
-			this.erraddress1.setVisible(true);
-			err=true;
-		}
-		if(this.owner_id_address2.getText()==null) {
-			this.erraddress2.setVisible(true);
-			err=true;
-		}
-		if(this.postalcode.getText().length() !=5) {
-			this.errpostalcode.setVisible(true);
-			err=true;
-		}
-		if(this.city.getValue()==null) {
-			this.errcity.setVisible(true);
-			err=true;
-		}
-		if(this.owner_phonenumber.getText().isEmpty()) {
-			this.errphonenumber.setVisible(true);
-			err=true;
-		}
-		if(this.owner_birthdate.getValue()==null) {
-			this.errbirthdate.setVisible(true);
-			err=true;
-		}
-		if(err) {
-			return false;	
-		
-		}
-		this.cur.setLogin(this.login.getText());
-		this.cur.setPwd(this.pwd.getText());
-		this.cur.setOwnerName(this.owner_name.getText());
-		this.cur.setOwnerFirstname(this.owner_firstname.getText());
-		this.cur.setOwnerEmail(this.owner_mail.getText());
-		this.cur.setaddress1(this.owner_id_address1.getText());
-		this.cur.setLine2(this.owner_id_address2.getText());
-		this.cur.setPostalCode(this.postalcode.getText());
-		this.cur.setcity(this.city.getValue());
-		this.cur.setOwnerPhonenumber(this.owner_phonenumber.getText());
-		this.cur.setBirthdate(DateUtils.LocalDateToDate(this.owner_birthdate.getValue()));
-		
-		try {
-			EntityManager em = getMediator().createEntityManager();
-			EntityTransaction transaction = em.getTransaction();
-
-			try {					
-				transaction.begin();
-				em.persist(this.cur);
-				transaction.commit();
-				this.dirty = false;
-				if(isNew) {
-					owner.add(this.cur);
-				}
-				else {
-					owner.set(owner.indexOf(this.cur), this.cur);
-				}
-			}
-			catch(RollbackException e) {
-				return false;
-			}
-			finally {
-				em.close();
-			}
-			return true;
-		}
-		catch(PersistenceException e) {
-			this.processPersistenceException(e);
-			return false;
-		} 
-		
-		/*em.getTransaction().begin();
-		em.persist(cpcity);
-		em.persist(address);
-		em.persist(owner);
-		em.getTransaction().commit();	*/	
 	}
 
 	@FXML
@@ -265,46 +172,8 @@ public class AddUserController extends ControllerBase {
 			
 		}
 	}
-	/*private boolean updateForm(Owner newOwner) {
-		this.resetErrors();
-		if(this.dirty) {
-			Alert alert = new Alert(AlertType.CONFIRMATION, " Save ?", ButtonType.YES, ButtonType.NO);
-			
-			alert.showAndWait();
-			
-			ButtonType result = alert.getResult();
-			
-			if(result == ButtonType.NO) {
-				return false;
-			}
-		}
-	this.cur = newOwner;
-	this.login.setText(this.cur.getLogin());
-	this.pwd.setText(this.cur.getPwd());
-	this.owner_name.setText(this.cur.getName());
-	this.owner_firstname.setText(this.cur.getFirstName());
-	this.owner_mail.setText(this.cur.getEmail());
-	this.address.setText(this.cur.getAddress());
-	this.postalcode.setText(this.cur.getPostalCode());
-	this.city.setValue(this.city.getCpCity());
-	this.owner_phonenumber.setText(this.cur.getPhoneNumber());
-	this.owner_birthdate.setValue(DateUtils.DateToLocalDate(this.cur.getBirthdate()));
-	this.dirty = false;  
-			
-	} */
-	
-	/*private void resetErrors() {
-	
-		for(Label l : new Label[]{ errlogin, errpwd, errname, errfirstname, errmail,
-				erraddress1, erraddress2, errpostalcode, errcity, errphonenumber, errbirthdate}) {
-			l.setVisible(false);
-		}
-	}*/	
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
-	
-	
-
-		 
+	 
 }
