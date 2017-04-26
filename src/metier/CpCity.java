@@ -47,8 +47,12 @@ public class CpCity {
 	public int getId(){
 		return this.id;
 	}
+	@Column(name="postalcode")
 	public String getPostalCode(){
 		return this.postalCode;
+	}
+	public String setPostalCode(String city){
+		return this.postalCode = postalCode;
 	}
 	@Column(name="city")
 	public String getCity(){

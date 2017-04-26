@@ -105,7 +105,37 @@ public class MainWindowController extends ControllerBase {
 	@FXML
 	private void handleButtonAddUser(){
 		try {
-			content.getChildren().setAll(loadFxml("../inscriptionView/InscriptionView.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../AddUser/AddUserView.fxml")); // Le mettre dans 'content'
+		}
+		catch(IOException e) {
+			// TODO alert
+		}
+	}
+	
+	@FXML
+	private void handleButtonConnexion(){
+		try {
+			content.getChildren().setAll(loadFxml("../connexion/ConnexionView.fxml")); // Le mettre dans 'content'
+		}
+		catch(IOException e) {
+			// TODO alert
+		}
+	}
+	
+	@FXML
+	private void handleButtonForgottenpwd(){
+		try {
+			content.getChildren().setAll(loadFxml("../connexion/ConnexionView.fxml")); // Le mettre dans 'content'
+		}
+		catch(IOException e) {
+			// TODO alert
+		}
+	}
+	
+	@FXML
+	private void handleButtonIsncription(){
+		try {
+			content.getChildren().setAll(loadFxml("../connexion/ConnexionView.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
 			// TODO alert

@@ -10,8 +10,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 
 import application.Tools;
+
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+//@MappedSuperclass
 public abstract class Person {
 	/**
 	 * 
@@ -21,15 +23,15 @@ public abstract class Person {
 	 * @param email : email of the person
 	 */
 
-	public Person(String name, String firstname, String phone_number, String email) {
+	public Person(String name, String firstname, String phonenumber, String email) {
 		if(name.isEmpty()) {
 			throw new IllegalArgumentException("The name cannot be empty");
 		}
 		if(firstname.isEmpty()) {
 			throw new IllegalArgumentException("The firstname cannot be empty");
 		}
-		if(Tools.eraseChar(phone_number,"\\s").length()<4||Tools.eraseChar(phone_number,"\\s").length()>11) {
-			throw new IllegalArgumentException("phone_number must contain between 4 and 11 numbers");
+		if(Tools.eraseChar(phonenumber,"\\s").length()<4||Tools.eraseChar(phonenumber,"\\s").length()>11) {
+			throw new IllegalArgumentException("phonenumber must contain between 4 and 11 numbers");
 		}
 		if(!Tools.checkMail(email)){
 			throw new IllegalArgumentException("email must be of a valid format eg toto@titi.tutu");
@@ -37,7 +39,7 @@ public abstract class Person {
 				
 		this.name = name;
 		this.firstname = firstname;
-		this.phone_number = phone_number;
+		this.phonenumber = phonenumber;
 		this.email = email;
 
 	}
@@ -66,11 +68,23 @@ public abstract class Person {
 	}
 	
 	public String getPhoneNumber() {
-		return this.phone_number;
+		return this.phonenumber;
 	}
-	
 	public String getEmail() {
 		return this.email;
+	}
+	
+	public void setName (String nam) {
+		this.name=nam;
+	}
+	public void setFirstName (String nam) {
+		this.firstname=nam;
+	}
+	public void setPhoneNumber (String phone) {
+		this.phonenumber=phone;
+	}
+	public void setEmail (String mail) {
+		this.email=mail;
 	}
 	
 	
@@ -93,6 +107,6 @@ public abstract class Person {
 	private int id;
 	private String name;
 	private String firstname;
-	private String phone_number;
+	private String phonenumber;
 	private String email;
 }

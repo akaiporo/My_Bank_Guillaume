@@ -6,11 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import application.ControllerBase;
+import application.Main;
 import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -29,7 +31,10 @@ import metier.DateUtils;
 
 public class AddAccountController extends ControllerBase {
 	private EntityManager em;
-	Account currentAccount=new Account();
+	protected Account currentAccount=new Account();
+	private Agency newAgency=new Agency();
+	private Advisor newAdvisor=new Advisor();
+	
 	
 	@FXML private TextField first_total;
 	@FXML private TextField overdraft;
@@ -51,11 +56,14 @@ public class AddAccountController extends ControllerBase {
 			em = mediator.createEntityManager();
 			
 			List<Agency> agencies = em.createNamedQuery("Agency.findAll", Agency.class).getResultList();
-			agencies.add(null); //permettra d'ajouter une nouvelle agence
+			newAgency.setAgencyName("(new agency)");
+			agencies.add(newAgency); //permettra d'ajouter une nouvelle agence
 			this.choiceAgency.setItems(FXCollections.observableList(agencies));
 			
 			List<Advisor> advisors = em.createNamedQuery("Advisor.findAll", Advisor.class).getResultList();
-			advisors.add(null);
+			newAdvisor.setName("(new");
+			newAdvisor.setFirstName("advisor)");
+			advisors.add(newAdvisor);
 			this.choiceAdvisor.setItems(FXCollections.observableList(advisors));
 		
 			List<AccountType> accounttypes = em.createNamedQuery("AccountType.findAll", AccountType.class).getResultList();
@@ -72,7 +80,7 @@ public class AddAccountController extends ControllerBase {
 	@FXML
 	private void nullAgency (ActionEvent event){
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
-		if (catAgency.getValue()==null){
+		if (catAgency.getValue()==newAgency){
 			System.out.println("new agency"); // a effacer apres
 			/*
 			 * TODO : load new subscene addAgency
@@ -148,11 +156,32 @@ public class AddAccountController extends ControllerBase {
 			em.getTransaction().commit();
 		}
 		catch(Exception e){
-			e.printStackTrace();
 			em.getTransaction().rollback();
+			return;
 		}
 		
-		//accountPane.getParent();
+		//accountPane.getParent().getChildren().setAll();
+		//MainWindowController.getChildren().clear();
+		
+		/*public void loadPage(String pageName) {
+	        try {                    
+	            URL url = getClass().getResource(pageName);
+	            FXMLLoader fxmlLoader = new FXMLLoader();
+	            fxmlLoader.setLocation(url);
+	            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+	            AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
+
+	            ParentControl.getChildren().clear();///name of pane where you want to put the fxml.
+	            ParentControl.getChildren().add(page);
+
+	        } 
+	        catch (IOException e) {
+	   
+	        }
+	    }*/
+
+		
+		//FXMLLoader loader = new FXMLLoader(MainWindowController.class.getResource(fxml));
 		
 		/*
 		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante
