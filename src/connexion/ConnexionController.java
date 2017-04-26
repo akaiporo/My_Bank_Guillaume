@@ -15,11 +15,13 @@ import javax.persistence.PersistenceException;
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.ControllerBase;
+import application.Main;
 import application.Mediator;
 import application.Tools;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import metier.Account;
@@ -36,22 +38,55 @@ public class ConnexionController extends ControllerBase {
 	@FXML private Button btn_inscription;
 	
 	@FXML private Label errlogin;
-	@FXML private label errpwd;
+	@FXML private Label errpwd;
 
 	@Override
 	public void initialize(Mediator mediator) {
-		
 		try {	
 			em = mediator.createEntityManager();	
 		}
 		catch(PersistenceException e) {
-		}
+		}	
 	}
 
 	@FXML 
 	private void handleButtonConnexion(ActionEvent Event) {
+		
+		try {
+			owner.setLogin(login.getText());
+		}
+		catch  (IllegalArgumentException e) {
+			errlogin.setText(" The login cannot be empty");
+		}
+		try {
+			owner.setPwd(pwd.getText());
+		}
+		catch  (IllegalArgumentException e) {
+			errpwd.setText(" The password cannot be empty");
+		}
 	
-		/*public boolean isSameCredentials(String login,String pwd) throws SQLException{
+		try {
+			if((owner.getLogin()).exists()) {
+				String value = login.getText();
+			}	
+		}
+		catch (IllegalArgumentException e) {
+			errlogin.setText(" The login does not exist!");	
+		}
+		
+		em.getTransaction().begin();
+		em.persist(login);
+		em.persist(pwd);
+		
+		try {
+			em.getTransaction().commit();
+		}
+		catch(Exception e) {
+			em.getTransaction().rollback();
+		}
+
+	/*
+		public boolean isSameCredentials(String login,String pwd) throws SQLException{
 			
 			try{
 			  connexion = DriverManager.getConnection(Tools.getUrl(), "root", "");
@@ -103,8 +138,8 @@ public class ConnexionController extends ControllerBase {
 		}
 		catch (IllegalArgumentException e) {
 			errpwd.setText(" The password is not correct! ");
-		}
-	}*/
+		}*/
+	}
 	
 	@FXML 
 	private void handleButtonForgottenpwd(ActionEvent Event) {
@@ -122,7 +157,9 @@ public class ConnexionController extends ControllerBase {
 	private void handleButtonInscription(ActionEvent Event) {
 		
 		try {
-			content.getChildren().setAll(loadFxml("../AddUser/AddUserView.fxml")); // Le mettre dans 'content'
+			//content.getChildren().setAll(loadFxml("../AddUser/AddUserView.fxml")); // Le mettre dans 'content'
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("../AddUser/AddUserView.fxml")).setVisible(true);
+			this.setVisible(true);
 		}
 		catch(IOException e) {
 			// TODO alert

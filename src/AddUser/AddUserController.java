@@ -85,6 +85,14 @@ public class AddUserController extends ControllerBase {
 			errpwd.setText(" The password cannot be empty");
 		}
 		try {
+			if (pwd.equals(confirm_pwd)) {
+			owner.setPwd(confirm_pwd.getText());	
+			}	
+		}
+		catch  (IllegalArgumentException e) {
+			errconfirmpwd.setText(" The password cannot be empty");
+		}
+		try {
 			owner.setOwnerName(owner_name.getText());
 		}
 		catch  (IllegalArgumentException e) {
@@ -122,7 +130,7 @@ public class AddUserController extends ControllerBase {
 			
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			em.getTransaction().rollback();
 		}
 		
