@@ -73,6 +73,7 @@ public class Bank implements Serializable {
 		this.bank_code = code;
 	}
 	
+	//ou la
 	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Bank){
