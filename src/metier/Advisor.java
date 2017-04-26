@@ -25,8 +25,8 @@ public class Advisor extends Person {
 	 * @param agency : Advisor agency
 	 */ 
 
-	public Advisor(String advisor_name, String advisor_firstname, String phone_number, String email, Date date_assignment,Agency agency) {
-		super(advisor_name, advisor_firstname, phone_number, email);
+	public Advisor(String name, String firstname, String phonenumber, String email, Date date_assignment,Agency agency) {
+		super(name, firstname, phonenumber, email);
 		
 		if(date_assignment == null) {
 			throw new NullPointerException("Date assignment cannot be null");

@@ -6,11 +6,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import application.ControllerBase;
+import application.Main;
 import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -59,7 +61,8 @@ public class AddAccountController extends ControllerBase {
 			this.choiceAgency.setItems(FXCollections.observableList(agencies));
 			
 			List<Advisor> advisors = em.createNamedQuery("Advisor.findAll", Advisor.class).getResultList();
-			//newAdvisor.setName("(new advisor)");
+			newAdvisor.setName("(new");
+			newAdvisor.setFirstName("advisor)");
 			advisors.add(newAdvisor);
 			this.choiceAdvisor.setItems(FXCollections.observableList(advisors));
 		
@@ -157,7 +160,28 @@ public class AddAccountController extends ControllerBase {
 			return;
 		}
 		
-		//accountPane.getParent();
+		//accountPane.getParent().getChildren().setAll();
+		//MainWindowController.getChildren().clear();
+		
+		/*public void loadPage(String pageName) {
+	        try {                    
+	            URL url = getClass().getResource(pageName);
+	            FXMLLoader fxmlLoader = new FXMLLoader();
+	            fxmlLoader.setLocation(url);
+	            fxmlLoader.setBuilderFactory(new JavaFXBuilderFactory());
+	            AnchorPane page = (AnchorPane) fxmlLoader.load(url.openStream()); 
+
+	            ParentControl.getChildren().clear();///name of pane where you want to put the fxml.
+	            ParentControl.getChildren().add(page);
+
+	        } 
+	        catch (IOException e) {
+	   
+	        }
+	    }*/
+
+		
+		//FXMLLoader loader = new FXMLLoader(MainWindowController.class.getResource(fxml));
 		
 		/*
 		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante

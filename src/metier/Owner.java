@@ -30,8 +30,8 @@ public class Owner extends Person{
 	 * @param pwd
 	 * @param address
 	 */
-	public Owner(String owner_name, String owner_firstname, String phone_number, String email, Date birthdate, String login, String pwd, Address address) {
-		super(owner_name, owner_firstname, phone_number, email);
+	public Owner(String name, String firstname, String phonenumber, String email, Date birthdate, String login, String pwd, Address address) {
+		super(name, firstname, phonenumber, email);
 		if (birthdate == null){
 			throw new NullPointerException ("birthdate cannot be null");
 		}
