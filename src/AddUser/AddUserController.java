@@ -1,6 +1,7 @@
 package AddUser;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import javax.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 import application.ControllerBase;
+import application.MainWindowController;
 import application.Mediator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -78,15 +80,11 @@ public class AddUserController extends ControllerBase {
 		ChoiceBox catCity  = (ChoiceBox)event.getTarget();
 		if(catCity.getValue() == newCity) {
 			System.out.println("new city");
-			/*String ville = event.getActionCommand();
-				if (ville.equals("new city")) {
-					JOptionPane.showInputDialog(null, "Please enter a city!", 
-							"AddCity", JOptionPane.QUESTION_MESSAGE);	
-				}*/
 			
 			/* rajouter une scene ou 
 			 * boite de dialogue
-			 * pour ajouter une ville */
+			 * pour ajouter une ville 
+			 */
 		}
 	}
 	
@@ -104,7 +102,7 @@ public class AddUserController extends ControllerBase {
 		}
 		catch  (IllegalArgumentException e) {
 			errpwd.setText(" The password cannot be empty");
-		}
+		}/*
 		try {
 			if (pwd.equals(confirm_pwd)) {
 			owner.setPwd(confirm_pwd.getText());	
@@ -112,27 +110,27 @@ public class AddUserController extends ControllerBase {
 		}
 		catch  (IllegalArgumentException e) {
 			errconfirmpwd.setText(" The password cannot be empty");
-		}
+		}*/ 
 		try {
-			owner.setOwnerName(owner_name.getText());
+			owner.setName(owner_name.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errname.setText(" The owner name cannot be empty");
 		}
 		try {
-			owner.setOwnerFirstname(owner_firstname.getText());
+			owner.setFirstName(owner_firstname.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errfirstname.setText(" The owner firstname cannot be empty");
 		}
 		try {
-			owner.setOwnerEmail(owner_mail.getText());
+			owner.setEmail(owner_mail.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errmail.setText(" The owner email cannot be empty");
 		}
 		try {
-			owner.setOwnerPhonenumber(owner_phonenumber.getText());
+			owner.setPhoneNumber(owner_phonenumber.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errphonenumber.setText(" The owner phonenumber cannot be empty");
@@ -142,19 +140,28 @@ public class AddUserController extends ControllerBase {
 		}
 		catch  (IllegalArgumentException e) {
 			errbirthdate.setText(" The owner birthdate cannot be empty");
-		}	
+		}
+		catch (NullPointerException e) {
+			errbirthdate.setText(e.getMessage());
+		}
 		
-		em.getTransaction().begin();
+		/*em.getTransaction().begin();
 		em.persist(owner);
 		try{
 			em.getTransaction().commit();
 			
 		}
 		catch(Exception e) {
-			//e.printStackTrace();
 			em.getTransaction().rollback();
+			return;
 		}
 		
+		try{ 
+			MainWindowController.contentPane.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml"));
+		}
+		catch (IOException e){
+		}
+		*/
 	}
 
 	@FXML
