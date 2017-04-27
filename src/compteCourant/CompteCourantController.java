@@ -172,7 +172,7 @@ public class CompteCourantController extends ControllerBase {
 		}
 		
 		this.pieChart.setData(FXCollections.observableList(transactionsValues));
-		int total = 0;
+		int total = 0; 
 		for (final PieChart.Data data : pieChart.getData()){
 			total+= data.getPieValue();
 		}
