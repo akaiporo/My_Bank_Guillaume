@@ -51,7 +51,7 @@ public class AddAgencyController extends ControllerBase {
 		
 			List<Bank> banks = em.createNamedQuery("Bank.findAll", Bank.class).getResultList();
 			newBank.setBankName("(new bank)");
-			banks.add(newBank);
+		    banks.add(newBank);
 			this.choiceBank.setItems(FXCollections.observableList(banks));
 			
 			List<String> cities = em.createNamedQuery("cpcity.findAllcity", String.class).getResultList();
