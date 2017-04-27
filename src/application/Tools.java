@@ -54,7 +54,9 @@ public class Tools {
 		Matcher matcher = Tools.VALID_EMAIL_ADDRESS_REGEX.matcher(email);
 		return matcher.find();
 	}
-	
+	/**
+	 * @return la date du jour
+	 */
 	public static Date today(){
 		return Calendar.getInstance().getTime();
 	}

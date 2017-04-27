@@ -45,6 +45,10 @@ public class AuthentificationController extends ControllerBase {
 		}	
 	}
 
+	/**
+	 * Test si les champs sont remplis Si oui, appel la fnction isSameCredentials
+	 * @param Event
+	 */
 	@FXML 
 	private void handleButtonConnexion(ActionEvent Event) {
 		
@@ -66,32 +70,24 @@ public class AuthentificationController extends ControllerBase {
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		/*em.getTransaction().begin();
-		em.persist(owner);
-		try {
-			em.getTransaction().commit();
-		}
-		catch(Exception e) {
-			System.out.println(e.getMessage());
-			em.getTransaction().rollback();
-		}*/
 	}
 	
+	/**
+	 * Renvoie vers la page d'oublie du mot de passe
+	 * @param Event
+	 */
 	@FXML 
 	private void handleButtonForgottenpwd(ActionEvent Event) {
 		
 		/*
 		 * Ce bouton doit rediriger vers la page pour rï¿½cupï¿½rer le mot de passe (passwordRecupView)
 		 */
-		try{ 
-			System.out.print("Salut");
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../passwordRecup/passwordRecupView.fxml"));
-		}
-		catch (IOException e){
-		}
+		this.loadSubScene("../passwordRecup/PasswordRecupView.fxml");
 	}
-	
+	/**
+	 * Envoie vers la page d'inscription
+	 * @param Event
+	 */
 	@FXML 
 	private void handleButtonInscription(ActionEvent Event) {
 		
@@ -108,7 +104,11 @@ public class AuthentificationController extends ControllerBase {
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
-	
+	/**
+	 * Test si le login passé existe. Si il est, il test le mot de passe associé.
+	 * @return boolean
+	 * @throws SQLException
+	 */
 	public boolean isSameCredentials() throws SQLException {
 		
 		String inputpwd = this.pwd.getText();
@@ -124,9 +124,6 @@ public class AuthentificationController extends ControllerBase {
 		q.setParameter("inputlogin", inputlogin);
 		Owner lg = (Owner)q.getSingleResult();
 		if (lg != null) {
-				/*Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = :inputpwd", String.class); 
-				u.setParameter("pwd", inputpwd);
-				hashed = (String)u.getSingleResult();*/
 				hashed = lg.getPwd();
 					if(BCrypt.checkpw(inputpwd, hashed)) {
 						System.out.print(String.format("Welcome to your personnal bank, %s!", lg.getFirstName()));
@@ -150,6 +147,9 @@ public class AuthentificationController extends ControllerBase {
 		
 	}
 	
+	/**
+	 * Fonction de test. Permet d'viter la page de login si on a pas de compte (Pour Michel)
+	 */
 	@FXML
 	private void handleDodgeConnexion(){
 		try {

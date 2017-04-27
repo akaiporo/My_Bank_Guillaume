@@ -40,7 +40,10 @@ public class MainWindowController extends ControllerBase {
 	public StackPane getStackPane(){
 		return this.content;
 	}
-	
+	/**
+	 * Si l'utilisateur clique sur quitter, lui demande confirmation
+	 * @param event
+	 */
 	@FXML
 	private void handleMenuFileQuit(ActionEvent event) {
 		Alert alert = new Alert(
@@ -55,7 +58,9 @@ public class MainWindowController extends ControllerBase {
 			Platform.exit();
 		}
 	}
-	
+	/**
+	 * Envoie vers la page de création de compte bancaire
+	 */
 	@FXML
 	private void handleButtonAddAccount(){
 		try {
@@ -65,7 +70,9 @@ public class MainWindowController extends ControllerBase {
 			// TODO alert
 		}
 	}
-	
+	/**
+	 * Envoie vers la page de création d'utilisateur
+	 */
 	@FXML
 	private void handleButtonAddUser(){
 		try {
@@ -75,7 +82,9 @@ public class MainWindowController extends ControllerBase {
 			// TODO alert
 		}
 	}
-
+	/**
+	 * renvoie vers la page de login
+	 */
 	@FXML
 	private void handleButtonDeconnexion(){
 		try {
@@ -94,7 +103,9 @@ public class MainWindowController extends ControllerBase {
 			// TODO alert
 		}
 	}
-	
+	/**
+	 * Permet d'éviter la page de login si on a pas de compte (réservé à Michel/Sylvain)
+	 */
 	@FXML
 	private void handleDodgeConnexion(){
 		try {

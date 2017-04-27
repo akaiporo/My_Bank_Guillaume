@@ -11,6 +11,9 @@ public class Mediator {
 		}
 		this.emf = emf;
 	}
+	/**
+	 * @return retourne l'entitymanager qui sera utilisé dans toutes les classes pour faire les requêtes
+	 */
 	public EntityManager createEntityManager() {
 		return this.emf.createEntityManager();
 	}

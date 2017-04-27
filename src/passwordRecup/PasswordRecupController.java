@@ -42,7 +42,11 @@ public class PasswordRecupController extends ControllerBase {
 		}
 		
 	}
-	
+	/**
+	 * Est censé envoyer un mail avec le nouveau mot de passe (donc, orienté WEB)
+	 * Est actuellement non géré.
+	 * @param event
+	 */
 	@FXML
 	private void handleButtonOk(ActionEvent event) {
 		
@@ -80,7 +84,10 @@ public class PasswordRecupController extends ControllerBase {
 			em.getTransaction().rollback();
 		}
 	}
-	
+	/**
+	 * Renvoie vers la page de login
+	 * @param event
+	 */
 	@FXML
 	private void handleButtonCancel(ActionEvent event) {
 		Alert alert = new Alert(
@@ -102,7 +109,10 @@ public class PasswordRecupController extends ControllerBase {
 			
 		}
 	}
-	
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}

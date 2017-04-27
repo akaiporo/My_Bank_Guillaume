@@ -15,7 +15,10 @@ public class Main extends Application {
 	public static Stage getPrimaryStage() {
 	        return pStage;
 	}
-
+	/**
+	 * Setter le stage en static permet de faire des add Scene n'importe où dans le programme
+	 * @param pStage : Stage principal de l'appli
+	 */
 	private void setPrimaryStage(Stage pStage) {
 	     Main.pStage = pStage;
 	     Main.pStage.setResizable(true);
