@@ -29,7 +29,10 @@ public class AddBankController extends ControllerBase {
 		
 		bank_error.setText("");
 	}
-	
+	/**
+	 * Crée une banque avc les informations du FXML
+	 * @param event
+	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
 		try{
@@ -57,7 +60,10 @@ public class AddBankController extends ControllerBase {
 		
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");		
 	}
-	
+	/**
+	 * Revient à la page de création de compte sns modifications
+	 * @param event
+	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
