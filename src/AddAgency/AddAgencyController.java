@@ -75,7 +75,7 @@ public class AddAgencyController extends ControllerBase {
 		ChoiceBox catPostalCode = (ChoiceBox)event.getTarget();
 		String tmp=(String)catPostalCode.getValue();
 		if (tmp.equals("(new postal code)")){
-			//load page pour ajouter 
+			this.loadSubScene("../AddCpCity/AddCpCityView.fxml"); 
 		}
 		else {
 			choiceCity.getItems().removeAll(cities);
@@ -102,28 +102,19 @@ public class AddAgencyController extends ControllerBase {
 		ChoiceBox catCity = (ChoiceBox)event.getTarget();
 		String tmp=(String)catCity.getValue();
 		if (tmp.equals("(new city)")){
-			//load subscene
+			this.loadSubScene("../AddCpCity/AddCpCityView.fxml");
 		}
 	}
 	
 	@FXML
 	private void handleButtonOK (ActionEvent event){
 		try{
-			currentCpCity.setPostalCode(postal_code.getText());
+			currentCpCity.setPostalCode(choicePostalCode.getValue());
 		}
-		catch(IllegalArgumentException e){
-			agency_error.setText(e.getMessage());
+		catch(NullPointerException e){
+			agency_error.setText("Please choose an existing postal code or add one");
 			return;
 		}
-		/*if (!disabled){
-			try{
-				currentCpCity.setCity(new_city.getText());
-			}
-			catch (IllegalArgumentException e){
-				agency_error.setText(e.getMessage());
-				return;
-			}
-		}*/
 		try{
 			currentCpCity.setCity(choiceCity.getValue());
 		}
@@ -131,8 +122,6 @@ public class AddAgencyController extends ControllerBase {
 			agency_error.setText("Please choose an existing city or add one");
 			return;
 		}
-		
-		
 		try{
 			currentAddress.setLine1(address_line1.getText());
 		}
