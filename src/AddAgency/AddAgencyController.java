@@ -46,6 +46,9 @@ public class AddAgencyController extends ControllerBase {
 	@FXML private Button OK;
 	@FXML private Button cancel;
 	
+	/**
+	 * Initialise les ChoiceBox bank,postalcode,city
+	 */
 	@Override
 	public void initialize(Mediator mediator){
 		agency_error.setText("");
@@ -70,14 +73,23 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
+	/**
+	 * Gere une action consécutive à la sélection d'un postalcode ou de (new postal code)
+	 */
 	@FXML
 	private void handleChoicePostalCode(ActionEvent event){
 		ChoiceBox catPostalCode = (ChoiceBox)event.getTarget();
 		String tmp=(String)catPostalCode.getValue();
 		if (tmp.equals("(new postal code)")){
+			/*
+			 * Si c'est (new postal code) la sous scene correspondante (AddCpCity) est chargée
+			 */
 			this.loadSubScene("../AddCpCity/AddCpCityView.fxml"); 
 		}
 		else {
+			/*
+			 * Si c'est un postal code existant on restreint la liste des city dans la ChoiceBox city
+			 */
 			choiceCity.getItems().removeAll(cities);
 			Query u = em.createQuery("SELECT c.city FROM CpCity c WHERE c.postalCode = :postalcode", String.class);
 			u.setParameter("postalcode",choicePostalCode.getValue());
@@ -87,27 +99,44 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
-	
+	/*
+	 * Gere une action consécutive à la sélection de (new bank)
+	 */
 	@FXML
 	private void addBank (ActionEvent event){
 		ChoiceBox catBank = (ChoiceBox)event.getTarget();
 		Bank tmp=(Bank)(catBank.getValue());
 		if (tmp.getBankName().equals("(new bank)")){
+			/*
+			 * Si c'est (new bank) la sous scene correspondante (AddBankView) est chargée
+			 */
 			this.loadSubScene("../AddBank/AddBankView.fxml");
 		}
 	}
 	
+	/*
+	 * Gere une action consécutive à la sélection de (new city)
+	 */
 	@FXML
 	private void addCity (ActionEvent event){
 		ChoiceBox catCity = (ChoiceBox)event.getTarget();
 		String tmp=(String)catCity.getValue();
 		if (tmp.equals("(new city)")){
+			/*
+			 * Si c'est (new city) la sous scene correspondante (AddCpCity) est chargée
+			 */
 			this.loadSubScene("../AddCpCity/AddCpCityView.fxml");
 		}
 	}
 	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton OK
+	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
+		/*
+		 * L'objet <CpCity> ("currentCpCity",créé vide) est rempli via les setters en testant chaque champ 
+		 */
 		try{
 			currentCpCity.setPostalCode(choicePostalCode.getValue());
 		}
@@ -122,6 +151,9 @@ public class AddAgencyController extends ControllerBase {
 			agency_error.setText("Please choose an existing city or add one");
 			return;
 		}
+		/*
+		 * L'objet <Address> ("currentAddress",créé vide) est rempli via les setters en testant chaque champ 
+		 */
 		try{
 			currentAddress.setLine1(address_line1.getText());
 		}
@@ -137,7 +169,9 @@ public class AddAgencyController extends ControllerBase {
 			agency_error.setText(e.getMessage());
 			return;
 		}
-		
+		/*
+		 * L'objet <Agency> ("currentAgency",créé vide) est rempli via les setters en testant chaque champ 
+		 */
 		try{
 			currentAgency.setAgencyName(agency_name.getText());
 		}
@@ -166,7 +200,9 @@ public class AddAgencyController extends ControllerBase {
 			agency_error.setText(e.getMessage());
 			return;
 		}
-		
+		/*
+		 * Ajout dans la base des objets currentCpCIty, currentAddress, currentAgency successivement
+		 */
 		em.getTransaction().begin();
 		em.persist(currentCpCity);
 		em.persist(currentAddress);
@@ -178,16 +214,24 @@ public class AddAgencyController extends ControllerBase {
 			em.getTransaction().rollback();
 			return;
 		}
-		
+		/*
+		 * La page précédente AddAccountView est chargée
+		 */
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 
-	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton cancel : la page précédente AddAccountView est chargée
+	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 	
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}

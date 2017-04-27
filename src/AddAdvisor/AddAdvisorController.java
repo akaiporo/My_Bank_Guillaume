@@ -37,6 +37,9 @@ public class AddAdvisorController extends ControllerBase {
 	@FXML private DatePicker date_assignment;
 	@FXML private Label advisor_error;
 	
+	/**
+	 * Initialise le ChoiceBox agency
+	 */
 	@Override
 	public void initialize(Mediator mediator) {
 		advisor_error.setText("");
@@ -54,18 +57,30 @@ public class AddAdvisorController extends ControllerBase {
 		}
 	}
 	
-	
+	/**
+	 * Gere une action consécutive à la sélection d'une agence ou de (new agency)
+	 */
 	@FXML
 	private void addAgency (ActionEvent event){
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
 		Agency tmp=(Agency)catAgency.getValue();
 		if (tmp.getAgencyName().equals("(new agency)")){
+			/*
+			 * Si c'est (new agency) la sous scene correspondante (AddAgencyView) est chargée
+			 * Les données éventuellement déjà entrées pour les champs Advisor sont perdues
+			 */
 			this.loadSubScene("../AddAgency/AddAgencyView.fxml");
 		}
 	}
 	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton OK
+	 */
 	@FXML 
 	private void handleButtonOK (ActionEvent event){
+		/*
+		 * L'objet <Advisor> (currentAdvisor, créé vide) est rempli via les setters en testant chaque champ 
+		 */
 		try{
 			currentAdvisor.setName(advisor_name.getText());
 		}
@@ -106,6 +121,9 @@ public class AddAdvisorController extends ControllerBase {
 			advisor_error.setText("Please choose an agency or add a new one");
 		}
 		
+		/*
+		 * Ajout dans la base de l'objet <Advisor>
+		 */
 		em.getTransaction().begin();
 		em.persist(currentAdvisor);
 		try{
@@ -115,19 +133,26 @@ public class AddAdvisorController extends ControllerBase {
 			em.getTransaction().rollback();
 			return;
 		}
-		
+		/*
+		 * La page précédente AddAccountView est chargée
+		 */
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton cancel : chargement de la page AddAccountView
+	 */
 	@FXML 
 	private void handleButtonCancel (ActionEvent event){
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 	
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
-
-
 
 }

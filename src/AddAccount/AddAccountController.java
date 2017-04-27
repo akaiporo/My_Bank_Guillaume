@@ -50,6 +50,9 @@ public class AddAccountController extends ControllerBase {
 	@FXML private Label account_error;
 
 	@Override
+	/**
+	 * Initialise les ChoiceBox agency,advisor,accounttype,countrycodes
+	 */
 	public void initialize(Mediator mediator){
 		account_error.setText("");
 		try {	
@@ -76,14 +79,23 @@ public class AddAccountController extends ControllerBase {
 		}
 	}
 	
+	/**
+	 * Gere une action consécutive à la sélection d'une agence ou de (new agency)
+	 */
 	@FXML
 	private void addAgency (ActionEvent event){
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
 		Agency tmp=(Agency)catAgency.getValue();
 		if (tmp.getAgencyName().equals("(new agency)")){
+			/*
+			 * Si c'est (new agency) la sous scene correspondante (AddAgencyView) est chargée
+			 */
 			this.loadSubScene("../AddAgency/AddAgencyView.fxml");
 		}
 		else{
+			/*
+			 * Si c'est une agence existante on restreint la liste des advisors dans la ChoiceBox advisor
+			 */
 			choiceAdvisor.getItems().removeAll(advisors);
 			Query u = em.createQuery("SELECT a FROM Advisor a WHERE a.agency = :agency", Advisor.class);
 			u.setParameter("agency", choiceAgency.getValue());
@@ -93,18 +105,30 @@ public class AddAccountController extends ControllerBase {
 		}
 	}
 	
+	/*
+	 * Gere une action consécutive à la sélection de (new advisor)
+	 */
 	@FXML
 	private void addAdvisor (ActionEvent event){
 		ChoiceBox catAdvisor = (ChoiceBox)event.getTarget();
 		Advisor tmp=(Advisor)catAdvisor.getValue();
+		/*
+		 * Si c'est (new advisor) la sous scene correspondante (AddAdvisor) est chargée
+		 */
 		if (tmp.getName().equals("(new") &&
 			tmp.getFirstName().equals("advisor)")){
 			this.loadSubScene("../AddAdvisor/AddAdvisorView.fxml");
 		}
 	}
 	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton OK
+	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
+		/*
+		 * L'objet <Account> ("currentAccount",créé vide) est rempli via les setters en testant chaque champ 
+		 */
 		try{
 			currentAccount.setAgency(choiceAgency.getValue());
 		}
@@ -154,6 +178,9 @@ public class AddAccountController extends ControllerBase {
 			account_error.setText("Please choose an existing account type");
 		}
 		
+		/*
+		 * Ajout dans la base de l'objet account
+		 */
 		em.getTransaction().begin();
 		em.persist(currentAccount);
 		try{
@@ -163,16 +190,24 @@ public class AddAccountController extends ControllerBase {
 			em.getTransaction().rollback();
 			return;
 		}
-		
+		/*
+		 * La page principale de l'application est chargée
+		 */
 		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
 	}
 	
+	/*
+	 * Gere une action consécutive à l'utilisation du bouton cancel : chargement de la page principale
+	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
 		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
-		//attention pour une inscription il faut disable ce button
 	}
 	
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
