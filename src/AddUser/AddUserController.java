@@ -226,7 +226,6 @@ public class AddUserController extends ControllerBase {
 		catch(NullPointerException e){	
 		}
 		
-		
 		em.getTransaction().begin();
 		em.persist(owner);
 		em.persist(cpcity);
@@ -238,7 +237,7 @@ public class AddUserController extends ControllerBase {
 		catch(Exception e) {
 			em.getTransaction().rollback();
 			return;
-		}
+		} 
 		
 		try{ 
 			MainWindowController.contentPane.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml"));

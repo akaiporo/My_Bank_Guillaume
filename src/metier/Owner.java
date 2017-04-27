@@ -97,7 +97,7 @@ public class Owner extends Person{
 	public Address getAddress() {
 		return this.address;
 	}
-	private void setAddress(Address address){
+	public void setAddress(Address address){
 		if (address == null){
 			throw new NullPointerException ("address cannot be null");
 		}
