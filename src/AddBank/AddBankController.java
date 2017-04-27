@@ -1,8 +1,11 @@
 package AddBank;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
 
 import application.ControllerBase;
+import application.MainWindowController;
 import application.Mediator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,11 +55,21 @@ public class AddBankController extends ControllerBase {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-		//load le fxml AddAccount
+		
+		try{ 
+			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
+		}
+		catch (IOException e){
+		}
+		
 		
 	}
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		//load le fxml AddAccount
+		try{ 
+			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
+		}
+		catch (IOException e){
+		}
 	}
 }
