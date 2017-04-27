@@ -26,6 +26,8 @@ public class AddBankController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
+		
+		bank_error.setText("");
 	}
 	
 	@FXML
@@ -52,11 +54,12 @@ public class AddBankController extends ControllerBase {
 			e.printStackTrace();
 			em.getTransaction().rollback();
 		}
-		//load le fxml AddAccount
 		
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");		
 	}
+	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		//load le fxml AddAccount
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 }

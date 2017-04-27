@@ -24,8 +24,8 @@ public class Advisor extends Person {
 	 * @param agency : Advisor agency
 	 */ 
 
-	public Advisor(String name, String firstname, String phonenumber, String email, Date date_assignment,Agency agency) {
-		super(name, firstname, phonenumber, email);
+	public Advisor(String name, String firstname, String phonenumber, String mail, Date date_assignment,Agency agency) {
+		super(name, firstname, phonenumber, mail);
 		
 		if(date_assignment == null) {
 			throw new NullPointerException("Date assignment cannot be null");
@@ -51,15 +51,25 @@ public class Advisor extends Person {
 		return this.date_assignment;
 	}
 	
-	private void setDateAssignment(Date date){
+	public void setDateAssignment(Date date){
+		if(date == null) {
+			throw new NullPointerException("Date assignment cannot be null");
+		}
+		if(date.getTime() > Tools.today().getTime()) {  
+			throw new IllegalArgumentException ("Date assigment in the future");
+		}
 		this.date_assignment = date;
 	}
+	
 	@ManyToOne
 	@JoinColumn(name="id_agency")
 	public Agency getAgency() {
 		return this.agency;
 	}
-	private void setAgency(Agency agency){
+	public void setAgency(Agency agency){
+		if(agency == null) {
+			throw new NullPointerException("Agency cannot be null");
+		}
 		this.agency = agency;
 	}
 	
@@ -74,7 +84,7 @@ public class Advisor extends Person {
 				&&	 
 				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
 				&&
-				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail()))
+				((tmp.getMail()==null || this.getMail()==null) || tmp.getMail().equals(this.getMail()))
 				&&
 				((tmp.getDateAssignment()==null||this.getDateAssignment()==null) || tmp.getDateAssignment().equals(this.getDateAssignment()))
 				&&

@@ -133,7 +133,7 @@ public class AddUserController extends ControllerBase {
 			errfirstname.setText(" The owner firstname cannot be null");
 		}
 		try {
-			owner.setEmail(owner_mail.getText());
+			owner.setMail(owner_mail.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errmail.setText(" The owner email cannot be empty");
@@ -149,7 +149,7 @@ public class AddUserController extends ControllerBase {
 			owner.setPostalCode(postalcode.getText());
 		}
 		catch  (IllegalArgumentException e) {
-			errpostalcode.setText(" The owner postalcode cannot be emptyand must contains 5 characters");
+			errpostalcode.setText(" The owner postalcode cannot be empty and must contains 5 characters");
 		}
 		try {
 			owner.setCity(city.getValue());
@@ -197,9 +197,14 @@ public class AddUserController extends ControllerBase {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if(result.isPresent() && result.get() == ButtonType.YES) {
-			Platform.exit();
 			
+			try{ 
+				MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+			}
+			catch (IOException e){
+			}
 		}
+		
 	}
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();

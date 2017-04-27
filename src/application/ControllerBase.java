@@ -33,4 +33,13 @@ public abstract class ControllerBase {
 		controller.initMediator(mediator);
 		return root;
 	}
+	
+	public void loadSubScene(String fxml){
+		try{
+			MainWindowController.contentPane.getChildren().setAll(loadFxml(fxml));
+		}
+		catch(IOException e){	
+			System.out.println(e.getMessage());
+		}
+	}
 }

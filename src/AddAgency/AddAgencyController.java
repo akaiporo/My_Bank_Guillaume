@@ -1,13 +1,11 @@
 package AddAgency;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 
 import application.ControllerBase;
-import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -46,6 +44,7 @@ public class AddAgencyController extends ControllerBase {
 	
 	@Override
 	public void initialize(Mediator mediator){
+		agency_error.setText("");
 		try{
 			em = mediator.createEntityManager();
 		
@@ -70,12 +69,7 @@ public class AddAgencyController extends ControllerBase {
 		ChoiceBox catBank = (ChoiceBox)event.getTarget();
 		Bank tmp=(Bank)(catBank.getValue());
 		if (tmp.getBankName().equals("(new bank)")){
-			try{
-				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddBank/AddBankView.fxml"));
-			}
-			catch(IOException e){	
-				System.out.println(e.getMessage());
-			}
+			this.loadSubScene("../AddBank/AddBankView.fxml");
 		}
 	}
 	
@@ -165,21 +159,13 @@ public class AddAgencyController extends ControllerBase {
 			return;
 		}
 		
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
-		}
-		catch (IOException e){
-		}
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
-		}
-		catch (IOException e){
-		}
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 	
 	private void processPersistenceException(PersistenceException e) {

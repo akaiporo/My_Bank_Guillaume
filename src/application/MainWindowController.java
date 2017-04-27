@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.StackPane;
 
@@ -19,6 +20,9 @@ public class MainWindowController extends ControllerBase {
 	@FXML
 	private StackPane content;
 	public static StackPane contentPane;
+	private Button add_account;
+	private Button add_user;
+	private Button authentification;
 	
 	@Override
 	public void initialize(Mediator mediator) {
@@ -73,7 +77,7 @@ public class MainWindowController extends ControllerBase {
 	@FXML
 	private void handleButtonAuthentification(){
 		try {
-			content.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../passwordRecup/PasswordRecupView.fxml")); // Le mettre dans 'content'
 		}
 		catch(IOException e) {
 			// TODO alert
