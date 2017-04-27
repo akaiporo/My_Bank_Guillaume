@@ -227,7 +227,7 @@ public class CompteCourantController extends ControllerBase {
 		this.currentAccount = (Account)choiceAccount.getValue();
 		this.currentAccount = em.find(Account.class, currentAccount.getId());
 		this.setTransactionList(currentAccount);
-	}
+	} 
 	/**
 	 * Récupère les données de la ligne sélectionnée, et remplie le formulaire avec
 	 * @param newTransaction transaction actuellement sélectionnée par l'utilisateur
