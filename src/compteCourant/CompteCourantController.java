@@ -82,6 +82,9 @@ public class CompteCourantController extends ControllerBase {
 		  private PeriodicTransaction currentTransaction;
 		  
 	@Override
+	/**
+	 * Initialize la plupart des listes (ChoiceBoxes et TableView)
+	 */
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
 		this.accounts = em.createNamedQuery("Account.findAll").getResultList();
@@ -90,7 +93,7 @@ public class CompteCourantController extends ControllerBase {
 		
 		Account tmp = this.choiceAccount.getSelectionModel().getSelectedItem();
 		Account account = em.find(Account.class, tmp.getId());
-		this.initTransactionList(account);
+		this.setTransactionList(account);
 	
 		this.categories = em.createNamedQuery("Category.findAll").getResultList();
 		this.choiceCategory.setItems(FXCollections.observableList(categories));
@@ -109,6 +112,8 @@ public class CompteCourantController extends ControllerBase {
 		
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
 			@Override 
+			//Pour une raison inconnue, le "changed" ne se trigger pas si le Libelé et la valeur sont les mêmes 
+			//(quand bien même les autres champs sont différents)
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
 				updateForm(newVal); 
 			}
@@ -116,12 +121,12 @@ public class CompteCourantController extends ControllerBase {
 		
 	}
 	
-	private void initTransactionList(Account account){
-		this.Transactions = account.getTransactions();
-		this.listTransactions.setItems(FXCollections.observableList(Transactions));
-	}
+
 	
-	//Crée la liste des transactions lors d'un changement de compte
+	/**
+	 * Crée la liste des transactions lors d'un changement de compte
+	 * @param account :  compte sélectionner dans la choiceBox
+	 */
 	private void setTransactionList(Account account){
 		//Si c'est la première fois qu'on lance l'apply, la liste est vide
 		//On récupère donc la liste de transaction générées avec la création du compte passer en paramètre
@@ -140,6 +145,10 @@ public class CompteCourantController extends ControllerBase {
 	}
 	 
 	@FXML
+	/**
+	 * Récupère le compte sélectionné dans la liste, puis set crée la listes de transactions
+	 * @param event : event trigger par l'utilisateur
+	 */
 	public void handleAccount(ActionEvent event){
 		em = this.getMediator().createEntityManager();
 		ChoiceBox choiceAccount = (ChoiceBox)event.getTarget();
@@ -147,7 +156,11 @@ public class CompteCourantController extends ControllerBase {
 		this.currentAccount = em.find(Account.class, currentAccount.getId());
 		this.setTransactionList(currentAccount);
 	}
-	
+	/**
+	 * Récupère les données de la ligne sélectionnée, et remplie le formulaire avec
+	 * @param newTransaction transaction actuellement sélectionnée par l'utilisateur
+	 * @return true si la récupération des données s'est bien passées
+	 */
 	private boolean updateForm(PeriodicTransaction newTransaction) {
 		
 		System.out.println(newTransaction);
@@ -187,6 +200,9 @@ public class CompteCourantController extends ControllerBase {
 		
 
 	}
+	/**
+	 * Sauvegarde les données du formulaire lors d'une édition (fait suite à updateForm)
+	 */
 	@FXML
 	public void saveForm() {
 		Alert alert  = new Alert(AlertType.CONFIRMATION, "La tâche est modifiée. Enregistrer les modifications ?", ButtonType.YES, ButtonType.CANCEL);
@@ -272,7 +288,10 @@ public class CompteCourantController extends ControllerBase {
 			}
 		}
 	}
-	
+	/**
+	 * Affiche ou non les champs du formulaire relatifs à la périodicité d'une transaction
+	 * @param visibility : true ou false
+	 */
 	private void initCycleOptionsVisibility(boolean visibility){
 		this.choiceCycle.setVisible(visibility);
 		this.txtCycle.setVisible(visibility);
@@ -282,6 +301,10 @@ public class CompteCourantController extends ControllerBase {
 		this.labelCycleType.setVisible(visibility);
 	}
 	
+	/**
+	 * Récupère le chkBox, et initialise la visibilité en fonction
+	 * @param event : event trigger par l'utilisateur
+	 */
 	@FXML
 	private void showCycleOptions(ActionEvent event){
 			if(this.chkCycle.isSelected()){
@@ -292,6 +315,10 @@ public class CompteCourantController extends ControllerBase {
 			}
 	}
 	
+	/**
+	 * Au click sur le bouton, essaie de créer une nouvelle transaction, de l'ajouter à la liste et de le push en BDD
+	 * @param event : event trigger par l'utilisateur
+	 */
 	@FXML
 	private void handleBtnNew(ActionEvent event) {
 		PeriodicTransaction transaction = new PeriodicTransaction();
@@ -299,6 +326,9 @@ public class CompteCourantController extends ControllerBase {
 		transaction.setDescription(this.txtDescription.getText());
 		transaction.setPeriodUnit(this.choiceCycle.getValue());
 		
+		/**
+		 * DEBUT Tests et gestions des erreurs
+		 */
 		try{
 			int value = Integer.parseInt(this.txtCycle.getText());
 			transaction.setDayNumber(value);
@@ -366,6 +396,9 @@ public class CompteCourantController extends ControllerBase {
 			this.errTarget.setVisible(true);
 			return;
 		}
+		/**
+		 * FIN Tests et gestions des erreurs
+		 */
 		em.persist(transaction);
 		
 		for(PeriodicTransaction pt : this.Transactions){
@@ -391,6 +424,9 @@ public class CompteCourantController extends ControllerBase {
 		this.refreshTransaction();
 	}
 	
+	/**
+	 * Supprime une ligne de la base de données
+	 */
 	@FXML 
 	public void deleteForm(){
 		PeriodicTransaction periodicTransaction = new PeriodicTransaction();
@@ -407,17 +443,25 @@ public class CompteCourantController extends ControllerBase {
 		
 		this.removeTransaction(periodicTransaction);
 	}
-	
+	/**
+	 * rafraichi la liste des transactions dans le cas d'un ajout de transaction
+	 * @param transaction : transaction ajoutée précédemment
+	 */
 	private void refreshTransaction(PeriodicTransaction transaction){
 		this.Transactions.add(transaction);
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 	}
-	//Refresh a vue, la méthode "setVisible" permettant de trigger un change event (et donc de refresh la vue)
-	//A optimiser
+	/**
+	 * Rafraichi la vue dans le cas d'une suppression/édition
+	 */
 	private void refreshTransaction(){
 		this.listTransactions.getColumns().get(0).setVisible(false);
 		this.listTransactions.getColumns().get(0).setVisible(true);
 	}
+	/**
+	 * Supprime une transaction de la liste
+	 * @param transaction : transaction à supprimer
+	 */
 	private void removeTransaction(PeriodicTransaction transaction){
 		int index = 0;
 		for(PeriodicTransaction pt : Transactions){
@@ -429,7 +473,10 @@ public class CompteCourantController extends ControllerBase {
 				
 		}
 	}
-	
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
