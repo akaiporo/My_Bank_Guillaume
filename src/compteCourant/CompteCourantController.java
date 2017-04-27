@@ -74,6 +74,7 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private Label labelCycleValue;
 	@FXML private Label labelCycleEnd;
 	@FXML private Label labelCycleType;
+	@FXML private Label thresh;
 	@FXML private PieChart pieChart;
 
 	
@@ -128,6 +129,8 @@ public class CompteCourantController extends ControllerBase {
 		this.chkCycle.setSelected(false);
 		this.initCycleOptionsVisibility(false);
 		
+		this.pieChart.setData(FXCollections.observableList(transactionsValues));
+		
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
 			@Override 
 			//Pour une raison inconnue, le "changed" ne se trigger pas si le Libelé et la valeur sont les mêmes 
@@ -158,20 +161,42 @@ public class CompteCourantController extends ControllerBase {
 		}
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
 		
+		this.calculTotal();
+	
 		this.setPieChart();
 	}
-	 
 	/**
-	 * Remplie la PieChart avec les valeurs des transactions actuellement sélectionnées
+	 * Calcul le solde en fonction du solde de départ et des lignes de compte
+	 */
+	private void calculTotal(){
+		double solde = this.currentAccount.getFirstTotal();
+		for(PeriodicTransaction pt : Transactions){
+			solde += pt.getTransactionValue();
+			System.out.println(solde);
+		}
+		this.thresh.setText(String.format("%s", Double.toString(solde)));
+	}
+	
+	/**
+	 * Remplie la PieChart avec les valeurs des transactions du compte sélectionné
 	 */
 	private void setPieChart(){
 		this.transactionsValues = new ArrayList<PieChart.Data>();
+		this.transactionsValues.add(new PieChart.Data("void", 0));
 		for(PeriodicTransaction t : this.Transactions){
 			PieChart.Data tmp = new PieChart.Data(t.getCategory().getWording(), t.getTransactionValue());
+			/*for(PieChart.Data data : transactionsValues){
+				if(tmp.getName().equals(data.getName())){
+					transactionsValues.get(i).setPieValue(transactionsValues.get(i).getPieValue()+tmp.getPieValue());
+				}
+				else{
+					this.transactionsValues.add(tmp);
+				}
+			}*/
 			this.transactionsValues.add(tmp);
 		}
 		
-		this.pieChart.setData(FXCollections.observableList(transactionsValues));
+		this.transactionsValues.remove(0);
 		int total = 0; 
 		for (final PieChart.Data data : pieChart.getData()){
 			total+= data.getPieValue();
@@ -333,6 +358,10 @@ public class CompteCourantController extends ControllerBase {
 				this.processPersistenceException(e);
 				return;
 			}
+			
+			double solde = Double.parseDouble(this.thresh.getText());
+			this.calculTotal();
+			
 		}
 	}
 	/**
@@ -443,6 +472,13 @@ public class CompteCourantController extends ControllerBase {
 			this.errTarget.setVisible(true);
 			return;
 		}
+		try{
+			transaction.setAccount(this.choiceAccount.getValue());
+			this.errTarget.setVisible(false);
+		}
+		catch(Exception e){
+			return;
+		}
 		/**
 		 * FIN Tests et gestions des erreurs
 		 */
@@ -489,6 +525,7 @@ public class CompteCourantController extends ControllerBase {
 		
 		
 		this.removeTransaction(periodicTransaction);
+		this.calculTotal();
 	}
 	/**
 	 * rafraichi la liste des transactions dans le cas d'un ajout de transaction
@@ -497,6 +534,7 @@ public class CompteCourantController extends ControllerBase {
 	private void refreshTransaction(PeriodicTransaction transaction){
 		this.Transactions.add(transaction);
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+		this.calculTotal();
 	}
 	/**
 	 * Rafraichi la vue dans le cas d'une suppression/édition
@@ -504,6 +542,7 @@ public class CompteCourantController extends ControllerBase {
 	private void refreshTransaction(){
 		this.listTransactions.getColumns().get(0).setVisible(false);
 		this.listTransactions.getColumns().get(0).setVisible(true);
+		this.calculTotal();
 	}
 	/**
 	 * Supprime une transaction de la liste
