@@ -1,9 +1,11 @@
 package AddAgency;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import application.ControllerBase;
 import application.Mediator;
@@ -17,6 +19,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import metier.Address;
+import metier.Advisor;
 import metier.Agency;
 import metier.Bank;
 import metier.CpCity;
@@ -29,22 +32,24 @@ public class AddAgencyController extends ControllerBase {
 	private Address currentAddress=new Address();
 	private CpCity currentCpCity=new CpCity();
 	private Bank newBank= new Bank();
+	List<String> cities =new ArrayList<String>();
 	
 	@FXML private TextField agency_name;
 	@FXML private TextField counter_code;
 	@FXML private TextField address_line1;
 	@FXML private TextField address_line2;
 	@FXML private TextField postal_code;
-	@FXML private TextField new_city;
 	@FXML private Label agency_error;
 	@FXML private ChoiceBox <Bank> choiceBank;
 	@FXML private ChoiceBox <String> choiceCity;
+	@FXML private ChoiceBox<String> choicePostalCode;
 	@FXML private Button OK;
 	@FXML private Button cancel;
 	
 	@Override
 	public void initialize(Mediator mediator){
 		agency_error.setText("");
+
 		try{
 			em = mediator.createEntityManager();
 		
@@ -53,13 +58,32 @@ public class AddAgencyController extends ControllerBase {
 		    banks.add(newBank);
 			this.choiceBank.setItems(FXCollections.observableList(banks));
 			
-			List<String> cities = em.createNamedQuery("cpcity.findAllcity", String.class).getResultList();
+			List<String> postalcodes = em.createNamedQuery("cpcity.findAllpostalcode", String.class).getResultList();
+			postalcodes.add("(new postal code)");
+			this.choicePostalCode.setItems(FXCollections.observableList(postalcodes));
+			
 			cities.add("(new city)");
 			this.choiceCity.setItems(FXCollections.observableList(cities));
-			
 		}
 		catch(PersistenceException e){
 			this.processPersistenceException(e);
+		}
+	}
+	
+	@FXML
+	private void handleChoicePostalCode(ActionEvent event){
+		ChoiceBox catPostalCode = (ChoiceBox)event.getTarget();
+		String tmp=(String)catPostalCode.getValue();
+		if (tmp.equals("(new postal code)")){
+			//load page pour ajouter 
+		}
+		else {
+			choiceCity.getItems().removeAll(cities);
+			Query u = em.createQuery("SELECT c.city FROM CpCity c WHERE c.postalCode = :postalcode", String.class);
+			u.setParameter("postalcode",choicePostalCode.getValue());
+			cities = u.getResultList();
+			cities.add("(new city)");
+			this.choiceCity.setItems(FXCollections.observableList(cities));
 		}
 	}
 	
@@ -78,7 +102,7 @@ public class AddAgencyController extends ControllerBase {
 		ChoiceBox catCity = (ChoiceBox)event.getTarget();
 		String tmp=(String)catCity.getValue();
 		if (tmp.equals("(new city)")){
-			//set able le texfield
+			//load subscene
 		}
 	}
 	
@@ -89,29 +113,32 @@ public class AddAgencyController extends ControllerBase {
 		}
 		catch(IllegalArgumentException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
-		if (choiceCity.getValue().equals("(new city)")){
+		/*if (!disabled){
 			try{
 				currentCpCity.setCity(new_city.getText());
 			}
 			catch (IllegalArgumentException e){
 				agency_error.setText(e.getMessage());
+				return;
 			}
+		}*/
+		try{
+			currentCpCity.setCity(choiceCity.getValue());
 		}
-		else {
-			try{
-				currentCpCity.setCity(choiceCity.getValue());
-			}
-			catch (IllegalArgumentException e){
-				agency_error.setText("Please choose an existing city or add one");
-			}
+		catch (IllegalArgumentException e){
+			agency_error.setText("Please choose an existing city or add one");
+			return;
 		}
+		
 		
 		try{
 			currentAddress.setLine1(address_line1.getText());
 		}
 		catch(IllegalArgumentException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
 		currentAddress.setLine2(address_line2.getText());
 		try{
@@ -119,32 +146,36 @@ public class AddAgencyController extends ControllerBase {
 		}
 		catch(IllegalArgumentException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
-		
 		
 		try{
 			currentAgency.setAgencyName(agency_name.getText());
 		}
 		catch (IllegalArgumentException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
 		try{
 			currentAgency.setCounterCode(counter_code.getText());
 		}
 		catch (IllegalArgumentException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
 		try{
 			currentAgency.setBank(choiceBank.getValue());
 		}
 		catch (NullPointerException e){
 			agency_error.setText("Please choose an existing bank or create one");
+			return;
 		}
 		try{
 			currentAgency.setAddress(currentAddress);
 		}
 		catch (NullPointerException e){
 			agency_error.setText(e.getMessage());
+			return;
 		}
 		
 		em.getTransaction().begin();

@@ -52,11 +52,10 @@ public class CpCity {
 		return this.postalCode;
 	}
 	public String setPostalCode(String postalcode){
-		/*
 		if(postalcode.length() != 5){
 			throw new IllegalArgumentException("Poste code must must contains 5 characters");
-		} */
-		return this.postalCode = postalCode;
+		}
+		return this.postalCode = postalcode;
 	}
 	@Column(name="city")
 	public String getCity(){

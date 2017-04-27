@@ -1,12 +1,12 @@
 package AddAccount;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import application.ControllerBase;
-import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -33,6 +33,7 @@ public class AddAccountController extends ControllerBase {
 	protected Account currentAccount=new Account();
 	private Agency newAgency=new Agency();
 	private Advisor newAdvisor=new Advisor();
+	List<Advisor> advisors = new ArrayList<Advisor>();
 	
 	@FXML private TextField first_total;
 	@FXML private TextField overdraft;
@@ -59,7 +60,6 @@ public class AddAccountController extends ControllerBase {
 			agencies.add(newAgency); //permettra d'ajouter une nouvelle agence
 			this.choiceAgency.setItems(FXCollections.observableList(agencies));
 			
-			List<Advisor> advisors = em.createNamedQuery("Advisor.findAll", Advisor.class).getResultList();
 			newAdvisor.setName("(new");
 			newAdvisor.setFirstName("advisor)");
 			advisors.add(newAdvisor);
@@ -82,6 +82,14 @@ public class AddAccountController extends ControllerBase {
 		Agency tmp=(Agency)catAgency.getValue();
 		if (tmp.getAgencyName().equals("(new agency)")){
 			this.loadSubScene("../AddAgency/AddAgencyView.fxml");
+		}
+		else{
+			choiceAdvisor.getItems().removeAll(advisors);
+			Query u = em.createQuery("SELECT a FROM Advisor a WHERE a.agency = :agency", Advisor.class);
+			u.setParameter("agency", choiceAgency.getValue());
+			advisors = u.getResultList();
+			advisors.add(newAdvisor);
+			this.choiceAdvisor.setItems(FXCollections.observableList(advisors));
 		}
 	}
 	
