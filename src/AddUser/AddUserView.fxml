@@ -40,18 +40,18 @@
       </Label> 
       <DatePicker id="owner_birthdate" fx:id="owner_birthdate" layoutX="188.0" layoutY="451.0" prefHeight="31.0" prefWidth="187.0" />
       <ChoiceBox id="city" fx:id="city" layoutX="602.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" />
-      <TextField id="postalcode" fx:id="postalcode" layoutX="190.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" />
       <Label id="errlogin" fx:id="errlogin" layoutX="397.0" layoutY="115.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="errpwd" fx:id="errpwd" layoutX="127.0" layoutY="157.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="errconfirmpwd" fx:id="errconfirmpwd" layoutX="552.0" layoutY="157.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errpwd" fx:id="errpwd" layoutX="35.0" layoutY="57.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errconfirmpwd" fx:id="errconfirmpwd" layoutX="532.0" layoutY="185.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errname" fx:id="errname" layoutX="397.0" layoutY="200.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="errfirstname" fx:id="errfirstname" layoutX="151.0" layoutY="243.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errfirstname" fx:id="errfirstname" layoutX="386.0" layoutY="243.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errmail" fx:id="errmail" layoutX="407.0" layoutY="288.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="erraddress1" fx:id="erraddress1" layoutX="137.0" layoutY="329.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="erraddress2" fx:id="erraddress2" layoutX="562.0" layoutY="329.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="erraddress1" fx:id="erraddress1" layoutX="33.0" layoutY="492.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="erraddress2" fx:id="erraddress2" layoutX="33.0" layoutY="533.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errbirthdate" fx:id="errbirthdate" layoutX="407.0" layoutY="456.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="errphonenumber" fx:id="errphonenumber" layoutX="127.0" layoutY="412.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
-      <Label id="errpostalcode" fx:id="errpostalcode" layoutX="151.0" layoutY="370.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errphonenumber" fx:id="errphonenumber" layoutX="386.0" layoutY="412.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errpostalcode" fx:id="errpostalcode" layoutX="507.0" layoutY="41.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errcity" fx:id="errcity" layoutX="532.0" layoutY="412.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <ChoiceBox id="postalcode" fx:id="postalcode" layoutX="190.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" onAction="#handlePostalcode"/>
    </children>
 </AnchorPane>

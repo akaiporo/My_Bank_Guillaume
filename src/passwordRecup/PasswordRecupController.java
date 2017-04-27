@@ -1,7 +1,6 @@
 package passwordRecup;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -11,12 +10,12 @@ import javax.persistence.Query;
 import application.ControllerBase;
 import application.MainWindowController;
 import application.Mediator;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
@@ -24,10 +23,13 @@ import javafx.scene.control.Alert.AlertType;
 public class PasswordRecupController extends ControllerBase {
 	private EntityManager em;
 	
+	
 	@FXML private TextField recup_email;
 	@FXML private Button btn_ok;
 	@FXML private Button btn_cancel;
 	@FXML private AnchorPane pwdrecuppane;
+	
+	@FXML private Label errmail;
 	
 	@Override
 	public void initialize(Mediator mediator) {  
@@ -91,6 +93,8 @@ public class PasswordRecupController extends ControllerBase {
 		
 		if(result.isPresent() && result.get() == ButtonType.YES) {
 			try{ 
+				System.out.print(" Vous allez revenir vers la page d'authentification");
+				
 				MainWindowController.contentPane.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml"));
 			}
 			catch (IOException e){
