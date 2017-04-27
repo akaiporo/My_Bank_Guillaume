@@ -1,6 +1,6 @@
 package authentification;
 
-import java.awt.Label;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import metier.Owner;
@@ -80,7 +81,7 @@ public class AuthentificationController extends ControllerBase {
 	private void handleButtonForgottenpwd(ActionEvent Event) {
 		
 		/*
-		 * Ce bouton doit rediriger vers la page pour récupérer le mot de passe (passwordRecupView)
+		 * Ce bouton doit rediriger vers la page pour rï¿½cupï¿½rer le mot de passe (passwordRecupView)
 		 */
 		try{ 
 			System.out.print("Salut");
@@ -113,8 +114,8 @@ public class AuthentificationController extends ControllerBase {
 		String inputlogin = this.login.getText();
 		String hashed = "";
 		
-		/* Dans un premier temps on va vérifier que le login qui a été saisi existe dans la BDD
-		 * Si elle existe, on va ensuite vérifier que le mot de passe saisi existe dans la BDD et correspond au login saisi
+		/* Dans un premier temps on va vï¿½rifier que le login qui a ï¿½tï¿½ saisi existe dans la BDD
+		 * Si elle existe, on va ensuite vï¿½rifier que le mot de passe saisi existe dans la BDD et correspond au login saisi
 		 * Si c'est le cas l'authentification est ok, sinon le mot de passe est incorrect!
 		 * Si le login n'existe pas dansla BDD il ya un message d'errer "login incorrect"
 		 */
