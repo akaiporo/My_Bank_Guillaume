@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -69,12 +70,15 @@ public class AuthentificationController extends ControllerBase {
 		catch  (IllegalArgumentException e) {
 			errpwd.setText(" The password cannot be empty");
 		}
-	
+		try {
+			this.isSameCredentials();
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		em.getTransaction().begin();
-		em.persist(login);
-		em.persist(pwd);
-		
+		em.persist(owner);
 		try {
 			em.getTransaction().commit();
 		}
@@ -82,21 +86,6 @@ public class AuthentificationController extends ControllerBase {
 			em.getTransaction().rollback();
 		}
 	}
-		
-	/*try {
-	owner.setLogin(login.getText());
-			if
-	}
-	catch (IllegalArgumentException e) {
-			rrlogin.setText(" The login does not exist! ");
-	}
-	try {
-		owner.setPwd(login.getText());	
-	}
-	catch (IllegalArgumentException e) {
-		errpwd.setText(" The password is not correct! ");
-	}*/
-
 	
 	@FXML 
 	private void handleButtonForgottenpwd(ActionEvent Event) {
@@ -127,6 +116,38 @@ public class AuthentificationController extends ControllerBase {
 	}
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
+	}
+	
+	public boolean isSameCredentials() throws SQLException{
+		
+		String inputpwd = this.pwd.getText();
+		String inputlogin = this.login.getText();
+		String hashed = "";
+		
+		Query q = em.createQuery("SELECT l FROM Owner l WHERE l.login = : inputlogin "); 
+		q.setParameter("login", inputlogin);
+		List lg = q.getResultList();
+			
+		if (login.equals(lg)) {
+				
+				Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = : inputpwd "); 
+				u.setParameter("pwd", inputpwd);
+				String pd = u.getResultList();
+				
+					if(BCrypt.checkpw(inputpwd, pd)) {
+						
+						System.out.print(String.format("Welcome to your personnal bank, %s!"));
+						return true;
+					}
+					else {
+						System.out.print("Credentials dot not match. Please try again.");
+						return false;
+					}
+			}
+			else {
+				System.out.print(" The login is incorrect ! Please try again! ");
+			}			
+		
 	}
 
 }

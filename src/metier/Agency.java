@@ -65,6 +65,9 @@ public class Agency {
 		return this.agency_name;
 	}
 	public void setAgencyName(String name){
+		if(name.isEmpty()) {
+			throw new IllegalArgumentException("The agency name cannot be empty");
+		}
 		this.agency_name = name;
 	}
 	

@@ -63,6 +63,12 @@ public class Owner extends Person{
 	}
 
 	public void setBirthdate(Date date){
+		if (date == null){
+			throw new NullPointerException ("birthdate cannot be null");
+		}
+		if (date.getTime()>Tools.today().getTime()){
+			throw new IllegalArgumentException ("birthdate in the future");
+		}
 		this.birthdate = date;
 	}
 	public void setOwnerName(String owner_name){
@@ -82,6 +88,9 @@ public class Owner extends Person{
 		return this.login;
 	}
 	public void setLogin(String login){
+		if (login.isEmpty()){
+			throw new IllegalArgumentException ("login cannot be empty");
+		}
 		this.login = login;
 	}
 	@Column(name="pwd")
@@ -89,6 +98,9 @@ public class Owner extends Person{
 		return this.pwd;
 	}
 	public void setPwd(String pwd){
+		if (pwd.isEmpty()){
+			throw new IllegalArgumentException ("login cannot be empty");
+		}
 		this.pwd = pwd;
 	}
 	@ManyToOne
@@ -97,6 +109,9 @@ public class Owner extends Person{
 		return this.address;
 	}
 	private void setAddress(Address address){
+		if (address == null){
+			throw new NullPointerException ("address cannot be null");
+		}
 		this.address = address;
 	}
 	
