@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="cpcity")
 @NamedQueries({
 @NamedQuery(name="cpcity.findAll", query="SELECT p FROM CpCity p"),
-@NamedQuery(name="cpcity.findAllcity", query ="SELECT p.city FROM CpCity p")
+@NamedQuery(name="cpcity.findAllpostalcode", query ="SELECT p.postalCode FROM CpCity p")
 })
 public class CpCity {
 
