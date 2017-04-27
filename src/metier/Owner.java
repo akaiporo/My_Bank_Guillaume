@@ -42,8 +42,8 @@ public class Owner extends Person{
 		if (login.isEmpty()){
 			throw new IllegalArgumentException ("login cannot be empty");
 		}
-		if (pwd.isEmpty()){
-			throw new IllegalArgumentException ("password cannot be empty");
+		if (pwd == null){
+			pwd = "";
 		}
 		if (address == null){
 			throw new NullPointerException ("address cannot be null");
@@ -87,8 +87,8 @@ public class Owner extends Person{
 		return this.pwd;
 	}
 	public void setPwd(String pwd){
-		if (pwd.isEmpty()){
-			throw new IllegalArgumentException ("password cannot be empty");
+		if (pwd == null){
+			pwd = "";
 		}
 		this.pwd = pwd;
 	}
