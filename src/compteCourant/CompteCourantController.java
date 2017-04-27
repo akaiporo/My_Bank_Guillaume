@@ -58,7 +58,7 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private ChoiceBox<PeriodUnit> choiceCycle;
 	@FXML private Button btnApply;
 	@FXML private Button btnEdit;
-	@FXML private Button btnDelete;
+	@FXML private Button btnDelete;  
 	@FXML private Label errDate;
 	@FXML private Label errLibele;
 	@FXML private Label errType;
