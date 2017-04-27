@@ -27,7 +27,7 @@ public class MainWindowController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		try {
-			content.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml")); // Le mettre dans 'content'
+			content.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml")); // Le mettre dans 'content'
 			contentPane = content;
 		}
 		catch(IOException e) {

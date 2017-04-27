@@ -67,14 +67,15 @@ public class AuthentificationController extends ControllerBase {
 			e.printStackTrace();
 		}
 		
-		em.getTransaction().begin();
+		/*em.getTransaction().begin();
 		em.persist(owner);
 		try {
 			em.getTransaction().commit();
 		}
 		catch(Exception e) {
+			System.out.println(e.getMessage());
 			em.getTransaction().rollback();
-		}
+		}*/
 	}
 	
 	@FXML 
@@ -120,18 +121,15 @@ public class AuthentificationController extends ControllerBase {
 		 * Si le login n'existe pas dansla BDD il ya un message d'errer "login incorrect"
 		 */
 		Query q = em.createQuery("SELECT l FROM Owner l WHERE l.login = :inputlogin", String.class); 
-		q.setParameter("login", inputlogin);
-		String lg = (String)q.getSingleResult();
-			
-		if (login.equals(lg)) {
-				
-				Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = :inputpwd", String.class); 
+		q.setParameter("inputlogin", inputlogin);
+		Owner lg = (Owner)q.getSingleResult();
+		if (lg != null) {
+				/*Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = :inputpwd", String.class); 
 				u.setParameter("pwd", inputpwd);
-				hashed = (String)u.getSingleResult();
-				
+				hashed = (String)u.getSingleResult();*/
+				hashed = lg.getPwd();
 					if(BCrypt.checkpw(inputpwd, hashed)) {
-						
-						System.out.print(String.format("Welcome to your personnal bank, %s!"));
+						System.out.print(String.format("Welcome to your personnal bank, %s!", lg.getFirstName()));
 							try{ 
 								MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
 							}
