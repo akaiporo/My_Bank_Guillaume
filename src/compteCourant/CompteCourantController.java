@@ -1,6 +1,7 @@
 package compteCourant;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +20,10 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,7 +34,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.util.Pair;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
 import metier.Category;
@@ -42,7 +48,7 @@ import metier.TransactionType;
 
 public class CompteCourantController extends ControllerBase {
 
-	@FXML private SplitPane splitPane;
+	@FXML private StackPane stackPane;
 	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkCycle;
 	@FXML private TextField txtLabel;
@@ -68,6 +74,7 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private Label labelCycleValue;
 	@FXML private Label labelCycleEnd;
 	@FXML private Label labelCycleType;
+	@FXML private PieChart pieChart;
 
 	
 	//non FXML var
@@ -78,8 +85,10 @@ public class CompteCourantController extends ControllerBase {
 		  private List<TransactionType> transactionType;
 		  private List<Account> accounts;
 		  private List<PeriodUnit> periodUnits;
+		  private List<PieChart.Data> transactionsValues;
 		  private Account currentAccount;
 		  private PeriodicTransaction currentTransaction;
+		  final Label caption = new Label("");
 		  
 	@Override
 	/**
@@ -87,6 +96,15 @@ public class CompteCourantController extends ControllerBase {
 	 */
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
+		
+		/**
+		 * Ajouter le pieChart a stackPane
+		 */
+		caption.setTextFill(Color.DARKORANGE);
+		caption.setStyle("-fx-font: 24 arial;");
+		stackPane.getChildren().add(caption);
+		
+
 		this.accounts = em.createNamedQuery("Account.findAll").getResultList();
 		this.choiceAccount.setItems(FXCollections.observableList(accounts));
 		this.choiceAccount.getSelectionModel().selectFirst();
@@ -117,11 +135,8 @@ public class CompteCourantController extends ControllerBase {
 			public void changed(ObservableValue<? extends PeriodicTransaction> arg0, PeriodicTransaction oldVal, PeriodicTransaction newVal) {
 				updateForm(newVal); 
 			}
-		});
-		
+		});	
 	}
-	
-
 	
 	/**
 	 * Crée la liste des transactions lors d'un changement de compte
@@ -142,8 +157,40 @@ public class CompteCourantController extends ControllerBase {
 			this.Transactions = q.getResultList();
 		}
 		this.listTransactions.setItems(FXCollections.observableList(Transactions));
+		
+		this.setPieChart();
 	}
 	 
+	/**
+	 * Remplie la PieChart avec les valeurs des transactions actuellement sélectionnées
+	 */
+	private void setPieChart(){
+		this.transactionsValues = new ArrayList<PieChart.Data>();
+		for(PeriodicTransaction t : this.Transactions){
+			PieChart.Data tmp = new PieChart.Data(t.getCategory().getWording(), t.getTransactionValue());
+			this.transactionsValues.add(tmp);
+		}
+		
+		this.pieChart.setData(FXCollections.observableList(transactionsValues));
+		int total = 0;
+		for (final PieChart.Data data : pieChart.getData()){
+			total+= data.getPieValue();
+		}
+		//Obligé, le "handle" nécessite des variables de type "final"
+		final int finalTotal = total;
+		for (final PieChart.Data data : pieChart.getData()) {
+		    data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED,
+		        new EventHandler<MouseEvent>() {
+		            @Override public void handle(MouseEvent e) {
+		            	//mieux placer le label
+		                caption.setLayoutX(e.getX());
+		                caption.setLayoutY(e.getY());
+		                caption.setText(String.format("%s : %.2f %%", data.getName(), (data.getPieValue()*100)/finalTotal));
+		             }
+		        });
+		}
+	}
+	
 	@FXML
 	/**
 	 * Récupère le compte sélectionné dans la liste, puis set crée la listes de transactions
