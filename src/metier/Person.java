@@ -19,10 +19,10 @@ public abstract class Person {
 	 * @param name : name of the person
 	 * @param firstname : first name of the person
 	 * @param phone_number : phone number of the person
-	 * @param email : email of the person
+	 * @param mail : email of the person
 	 */
 
-	public Person(String name, String firstname, String phonenumber, String email) {
+	public Person(String name, String firstname, String phonenumber, String mail) {
 		if(name.isEmpty()) {
 			throw new IllegalArgumentException("The name cannot be empty");
 		}
@@ -32,14 +32,14 @@ public abstract class Person {
 		if(Tools.eraseChar(phonenumber,"\\s").length()<4||Tools.eraseChar(phonenumber,"\\s").length()>11) {
 			throw new IllegalArgumentException("phonenumber must contain between 4 and 11 numbers");
 		}
-		if(!Tools.checkMail(email)){
-			throw new IllegalArgumentException("email must be of a valid format eg toto@titi.tutu");
+		if(!Tools.checkMail(mail)){
+			throw new IllegalArgumentException("mail must be of a valid format eg toto@titi.tutu");
 		}
 				
 		this.name = name;
 		this.firstname = firstname;
 		this.phonenumber = phonenumber;
-		this.email = email;
+		this.mail = mail;
 
 	}
 	
@@ -69,8 +69,8 @@ public abstract class Person {
 	public String getPhoneNumber() {
 		return this.phonenumber;
 	}
-	public String getEmail() {
-		return this.email;
+	public String getMail() {
+		return this.mail;
 	}
 	
 	public void setName (String nam) {
@@ -82,8 +82,8 @@ public abstract class Person {
 	public void setPhoneNumber (String phone) {
 		this.phonenumber=phone;
 	}
-	public void setEmail (String mail) {
-		this.email=mail;
+	public void setMail (String mail) {
+		this.mail=mail;
 	}
 	
 	
@@ -98,7 +98,7 @@ public abstract class Person {
 				&&	 
 				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
 				&&
-				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail())))
+				((tmp.getMail()==null || this.getMail()==null) || tmp.getMail().equals(this.getMail())))
 			{
 				return true;
 			}
@@ -111,5 +111,5 @@ public abstract class Person {
 	private String name;
 	private String firstname;
 	private String phonenumber;
-	private String email;
+	private String mail;
 }

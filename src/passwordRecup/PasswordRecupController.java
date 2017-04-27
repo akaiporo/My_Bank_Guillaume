@@ -1,5 +1,6 @@
 package passwordRecup;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import application.ControllerBase;
+import application.MainWindowController;
 import application.Mediator;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -47,14 +49,16 @@ public class PasswordRecupController extends ControllerBase {
 		 */
 		
 		String inputmail = this.recup_email.getText();
-		Query q = em.createQuery("SELECT m FROM Owner m WHERE m.mail = : inputmail "); 
+		Query q = em.createQuery("SELECT m FROM Owner m WHERE m.mail = :inputmail",String.class); 
 		q.setParameter("mail", inputmail);
-		List ml = q.getResultList();
+		String ml = (String)q.getSingleResult();
 		
 		if(recup_email.equals(ml)) {
 			
-			Query u = em.createQuery("SELECT l FROM Owner l WHERE l.login = : owner ");
-			Query e = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = : owner "); 
+			Query u = em.createQuery("SELECT l FROM Owner l WHERE l.login = :owner", String.class);
+			Query e = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = :owner", String.class); 
+			
+			System.out.print(" Un email vient de vous être envoyé ");
 			
 			/* Il faut stocker les résultats des reqêtes 
 			 * puis les  envoyer par email le login et le mot de passe 
@@ -86,7 +90,11 @@ public class PasswordRecupController extends ControllerBase {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if(result.isPresent() && result.get() == ButtonType.YES) {
-			Platform.exit();
+			try{ 
+				MainWindowController.contentPane.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml"));
+			}
+			catch (IOException e){
+			}
 			
 		}
 	}

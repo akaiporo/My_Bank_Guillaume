@@ -24,14 +24,14 @@ public class Owner extends Person{
 	 * @param owner_name : The owner name
 	 * @param owner_firstname
 	 * @param phone_number
-	 * @param email
+	 * @param mail
 	 * @param birthdate
 	 * @param login
 	 * @param pwd
 	 * @param address
 	 */
-	public Owner(String name, String firstname, String phonenumber, String email, Date birthdate, String login, String pwd, Address address) {
-		super(name, firstname, phonenumber, email);
+	public Owner(String name, String firstname, String phonenumber, String mail, Date birthdate, String login, String pwd, Address address) {
+		super(name, firstname, phonenumber, mail);
 		
 		if (birthdate == null){
 			throw new NullPointerException ("birthdate cannot be null");
@@ -72,19 +72,6 @@ public class Owner extends Person{
 		}
 		this.birthdate = date;
 	}
-	/*
-	public void setOwnerName(String owner_name){
-		this.owner_name = owner_name;
-	}
-	public void setOwnerFirstname(String owner_firstname){
-		this.owner_firstname = owner_firstname;
-	}
-	public void setOwnerEmail(String owner_mail){
-		this.owner_mail = owner_mail;
-	}
-	public void setOwnerPhonenumber(String owner_phonenumber){
-		this.owner_phonenumber = owner_phonenumber;
-	} */
 	@Column(name="login")
 	public String getLogin() {
 		return this.login;
@@ -127,7 +114,7 @@ public class Owner extends Person{
 				&&	 
 				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
 				&&
-				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail()))
+				((tmp.getMail()==null || this.getMail()==null) || tmp.getMail().equals(this.getMail()))
 				&&
 				((tmp.getBirthdate()==null||this.getBirthdate()==null) || tmp.getBirthdate().equals(this.getBirthdate()))
 				&&
@@ -153,10 +140,7 @@ public class Owner extends Person{
 	private String login;
 	private String pwd;
 	private Address address;
-	/*private String owner_name;
-	private String owner_firstname;
-	private String owner_mail;
-	private String owner_phonenumber;*/
+	
 	
 
 }

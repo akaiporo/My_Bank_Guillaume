@@ -2,13 +2,7 @@ package authentification;
 
 import java.awt.Label;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -16,20 +10,15 @@ import javax.persistence.Query;
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.ControllerBase;
-import application.Main;
 import application.MainWindowController;
 import application.Mediator;
-import application.Tools;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
-import metier.Account;
 import metier.Owner;
 
 public class AuthentificationController extends ControllerBase {
@@ -118,35 +107,46 @@ public class AuthentificationController extends ControllerBase {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
 	
-	public boolean isSameCredentials() throws SQLException{
+	public boolean isSameCredentials() throws SQLException {
 		
 		String inputpwd = this.pwd.getText();
 		String inputlogin = this.login.getText();
 		String hashed = "";
 		
-		Query q = em.createQuery("SELECT l FROM Owner l WHERE l.login = : inputlogin "); 
+		/* Dans un premier temps on va vérifier que le login qui a été saisi existe dans la BDD
+		 * Si elle existe, on va ensuite vérifier que le mot de passe saisi existe dans la BDD et correspond au login saisi
+		 * Si c'est le cas l'authentification est ok, sinon le mot de passe est incorrect!
+		 * Si le login n'existe pas dansla BDD il ya un message d'errer "login incorrect"
+		 */
+		Query q = em.createQuery("SELECT l FROM Owner l WHERE l.login = :inputlogin", String.class); 
 		q.setParameter("login", inputlogin);
-		List lg = q.getResultList();
+		String lg = (String)q.getSingleResult();
 			
 		if (login.equals(lg)) {
 				
-				Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = : inputpwd "); 
+				Query u = em.createQuery("SELECT p FROM Owner p WHERE p.pwd = :inputpwd", String.class); 
 				u.setParameter("pwd", inputpwd);
-				String pd = u.getResultList();
+				hashed = (String)u.getSingleResult();
 				
-					if(BCrypt.checkpw(inputpwd, pd)) {
+					if(BCrypt.checkpw(inputpwd, hashed)) {
 						
 						System.out.print(String.format("Welcome to your personnal bank, %s!"));
-						return true;
+							try{ 
+								MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+							}
+							catch (IOException e){
+							}
+							return true;
 					}
 					else {
 						System.out.print("Credentials dot not match. Please try again.");
 						return false;
 					}
-			}
-			else {
-				System.out.print(" The login is incorrect ! Please try again! ");
-			}			
+		}
+		else {
+			System.out.print(" The login is incorrect ! Please try again! ");
+			return false;
+		}			
 		
 	}
 

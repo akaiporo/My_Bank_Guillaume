@@ -24,8 +24,8 @@ public class Advisor extends Person {
 	 * @param agency : Advisor agency
 	 */ 
 
-	public Advisor(String name, String firstname, String phonenumber, String email, Date date_assignment,Agency agency) {
-		super(name, firstname, phonenumber, email);
+	public Advisor(String name, String firstname, String phonenumber, String mail, Date date_assignment,Agency agency) {
+		super(name, firstname, phonenumber, mail);
 		
 		if(date_assignment == null) {
 			throw new NullPointerException("Date assignment cannot be null");
@@ -74,7 +74,7 @@ public class Advisor extends Person {
 				&&	 
 				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
 				&&
-				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail()))
+				((tmp.getMail()==null || this.getMail()==null) || tmp.getMail().equals(this.getMail()))
 				&&
 				((tmp.getDateAssignment()==null||this.getDateAssignment()==null) || tmp.getDateAssignment().equals(this.getDateAssignment()))
 				&&
