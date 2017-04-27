@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import metier.CpCity;
 
-public class AddCpCityController2 extends ControllerBase {
+public class AddCpCityController2 extends ControllerBase { 
 	private EntityManager em;
 	CpCity currentCpCity=new CpCity();
 	
