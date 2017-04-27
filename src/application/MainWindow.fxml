@@ -44,7 +44,7 @@
               <items>
                 <Button id="add_account" mnemonicParsing="false" onAction="#handleButtonAddAccount" prefHeight="25.0" prefWidth="85.0" text="Add Account" />
                   <Button id="add_user" mnemonicParsing="false" onAction="#handleButtonAddUser" text="Add User" />
-                  <Button id="add_user" mnemonicParsing="false" onAction="#handleButtonAuthentification" text="Deconnexion" />
+                  <Button id="add_user" mnemonicParsing="false" onAction="#handleButtonDeconnexion" text="Deconnexion" />
               </items>
             </ToolBar>
          </children>
