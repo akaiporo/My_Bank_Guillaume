@@ -172,7 +172,6 @@ public class CompteCourantController extends ControllerBase {
 		double solde = this.currentAccount.getFirstTotal();
 		for(PeriodicTransaction pt : Transactions){
 			solde += pt.getTransactionValue();
-			System.out.println(solde);
 		}
 		this.thresh.setText(String.format("%s", Double.toString(solde)));
 	}
@@ -185,6 +184,7 @@ public class CompteCourantController extends ControllerBase {
 		this.transactionsValues.add(new PieChart.Data("void", 0));
 		for(PeriodicTransaction t : this.Transactions){
 			PieChart.Data tmp = new PieChart.Data(t.getCategory().getWording(), t.getTransactionValue());
+			//Retourne une erreur (deux threads essaient d'accéder à la même ressource), mais l'idée est la
 			/*for(PieChart.Data data : transactionsValues){
 				if(tmp.getName().equals(data.getName())){
 					transactionsValues.get(i).setPieValue(transactionsValues.get(i).getPieValue()+tmp.getPieValue());
@@ -237,7 +237,6 @@ public class CompteCourantController extends ControllerBase {
 	 */
 	private boolean updateForm(PeriodicTransaction newTransaction) {
 		
-		System.out.println(newTransaction);
 		this.btnEdit.setDisable(false);
 		this.btnDelete.setDisable(false);
 		
