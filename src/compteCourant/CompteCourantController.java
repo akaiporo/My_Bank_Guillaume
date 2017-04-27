@@ -194,6 +194,8 @@ public class CompteCourantController extends ControllerBase {
 				}
 			}*/
 			this.transactionsValues.add(tmp);
+			this.pieChart.setVisible(false);
+			this.pieChart.setVisible(true);
 		}
 		
 		this.transactionsValues.remove(0);

@@ -149,5 +149,14 @@ public class AuthentificationController extends ControllerBase {
 		}			
 		
 	}
+	
+	@FXML
+	private void handleDodgeConnexion(){
+		try {
+			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+		} 
+		catch (IOException e) {
+		}
+	}
 
 }

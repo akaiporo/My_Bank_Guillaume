@@ -95,4 +95,13 @@ public class MainWindowController extends ControllerBase {
 		}
 	}
 	
+	@FXML
+	private void handleDodgeConnexion(){
+		try {
+			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
+		} 
+		catch (IOException e) {
+		}
+	}
+	
 }
