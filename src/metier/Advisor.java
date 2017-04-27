@@ -51,15 +51,25 @@ public class Advisor extends Person {
 		return this.date_assignment;
 	}
 	
-	private void setDateAssignment(Date date){
+	public void setDateAssignment(Date date){
+		if(date == null) {
+			throw new NullPointerException("Date assignment cannot be null");
+		}
+		if(date.getTime() > Tools.today().getTime()) {  
+			throw new IllegalArgumentException ("Date assigment in the future");
+		}
 		this.date_assignment = date;
 	}
+	
 	@ManyToOne
 	@JoinColumn(name="id_agency")
 	public Agency getAgency() {
 		return this.agency;
 	}
-	private void setAgency(Agency agency){
+	public void setAgency(Agency agency){
+		if(agency == null) {
+			throw new NullPointerException("Agency cannot be null");
+		}
 		this.agency = agency;
 	}
 	

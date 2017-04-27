@@ -50,6 +50,7 @@ public class AddAccountController extends ControllerBase {
 
 	@Override
 	public void initialize(Mediator mediator){
+		account_error.setText("");
 		try {	
 			em = mediator.createEntityManager();
 			
@@ -68,7 +69,7 @@ public class AddAccountController extends ControllerBase {
 			this.choiceAccountType.setItems(FXCollections.observableList(accounttypes));
 			
 			List<CountryCode> countrycodes = em.createNamedQuery("CountryCode.findAll", CountryCode.class).getResultList();
-			this.choiceCountryCode.setItems(FXCollections.observableList(countrycodes));			
+			this.choiceCountryCode.setItems(FXCollections.observableList(countrycodes));
 		}
 		catch(PersistenceException e) {
 			this.processPersistenceException(e);
@@ -80,12 +81,7 @@ public class AddAccountController extends ControllerBase {
 		ChoiceBox catAgency = (ChoiceBox)event.getTarget();
 		Agency tmp=(Agency)catAgency.getValue();
 		if (tmp.getAgencyName().equals("(new agency)")){
-			try{
-				MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAgency/AddAgencyView.fxml"));
-			}
-			catch(IOException e){	
-				System.out.println(e.getMessage());
-			}
+			this.loadSubScene("../AddAgency/AddAgencyView.fxml");
 		}
 	}
 	
@@ -95,12 +91,7 @@ public class AddAccountController extends ControllerBase {
 		Advisor tmp=(Advisor)catAdvisor.getValue();
 		if (tmp.getName().equals("(new") &&
 			tmp.getFirstName().equals("advisor)")){
-				try{ 
-					System.out.println("add advisor");
-					MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAdvisor/AddAdvisorView.fxml"));
-				}
-				catch (IOException e){
-				}
+			this.loadSubScene("../AddAdvisor/AddAdvisorView.fxml");
 		}
 	}
 	
@@ -165,26 +156,13 @@ public class AddAccountController extends ControllerBase {
 			return;
 		}
 		
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
-		}
-		catch (IOException e){
-		}
-		
-		/*
-		TODO : conserver l'info currentAccount pour charger les bonnes infos sur la page suivante  
-		*/
+		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
 	}
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
-		}
-		catch (IOException e){
-		}
-		 //attention pour une inscription il faut disable ce button
-		//conserver les infos d'avant clic : quel est le currentAccount?
+		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
+		//attention pour une inscription il faut disable ce button
 	}
 	
 	private void processPersistenceException(PersistenceException e) {

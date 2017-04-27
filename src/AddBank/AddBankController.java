@@ -1,11 +1,8 @@
 package AddBank;
 
-import java.io.IOException;
-
 import javax.persistence.EntityManager;
 
 import application.ControllerBase;
-import application.MainWindowController;
 import application.Mediator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +26,8 @@ public class AddBankController extends ControllerBase {
 	@Override
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
+		
+		bank_error.setText("");
 	}
 	
 	@FXML
@@ -56,20 +55,11 @@ public class AddBankController extends ControllerBase {
 			em.getTransaction().rollback();
 		}
 		
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
-		}
-		catch (IOException e){
-		}
-		
-		
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");		
 	}
+	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml"));
-		}
-		catch (IOException e){
-		}
+		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 }
