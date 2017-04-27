@@ -25,7 +25,7 @@
       <Label layoutX="38.0" layoutY="200.0" text="Name" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="50.0" layoutY="115.0" text="Login" AnchorPane.bottomAnchor="450.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="787.0" AnchorPane.topAnchor="115.0" />
       <Button id="btn_ok" fx:id="btn_ok" layoutX="696.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleButtonOk" text="OK" />
-      <Button id="btn_cancel" fx:id="btn_cancel" layoutX="758.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleButtonCancel" text="Cancel" prefHeight="31.0" prefWidth="68.0" />
+      <Button id="btn_cancel" fx:id="btn_cancel" layoutX="758.0" layoutY="502.0" mnemonicParsing="false" onAction="#handleButtonCancel" prefHeight="31.0" prefWidth="68.0" text="Cancel" />
       <TextField id="owner_id_address2" fx:id="owner_id_address2" layoutX="603.0" layoutY="324.0" AnchorPane.rightAnchor="85.0" />
       <Label layoutX="41.0" layoutY="370.0" text="Postal Code" AnchorPane.leftAnchor="50.0" />
       <Label layoutX="42.0" layoutY="329.0" text="Address 1" AnchorPane.leftAnchor="50.0" />
@@ -41,5 +41,17 @@
       <DatePicker id="owner_birthdate" fx:id="owner_birthdate" layoutX="188.0" layoutY="451.0" prefHeight="31.0" prefWidth="187.0" />
       <ChoiceBox id="city" fx:id="city" layoutX="602.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" />
       <TextField id="postalcode" fx:id="postalcode" layoutX="190.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label id="errlogin" fx:id="errlogin" layoutX="397.0" layoutY="115.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errpwd" fx:id="errpwd" layoutX="127.0" layoutY="157.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errconfirmpwd" fx:id="errconfirmpwd" layoutX="552.0" layoutY="157.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errname" fx:id="errname" layoutX="397.0" layoutY="200.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errfirstname" fx:id="errfirstname" layoutX="151.0" layoutY="243.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errmail" fx:id="errmail" layoutX="407.0" layoutY="288.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="erraddress1" fx:id="erraddress1" layoutX="137.0" layoutY="329.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="erraddress2" fx:id="erraddress2" layoutX="562.0" layoutY="329.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errbirthdate" fx:id="errbirthdate" layoutX="407.0" layoutY="456.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errphonenumber" fx:id="errphonenumber" layoutX="127.0" layoutY="412.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errpostalcode" fx:id="errpostalcode" layoutX="151.0" layoutY="370.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
+      <Label id="errcity" fx:id="errcity" layoutX="532.0" layoutY="412.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
    </children>
 </AnchorPane>

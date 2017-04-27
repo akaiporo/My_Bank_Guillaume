@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert.AlertType;
 
 public class PasswordRecupController extends ControllerBase {
@@ -24,6 +25,7 @@ public class PasswordRecupController extends ControllerBase {
 	@FXML private TextField recup_email;
 	@FXML private Button btn_ok;
 	@FXML private Button btn_cancel;
+	@FXML private AnchorPane pwdrecuppane;
 	
 	@Override
 	public void initialize(Mediator mediator) {  
