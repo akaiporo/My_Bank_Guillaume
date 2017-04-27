@@ -130,12 +130,13 @@ public class AuthentificationController extends ControllerBase {
 				hashed = lg.getPwd();
 					if(BCrypt.checkpw(inputpwd, hashed)) {
 						System.out.print(String.format("Welcome to your personnal bank, %s!", lg.getFirstName()));
-							try{ 
-								MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
-							}
-							catch (IOException e){
-							}
-							return true;
+						MainWindowController.currentOwner = lg;
+						try{ 
+							MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
+						}
+						catch (IOException e){
+						}
+						return true;
 					}
 					else {
 						System.out.print("Credentials dot not match. Please try again.");
