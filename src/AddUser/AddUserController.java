@@ -1,14 +1,11 @@
 package AddUser;
 
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
-import javax.swing.JOptionPane;
-
 import application.ControllerBase;
 import application.MainWindowController;
 import application.Mediator;
@@ -97,12 +94,18 @@ public class AddUserController extends ControllerBase {
 		catch  (IllegalArgumentException e) {
 			errlogin.setText(" The login cannot be empty");
 		}
+		catch (NullPointerException e) {
+			errlogin.setText(" The login cannot be null");
+		}
 		try {
 			owner.setPwd(pwd.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errpwd.setText(" The password cannot be empty");
-		}/*
+		}
+		catch (NullPointerException e) {
+			errpwd.setText(" The password cannot be null");
+		}
 		try {
 			if (pwd.equals(confirm_pwd)) {
 			owner.setPwd(confirm_pwd.getText());	
@@ -110,18 +113,24 @@ public class AddUserController extends ControllerBase {
 		}
 		catch  (IllegalArgumentException e) {
 			errconfirmpwd.setText(" The password cannot be empty");
-		}*/ 
+		}
 		try {
 			owner.setName(owner_name.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errname.setText(" The owner name cannot be empty");
 		}
+		catch  (NullPointerException e) {
+			errname.setText(" The owner name cannot be null");
+		}
 		try {
 			owner.setFirstName(owner_firstname.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errfirstname.setText(" The owner firstname cannot be empty");
+		}
+		catch  (NullPointerException e) {
+			errfirstname.setText(" The owner firstname cannot be null");
 		}
 		try {
 			owner.setEmail(owner_mail.getText());
@@ -135,6 +144,19 @@ public class AddUserController extends ControllerBase {
 		catch  (IllegalArgumentException e) {
 			errphonenumber.setText(" The owner phonenumber cannot be empty");
 		}
+		/*
+		try {
+			owner.setPostalCode(postalcode.getText());
+		}
+		catch  (IllegalArgumentException e) {
+			errpostalcode.setText(" The owner postalcode cannot be emptyand must contains 5 characters");
+		}
+		try {
+			owner.setCity(city.getValue());
+		} 
+		catch  (IllegalArgumentException e) {
+			errcity.setText(" The owner city cannot be empty");
+		} */
 		try {
 			owner.setBirthdate(DateUtils.LocalDateToDate(owner_birthdate.getValue()));
 		}
@@ -142,10 +164,10 @@ public class AddUserController extends ControllerBase {
 			errbirthdate.setText(" The owner birthdate cannot be empty");
 		}
 		catch (NullPointerException e) {
-			errbirthdate.setText(e.getMessage());
+			errbirthdate.setText(" The birthdate cannot be null");
 		}
 		
-		/*em.getTransaction().begin();
+		em.getTransaction().begin();
 		em.persist(owner);
 		try{
 			em.getTransaction().commit();
@@ -161,7 +183,7 @@ public class AddUserController extends ControllerBase {
 		}
 		catch (IOException e){
 		}
-		*/
+		
 	}
 
 	@FXML

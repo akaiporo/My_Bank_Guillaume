@@ -14,5 +14,7 @@
       <Button id="btn_inscription" fx:id="btn_inscription" layoutX="481.0" layoutY="339.0" mnemonicParsing="false" onAction="#handleButtonInscription" text="Inscription / AddUser" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="481.0" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="339.0" />
       <TextField id="login" fx:id="login" layoutX="169.0" layoutY="105.0" prefHeight="31.0" prefWidth="346.0" AnchorPane.bottomAnchor="266.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="105.0" />
       <TextField id="pwd" fx:id="pwd" layoutX="169.0" layoutY="186.0" prefHeight="31.0" prefWidth="346.0" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="186.0" />
+      <Label id="errlogin" fx:id="errlogin" layoutX="193.0" layoutY="144.0" prefHeight="21.0" prefWidth="298.0" textFill="#f20726" />
+      <Label id="errpwd" fx:id="errpwd" layoutX="193.0" layoutY="226.0" prefHeight="21.0" prefWidth="298.0" textFill="#f20726" />
    </children>
 </AnchorPane>

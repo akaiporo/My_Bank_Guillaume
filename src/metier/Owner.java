@@ -32,6 +32,7 @@ public class Owner extends Person{
 	 */
 	public Owner(String name, String firstname, String phonenumber, String email, Date birthdate, String login, String pwd, Address address) {
 		super(name, firstname, phonenumber, email);
+		
 		if (birthdate == null){
 			throw new NullPointerException ("birthdate cannot be null");
 		}
@@ -42,7 +43,7 @@ public class Owner extends Person{
 			throw new IllegalArgumentException ("login cannot be empty");
 		}
 		if (pwd.isEmpty()){
-			throw new IllegalArgumentException ("login cannot be empty");
+			throw new IllegalArgumentException ("password cannot be empty");
 		}
 		if (address == null){
 			throw new NullPointerException ("address cannot be null");
@@ -71,6 +72,7 @@ public class Owner extends Person{
 		}
 		this.birthdate = date;
 	}
+	/*
 	public void setOwnerName(String owner_name){
 		this.owner_name = owner_name;
 	}
@@ -82,7 +84,7 @@ public class Owner extends Person{
 	}
 	public void setOwnerPhonenumber(String owner_phonenumber){
 		this.owner_phonenumber = owner_phonenumber;
-	}
+	} */
 	@Column(name="login")
 	public String getLogin() {
 		return this.login;
@@ -99,7 +101,7 @@ public class Owner extends Person{
 	}
 	public void setPwd(String pwd){
 		if (pwd.isEmpty()){
-			throw new IllegalArgumentException ("login cannot be empty");
+			throw new IllegalArgumentException ("password cannot be empty");
 		}
 		this.pwd = pwd;
 	}
@@ -114,16 +116,47 @@ public class Owner extends Person{
 		}
 		this.address = address;
 	}
+	@Override
+	public boolean equals(Object obj){
+		if(obj instanceof Owner){
+			Owner tmp = (Owner)obj;
+		
+			if(((tmp.getName()==null || this.getName()==null) || tmp.getName().equals(this.getName()))
+				&& 
+				((tmp.getFirstName()==null || this.getFirstName()==null) || tmp.getFirstName().equals(this.getFirstName())) 
+				&&	 
+				((tmp.getPhoneNumber()==null||this.getPhoneNumber()==null) || tmp.getPhoneNumber().equals(this.getPhoneNumber()))
+				&&
+				((tmp.getEmail()==null || this.getEmail()==null) || tmp.getEmail().equals(this.getEmail()))
+				&&
+				((tmp.getBirthdate()==null||this.getBirthdate()==null) || tmp.getBirthdate().equals(this.getBirthdate()))
+				&&
+				((tmp.getLogin()==null||this.getLogin()==null) || tmp.getLogin().equals(this.getLogin()))
+				&&
+				((tmp.getPwd()==null||this.getPwd()==null) || tmp.getPwd().equals(this.getPwd()))
+				&&
+				((tmp.getAddress()==null||this.getAddress()==null) || tmp.getAddress().equals(this.getAddress())))
+			{
+				return true;
+			}
+			else return false;
+		}
+		else return false;
+	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s %s", getName(), this.getFirstName());
+	}
 	
 	private Date birthdate;
 	private String login;
 	private String pwd;
 	private Address address;
-	private String owner_name;
+	/*private String owner_name;
 	private String owner_firstname;
 	private String owner_mail;
-	private String owner_phonenumber;
+	private String owner_phonenumber;*/
 	
 
 }

@@ -51,7 +51,11 @@ public class CpCity {
 	public String getPostalCode(){
 		return this.postalCode;
 	}
-	public String setPostalCode(String city){
+	public String setPostalCode(String postalcode){
+		/*
+		if(postalcode.length() != 5){
+			throw new IllegalArgumentException("Poste code must must contains 5 characters");
+		} */
 		return this.postalCode = postalCode;
 	}
 	@Column(name="city")
@@ -59,6 +63,10 @@ public class CpCity {
 		return this.city;
 	}
 	public String setCity(String city){
+		
+		if(city.length() == 0){
+			throw new IllegalArgumentException("City can't be empty");
+		}
 		return this.city = city;
 	}
 	
