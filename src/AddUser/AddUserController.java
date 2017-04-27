@@ -64,6 +64,10 @@ public class AddUserController extends ControllerBase {
 	@FXML private Label errbirthdate;
 	
 	@Override
+	/**
+	 * Initialisation des ChoiceBox "city et postalcode", puis des messages d'erreur!
+	 */
+	
 	public void initialize(Mediator mediator) {
 		
 		errlogin.setText("");
@@ -93,19 +97,24 @@ public class AddUserController extends ControllerBase {
 			this.processPersistenceException(e);
 		}
 	}
+	/** 
+	 * @param event :On va créer un événement newCity pour pouvoir rajouter une ville 
+	 *  si elle n'existe pas déjà dans la BDD
+	 */
 	@FXML
 	private void newCity (ActionEvent event) {
 		ChoiceBox catCity  = (ChoiceBox)event.getTarget();
 		String tmp = (String) catCity.getValue();
 		if(tmp.equals("(new city)")) {
 			System.out.println("new city");
-			
-			/* rajouter une scene ou 
-			 * boite de dialogue
-			 * pour ajouter une ville 
-			 */
+			this.loadSubScene("../AddCpCity2/AddCpCityView2.fxml");
+
 		}
 	}
+	/**
+	 * @param event :On va créer un événement handlePostalcode pour pouvoir rajouter un code postal 
+	 *  s'l n'existe pas déjà dans la BDD
+	 */
 	@FXML 
 	private void handlePostalcode (ActionEvent event) {
 		
@@ -113,8 +122,7 @@ public class AddUserController extends ControllerBase {
 		String tmp = (String)catPostalcode.getValue();
 		if(tmp.equals("(new postalcode)")) {
 			System.out.println("new postal code");
-			
-			// loader une page pour entrer un nouveau code postal
+			this.loadSubScene("../AddCpCity2/AddCpCityView2.fxml");
 		}
 		else {
 			city.getItems().removeAll(cities);
@@ -125,7 +133,14 @@ public class AddUserController extends ControllerBase {
 			this.city.setItems(FXCollections.observableList(cities));
 		}
 	}
-	
+	/**
+	 * 
+	 * @param Event : Création d'un evénement avec le bouton ok pour rajouter(set) un owner dans la BDD
+	 * En testant à chaque fois les differents paramètres/champs;
+	 * Dans l'idéal, il aurait aussi fallu tester l'égalité des champs pwd et confirm_pwd;
+	 * Puis renvoyer une erreur si les deux champs ne sont pas identiques
+	 * Après l'ajout on est redirigé vers la page d'authentification
+	 */
 	@FXML
 	private void handleButtonOk(ActionEvent Event) {
 		
@@ -238,15 +253,14 @@ public class AddUserController extends ControllerBase {
 			em.getTransaction().rollback();
 			return;
 		} 
-		
-		try{ 
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../authentification/AuthentificationView.fxml"));
-		}
-		catch (IOException e){
-		}
+		 
+		this.loadSubScene("../authentification/AuthentificationView.fxml");	
 		
 	}
-
+	/**
+	 * @param event : L'événement du bouton cancel va permettre  de revenir dans la fenêtre des comptes 
+	 * si jamais on ne veut plus ajouter de nouvel utilisateur, tout en demandant une confirmation
+	 */
 	@FXML
 	private void handleButtonCancel(ActionEvent event) {
 		Alert alert = new Alert(
@@ -258,15 +272,16 @@ public class AddUserController extends ControllerBase {
 		Optional<ButtonType> result = alert.showAndWait();
 		
 		if(result.isPresent() && result.get() == ButtonType.YES) {
+				
+			this.loadSubScene("../compteCourant/CompteCourantList.fxml");
 			
-			try{ 
-				MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
-			}
-			catch (IOException e){
-			}
 		}
 		
 	}
+	/**
+	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * @param e : PersistenceException
+	 */
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}

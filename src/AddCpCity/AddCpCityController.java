@@ -22,11 +22,21 @@ public class AddCpCityController extends ControllerBase {
 	@FXML private Button cancel;
 	
 	@Override
+	
+	/**
+	 * Initialisation des messages d'erreur!
+	 */
+	
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
 		cpcity_error.setText("");
 	}
-	
+	/**
+	 * Pour créer une agence  avec des nouveaux postalcode et city:
+	 * @param Event : Création d'un evénement avec le bouton ok pour rajouter une ville et/ ou un code postal
+	 * En testant à chaque fois les differents paramètres/champs;
+	 * Puis renvoie vers la page de création de l'agence quand la ville et/oule code postal est rentré!
+	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
 		try{
@@ -53,6 +63,10 @@ public class AddCpCityController extends ControllerBase {
 		}
 		this.loadSubScene("../AddAgency/AddAgencyView.fxml");		
 	}
+	/**
+	 * 
+	 * @param event : Ce bouton renvoie vers la page de création de l'agence si on ne veut plus rajouter!
+	 */
 	
 	@FXML
 	private void handleButtonCancel (ActionEvent event){
