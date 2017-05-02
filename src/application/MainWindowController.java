@@ -1,20 +1,35 @@
 package application;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import metier.Account;
+import metier.Assign;
+import metier.AssignPK;
 import metier.Owner;
 
-public class MainWindowController extends ControllerBase {
+public class MainWindowController extends ControllerBase{
 /*	
 	@Inject
 	private EntityManagerFactory emf;
@@ -36,7 +51,6 @@ public class MainWindowController extends ControllerBase {
 			e.printStackTrace();
 		}
 	}
-	
 	public StackPane getStackPane(){
 		return this.content;
 	}
@@ -63,11 +77,17 @@ public class MainWindowController extends ControllerBase {
 	 */
 	@FXML
 	private void handleButtonAddAccount(){
-		try {
-			content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
+		if(this.currentOwner == null){
+			Alert alert  = new Alert(AlertType.CONFIRMATION, "Vous devez vous connecter avant", ButtonType.CANCEL);
+			alert.showAndWait();
 		}
-		catch(IOException e) {
-			// TODO alert
+		else{
+			try {
+				content.getChildren().setAll(loadFxml("../AddAccount/AddAccountView.fxml")); // Le mettre dans 'content'
+			}
+			catch(IOException e) {
+				// TODO alert
+			}
 		}
 	}
 	/**
@@ -115,4 +135,64 @@ public class MainWindowController extends ControllerBase {
 		}
 	}
 	
+	@FXML
+	private void handleNewLink(){
+		/* Peut être utile, à voir
+		 * 
+		 * if(this.currentOwner == null){
+			Alert alert  = new Alert(AlertType.CONFIRMATION, "Vous devez vous connecter avant", ButtonType.CANCEL);
+			alert.showAndWait();
+		}
+		else{
+			Alert alert  = new Alert(AlertType.CONFIRMATION, "", ButtonType.YES, ButtonType.CANCEL);
+			EntityManager em = this.getMediator().createEntityManager();
+			//Comptes bancaires
+			List<Assign> assignList = em.createNamedQuery("Assign.findAll").getResultList();
+			List<Account> accounts = new ArrayList<Account>();
+			for(Assign a : assignList)
+			{
+				if(a.getId().getIdOwner() != MainWindowController.currentOwner.getId())
+				{
+					accounts.add(em.find(Account.class, a.getId().getIdAccount()));
+				}
+			}
+			ChoiceBox accountList = new ChoiceBox();
+			accountList.setItems(FXCollections.observableList(accounts));
+			
+			//Listes des utilisateurs
+			List<Account> owners = em.createNamedQuery("Owner.findAll").getResultList();
+			ChoiceBox ownersList = new ChoiceBox();
+			ownersList.setItems(FXCollections.observableList(owners));
+			
+			//Ajout à la fenêtre d'alert
+			GridPane expContent = new GridPane();
+			expContent.setMaxWidth(Double.MAX_VALUE);
+			expContent.add(ownersList, 0, 0);
+			expContent.add(new Label(" Pourra consulter "), 1, 0);
+			expContent.add(accountList, 2, 0);
+	
+			alert.getDialogPane().setContent(expContent);
+			alert.showAndWait();
+			
+			ButtonType result = alert.getResult();
+			
+			if(result == ButtonType.CANCEL) {
+				return;			
+			}
+			else if(result == ButtonType.YES){
+				Owner owner = (Owner)ownersList.getValue();
+				Account account = (Account)accountList.getValue();
+				AssignPK tmp = new AssignPK(account.getId(), owner.getId());
+				try{
+					Assign assign = new Assign(tmp);
+					em.persist(assign);
+					em.getTransaction().commit();
+				}
+				catch(Exception e){
+					
+				}
+				
+			}
+		}*/
+	}
 }

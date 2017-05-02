@@ -87,6 +87,7 @@ public class Owner extends Person{
 		return this.pwd;
 	}
 	public void setPwd(String pwd){
+		//TODO encrytpe password
 		if (pwd == null){
 			pwd = "";
 		}

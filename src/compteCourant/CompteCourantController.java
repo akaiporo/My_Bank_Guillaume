@@ -40,6 +40,8 @@ import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
+import metier.Assign;
+import metier.AssignPK;
 import metier.Category;
 import metier.PeriodUnit;
 import metier.PeriodicTransaction;
@@ -105,8 +107,16 @@ public class CompteCourantController extends ControllerBase {
 		caption.setStyle("-fx-font: 24 arial;");
 		stackPane.getChildren().add(caption);
 		
-
-		this.accounts = em.createNamedQuery("Account.findAll").getResultList();
+		List<Assign> assignList = em.createNamedQuery("Assign.findAll").getResultList();
+		this.accounts = new ArrayList<Account>();
+		for(Assign a : assignList)
+		{
+			if(a.getId().getIdOwner() == MainWindowController.currentOwner.getId())
+			{
+				this.accounts.add(em.find(Account.class, a.getId().getIdAccount()));
+			}
+		}
+	
 		this.choiceAccount.setItems(FXCollections.observableList(accounts));
 		this.choiceAccount.getSelectionModel().selectFirst();
 		
@@ -568,4 +578,5 @@ public class CompteCourantController extends ControllerBase {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
 	
+
 }
