@@ -7,7 +7,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-
 public class Main extends Application {
 	
 	private static Stage pStage;
@@ -16,7 +15,7 @@ public class Main extends Application {
 	        return pStage;
 	}
 	/**
-	 * Setter le stage en static permet de faire des add Scene n'importe où dans le programme
+	 * Setter le stage en static permet de faire des add Scene n'importe oï¿½ dans le programme
 	 * @param pStage : Stage principal de l'appli
 	 */
 	private void setPrimaryStage(Stage pStage) {
