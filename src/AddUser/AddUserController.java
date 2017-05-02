@@ -241,6 +241,10 @@ public class AddUserController extends ControllerBase {
 		catch(NullPointerException e){	
 		}
 		
+		/**
+		 * Ajout d'un vouvel utilisateur dans la BDD
+		 */
+		
 		em.getTransaction().begin();
 		em.persist(owner);
 		em.persist(cpcity);
@@ -254,6 +258,9 @@ public class AddUserController extends ControllerBase {
 			return;
 		} 
 		 
+		/**
+		 * Chargement de la page d'authentification de l'application
+		 */
 		this.loadSubScene("../authentification/AuthentificationView.fxml");	
 		
 	}
