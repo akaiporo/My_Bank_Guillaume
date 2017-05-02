@@ -147,16 +147,4 @@ public class AuthentificationController extends ControllerBase {
 		
 	}
 	
-	/**
-	 * Fonction de test. Permet d'viter la page de login si on a pas de compte (Pour Michel)
-	 */
-	@FXML
-	private void handleDodgeConnexion(){
-		try {
-			MainWindowController.contentPane.getChildren().setAll(loadFxml("../compteCourant/CompteCourantList.fxml"));
-		} 
-		catch (IOException e) {
-		}
-	}
-	
 }

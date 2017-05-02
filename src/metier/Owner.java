@@ -90,7 +90,7 @@ public class Owner extends Person{
 		if (pwd == null){
 			pwd = "";
 		}
-		this.pwd = BCrypt.hashpw(pwd, BCrypt.gensalt(12));
+		this.pwd = pwd;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_address")

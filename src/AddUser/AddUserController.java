@@ -9,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import application.ControllerBase;
 import application.MainWindowController;
 import application.Mediator;
@@ -187,7 +189,7 @@ public class AddUserController extends ControllerBase {
 			errlogin.setText(" The login cannot be null");
 		}
 		try {
-			owner.setPwd(pwd.getText());
+			owner.setPwd(BCrypt.hashpw(pwd.getText(), BCrypt.gensalt(12)));
 		}
 		catch  (IllegalArgumentException e) {
 			errpwd.setText(" The password cannot be empty");
@@ -247,7 +249,6 @@ public class AddUserController extends ControllerBase {
 		
 		em.getTransaction().begin();
 		em.persist(owner);
-		em.persist(cpcity);
 		em.persist(address);
 		try{
 			em.getTransaction().commit();

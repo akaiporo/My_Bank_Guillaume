@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import application.ControllerBase;
+import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -24,6 +25,8 @@ import metier.Account;
 import metier.AccountType;
 import metier.Advisor;
 import metier.Agency;
+import metier.Assign;
+import metier.AssignPK;
 import metier.CountryCode;
 import metier.DateUtils;
 
@@ -185,6 +188,7 @@ public class AddAccountController extends ControllerBase {
 		em.persist(currentAccount);
 		try{
 			em.getTransaction().commit();
+			this.linkAccount(currentAccount);
 		}
 		catch(Exception e){
 			em.getTransaction().rollback();
@@ -194,6 +198,20 @@ public class AddAccountController extends ControllerBase {
 		 * La page principale de l'application est chargée
 		 */
 		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
+	}
+	
+	private void linkAccount(Account currentAccount){
+		AssignPK tmp = new AssignPK(currentAccount.getId(), MainWindowController.currentOwner.getId());
+		Assign assign = new Assign(tmp);
+		em.getTransaction().begin();
+		em.persist(assign);
+		try{
+			em.getTransaction().commit();
+		}
+		catch(Exception e){
+			em.getTransaction().rollback();
+			return;
+		}
 	}
 	
 	/*

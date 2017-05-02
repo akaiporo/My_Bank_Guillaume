@@ -121,8 +121,10 @@ public class CompteCourantController extends ControllerBase {
 		this.choiceAccount.getSelectionModel().selectFirst();
 		
 		Account tmp = this.choiceAccount.getSelectionModel().getSelectedItem();
-		Account account = em.find(Account.class, tmp.getId());
-		this.setTransactionList(account);
+		if(tmp != null){
+			Account account = em.find(Account.class, tmp.getId());
+			this.setTransactionList(account);
+		}
 	
 		this.categories = em.createNamedQuery("Category.findAll").getResultList();
 		this.choiceCategory.setItems(FXCollections.observableList(categories));
@@ -138,8 +140,9 @@ public class CompteCourantController extends ControllerBase {
 		
 		this.chkCycle.setSelected(false);
 		this.initCycleOptionsVisibility(false);
-		
-		this.pieChart.setData(FXCollections.observableList(transactionsValues));
+		if(transactionsValues != null){
+			this.pieChart.setData(FXCollections.observableList(transactionsValues));
+		}
 		
 		this.listTransactions.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<PeriodicTransaction>() {
 			@Override 

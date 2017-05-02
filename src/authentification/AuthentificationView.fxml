@@ -16,6 +16,5 @@
       <TextField id="pwd" fx:id="pwd" layoutX="169.0" layoutY="186.0" prefHeight="31.0" prefWidth="346.0" AnchorPane.bottomAnchor="185.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="169.0" AnchorPane.topAnchor="186.0" />
       <Label id="errlogin" fx:id="errlogin" layoutX="193.0" layoutY="144.0" prefHeight="21.0" prefWidth="298.0" textFill="#f20726" />
       <Label id="errpwd" fx:id="errpwd" layoutX="193.0" layoutY="226.0" prefHeight="21.0" prefWidth="298.0" textFill="#f20726" />
-      <Button  layoutX="237.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleDodgeConnexion" text="Click moi pour passer à la main page" />
    </children>
 </AnchorPane>
