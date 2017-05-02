@@ -226,9 +226,27 @@ public class Account implements Serializable {
 		}
 	}
 	
-	private String calculcateCountryCode(String account_number){
-		return "76";
-	}
+	/*private int IBANkey(String bank_code,String counter_code,String account_number,String country_code){
+		String brut = String.format(%s%s%s%i%s, bank_code,counter_code,account_number,calculationRIBkey(bank_code,counter_code,account_number),country_code);
+		
+		String traduit="";
+		String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		
+		for (int j=0 ; j<brut.length() ; j++){
+			boolean bool=true;
+			for (int i=0 ; i<alphabet.length() ; i++){
+				if (brut.charAt(j)==alphabet.charAt(i)){
+					traduit=traduit+(i+10);
+					bool=false;
+				}
+			}
+			if (bool){
+				traduit=traduit+brut.charAt(j);
+			}
+		}
+		return 98-(Integer.parseInt(traduit))%97s;
+	}*/
+	
 	
 	@Override
 	public String toString() {
