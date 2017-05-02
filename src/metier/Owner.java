@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import org.mindrot.jbcrypt.BCrypt;
 import application.Tools;
 
 @Entity
@@ -87,11 +87,10 @@ public class Owner extends Person{
 		return this.pwd;
 	}
 	public void setPwd(String pwd){
-		//TODO encrytpe password
 		if (pwd == null){
 			pwd = "";
 		}
-		this.pwd = pwd;
+		this.pwd = BCrypt.hashpw(pwd, BCrypt.gensalt(12));
 	}
 	@ManyToOne
 	@JoinColumn(name="id_address")
