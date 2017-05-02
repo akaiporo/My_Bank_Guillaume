@@ -33,6 +33,7 @@ public class RIBCalculationController extends ControllerBase {
 		return Integer.parseInt(traduit);
 	}
 	
+	
 	private int calculationRIBkey(String bank_code,String counter_code,String account_number){
 		return 97-(89*tradRIBkey(bank_code)+15*tradRIBkey(counter_code)+3*tradRIBkey(account_number))%97;
 	}
