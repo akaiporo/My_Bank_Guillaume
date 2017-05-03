@@ -32,6 +32,7 @@ public class RIBCalculationController extends ControllerBase {
 	private CpCity cpcity = new CpCity();
 	private Address address = new Address();
 	private int RIBkey;
+	private int IBANkey;
 
 	
 	@ FXML private Label titulaire;
@@ -45,6 +46,10 @@ public class RIBCalculationController extends ControllerBase {
 	@ FXML private Button btn_print;
 	@ FXML private Button btn_cancel;
 	
+	private String bankcode;
+	private String countercode;
+	private String accountnumber;
+	private String countrycode;
 	
 	@Override
 	public void initialize(Mediator mediator) {
@@ -56,11 +61,20 @@ public class RIBCalculationController extends ControllerBase {
 			this.processPersistenceException(e);
 		}
 		
+		this.accountnumber=account.getAccountNumber();
+		this.bankcode=account.getAgency().getBank().getBankCode();
+		this.countercode=account.getAgency().getCounterCode();
+		this.countrycode=account.getCountryCode().getCountryCode();
+		
+		account_number.setText(this.accountnumber);
+		bank_code.setText(this.bankcode);
+		/*System.out.print(bankcode);
+		RIBkey=calculationRIBkey(bankcode, countercode,accountnumber);
+		IBANkey=calculationIBANkey(bankcode, countercode,accountnumber,countrycode);
 		titulaire.setText(String.format("%s %s",owner.getFirstName(), owner.getName()));
-		domiciliation.setText(String.format("%s %s %s %s", address.getLine1(), address.getLine2(), cpcity.getPostalCode(), cpcity.getCity()));
 		rib_key.setText(Integer.toString(RIBkey));
-		//iban.setText(String.format("%s %4s %4s %4s %4s %4s %4s", "FR"+IBANkey(), bank.getBankCode(),agency.getCounterCode(), account.getAccountNumber(), RIBkey)) ;
-		//bic.setText(value);
+		iban.setText(String.format(" %2s%2$d %4s %4s %4s %4s %4s", countrycode+IBANkey, countercode, accountnumber, Integer.toString(RIBkey))) ;
+		//bic.setText(value);*/
 		
 		
 		
@@ -93,11 +107,10 @@ public class RIBCalculationController extends ControllerBase {
 	
 	
 	private int calculationRIBkey(String bank_code,String counter_code,String account_number){
-		 RIBkey = 97-(89*tradRIBkey(bank_code)+15*tradRIBkey(counter_code)+3*tradRIBkey(account_number))%97;
-		 return RIBkey;
+		 return 97-(89*tradRIBkey(bank_code)+15*tradRIBkey(counter_code)+3*tradRIBkey(account_number))%97;
 	}
 	
-	private int IBANkey(String bank_code,String counter_code,String account_number,String country_code){
+	private int calculationIBANkey(String bank_code,String counter_code,String account_number,String country_code){
 	String brut = String.format("%s%s%s%1$d%s", bank_code,counter_code,account_number,calculationRIBkey(bank_code,counter_code,account_number),country_code);
 	
 	String traduit="";
@@ -155,8 +168,14 @@ public class RIBCalculationController extends ControllerBase {
 	
 	public void setAccount(Account a){
 		this.account = a;
-		account_number.setText(account.getAccountNumber());
-		bank_code.setText(account.getAgency().getBank().getBankCode());
+		
 	}
+	
+	/*public void setAgency(Agency b){
+		this.agency = b;
+		domiciliation.setText(String.format("%s %s %s %s", agency.getAddress().getLine1(), agency.getAddress().getLine2(), agency.getAddress().getCpCity().getPostalCode(), agency.getAddress().getCpCity().getCity()));
+	}*/
+	
+
 
 }
