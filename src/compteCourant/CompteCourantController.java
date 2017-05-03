@@ -38,6 +38,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
@@ -54,7 +55,7 @@ import ribcalculation.RIBCalculationController;
 
 public class CompteCourantController extends ControllerBase {
 
-	@FXML private StackPane stackPane;
+	@FXML private AnchorPane anchorPane;
 	@FXML private TableView<PeriodicTransaction> listTransactions;
 	@FXML private CheckBox chkCycle;
 	@FXML private TextField txtLabel;
@@ -103,13 +104,15 @@ public class CompteCourantController extends ControllerBase {
 	 */
 	public void initialize(Mediator mediator) {
 		em = mediator.createEntityManager();
+		Main.getPrimaryStage().setMinWidth(1020);
+		Main.getPrimaryStage().setMinHeight(600);
 		
 		/**
 		 * Ajouter le pieChart a stackPane
 		 */
 		caption.setTextFill(Color.DARKORANGE);
 		caption.setStyle("-fx-font: 24 arial;");
-		stackPane.getChildren().add(caption);
+		anchorPane.getChildren().add(caption);
 		
 		List<Assign> assignList = em.createNamedQuery("Assign.findAll").getResultList();
 		this.accounts = new ArrayList<Account>();

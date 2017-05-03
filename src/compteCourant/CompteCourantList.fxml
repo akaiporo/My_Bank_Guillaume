@@ -17,11 +17,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 
-<StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compteCourant.CompteCourantController">
+<AnchorPane fx:id="anchorPane" minHeight="400.0" minWidth="1020.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="compteCourant.CompteCourantController">
    <children>
-      <TabPane prefHeight="500.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="500.0" tabMaxWidth="998.0">
+      <TabPane prefHeight="500.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="500.0" tabMaxWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab text="Résumé">
                <content>
@@ -44,7 +43,7 @@
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Calculate RIB" textAlignment="RIGHT" onAction="#handleRIB">
+                              <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRIB" text="Calculate RIB" textAlignment="RIGHT">
                                  <HBox.margin>
                                     <Insets left="300.0" top="5.0" />
                                  </HBox.margin>
@@ -105,7 +104,7 @@
                           </TableColumn>
                         </columns>
                       </TableView>
-                      <AnchorPane minHeight="230" prefHeight="230.0" prefWidth="1061.0">
+                      <AnchorPane maxHeight="400.0" minHeight="230" prefHeight="230.0" prefWidth="1061.0">
                            <children>
                               <Label layoutX="128.0" layoutY="81.0" text="Libellé" AnchorPane.leftAnchor="128.0" AnchorPane.topAnchor="81.0" />
                               <TextField fx:id="txtLabel" layoutX="129.0" layoutY="98.0" prefHeight="25.0" prefWidth="249.0" AnchorPane.leftAnchor="129.0" AnchorPane.topAnchor="98.0" />
@@ -138,7 +137,7 @@
                               <DatePicker fx:id="dateCycle" layoutX="758.0" layoutY="167.0" prefHeight="25.0" prefWidth="229.0" AnchorPane.leftAnchor="758.0" AnchorPane.rightAnchor="147.0" AnchorPane.topAnchor="167.0" />
                               <Label fx:id="labelCycleEnd" layoutX="760.0" layoutY="146.0" text="Date de fin de cycle (optionnelle)" />
                               
-                                                   </children>
+                                                         </children>
                         </AnchorPane>
                     </items>
                   </SplitPane>
@@ -156,4 +155,4 @@
         </tabs>
       </TabPane>
    </children>
-</StackPane>
+</AnchorPane>

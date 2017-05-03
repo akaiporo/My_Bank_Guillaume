@@ -10,6 +10,7 @@ import javax.persistence.Query;
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.ControllerBase;
+import application.Main;
 import application.MainWindowController;
 import application.Mediator;
 import javafx.event.ActionEvent;
@@ -37,6 +38,10 @@ public class AuthentificationController extends ControllerBase {
 
 	@Override
 	public void initialize(Mediator mediator) {
+		Main.getPrimaryStage().setMinWidth(700);
+		Main.getPrimaryStage().setMinHeight(500);
+		Main.getPrimaryStage().setWidth(700);
+		Main.getPrimaryStage().setHeight(500);
 		try {	
 			em = mediator.createEntityManager();	
 		}
