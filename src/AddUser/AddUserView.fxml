@@ -39,7 +39,7 @@
          </font>
       </Label> 
       <DatePicker id="owner_birthdate" fx:id="owner_birthdate" layoutX="188.0" layoutY="451.0" prefHeight="31.0" prefWidth="187.0" />
-      <ChoiceBox id="city" fx:id="city" layoutX="602.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" />
+      <ChoiceBox id="city" fx:id="city" layoutX="602.0" layoutY="365.0" prefHeight="31.0" prefWidth="187.0" onAction="#newCity"/>
       <Label id="errlogin" fx:id="errlogin" layoutX="397.0" layoutY="115.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errpwd" fx:id="errpwd" layoutX="35.0" layoutY="57.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />
       <Label id="errconfirmpwd" fx:id="errconfirmpwd" layoutX="532.0" layoutY="185.0" prefHeight="21.0" prefWidth="310.0" textAlignment="CENTER" textFill="#f00707b7" />

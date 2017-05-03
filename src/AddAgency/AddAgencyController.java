@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
@@ -135,40 +136,66 @@ public class AddAgencyController extends ControllerBase {
 	@FXML
 	private void handleButtonOK (ActionEvent event){
 		/*
-		 * L'objet <CpCity> ("currentCpCity",créé vide) est rempli via les setters en testant chaque champ 
+		 * L'objet <CpCity> ("currentCpCity",créé vide) est relié à un cpcity de la base via une query 
 		 */
-		try{
-			currentCpCity.setPostalCode(choicePostalCode.getValue());
+		
+		Query z = em.createQuery("SELECT p FROM CpCity p WHERE p.postalCode =:postalcode AND p.city =:city", CpCity.class);
+		if (choicePostalCode.getValue()!=null && choiceCity.getValue()!=null){
+			z.setParameter("postalcode", choicePostalCode.getValue());
+			z.setParameter("city", choiceCity.getValue());
 		}
-		catch(NullPointerException e){
-			agency_error.setText("Please choose an existing postal code or add one");
+		else {
+			agency_error.setText("Please choose an existing postal code and city or add one");
 			return;
 		}
-		try{
-			currentCpCity.setCity(choiceCity.getValue());
+		
+		try {
+			currentCpCity=(CpCity)z.getSingleResult();
 		}
-		catch (IllegalArgumentException e){
-			agency_error.setText("Please choose an existing city or add one");
+		catch (NoResultException err){
 			return;
 		}
+		
 		/*
-		 * L'objet <Address> ("currentAddress",créé vide) est rempli via les setters en testant chaque champ 
+		 * L'objet <Address> ("currentAddress",créé vide) est retrouvé dans la base ou rempli via les setters en testant chaque champ
 		 */
-		try{
-			currentAddress.setLine1(address_line1.getText());
+		Query q = em.createQuery("SELECT a FROM Address a WHERE a.line1 = :line1 AND a.line2 =:line2 AND a.cpCity =:cpcity", Address.class);
+		q.setParameter("line1", address_line1.getText());
+		q.setParameter("line2", address_line2.getText());
+		q.setParameter("cpcity", currentCpCity);
+		try {
+				currentAddress=(Address)q.getSingleResult(); //si adresse déjà existante
 		}
-		catch(IllegalArgumentException e){
-			agency_error.setText(e.getMessage());
-			return;
+		catch (NoResultException err) {
+			try{
+				currentAddress.setLine1(address_line1.getText());
+			}
+			catch(IllegalArgumentException e){
+				agency_error.setText(e.getMessage());
+				return;
+			}
+			currentAddress.setLine2(address_line2.getText());
+			try{
+				currentAddress.setCpCity(currentCpCity);
+			}
+			catch(IllegalArgumentException e){
+				agency_error.setText(e.getMessage());
+				return;
+			}
+			/*
+			 * Si l'adresse n'existe pas déjà elle est commit dans la base
+			 */
+			em.getTransaction().begin();
+			em.persist(currentAddress);
+			try{
+				em.getTransaction().commit();
+			}
+			catch(Exception e) {
+				em.getTransaction().rollback();
+				return;
+			}
 		}
-		currentAddress.setLine2(address_line2.getText());
-		try{
-			currentAddress.setCpCity(currentCpCity);
-		}
-		catch(IllegalArgumentException e){
-			agency_error.setText(e.getMessage());
-			return;
-		}
+		
 		/*
 		 * L'objet <Agency> ("currentAgency",créé vide) est rempli via les setters en testant chaque champ 
 		 */
@@ -201,11 +228,9 @@ public class AddAgencyController extends ControllerBase {
 			return;
 		}
 		/*
-		 * Ajout dans la base des objets currentCpCIty, currentAddress, currentAgency successivement
+		 * Ajout dans la base de l'objet currentAgency
 		 */
 		em.getTransaction().begin();
-		em.persist(currentCpCity);
-		em.persist(currentAddress);
 		em.persist(currentAgency);
 		try{
 			em.getTransaction().commit();

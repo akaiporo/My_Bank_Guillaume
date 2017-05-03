@@ -1,18 +1,17 @@
 package AddUser;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import application.ControllerBase;
-import application.MainWindowController;
 import application.Mediator;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -27,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import metier.Owner;
 import metier.Address;
+import metier.Advisor;
 import metier.CpCity;
 import metier.DateUtils;
 
@@ -100,22 +100,20 @@ public class AddUserController extends ControllerBase {
 		}
 	}
 	/** 
-	 * @param event :On va créer un événement newCity pour pouvoir rajouter une ville 
-	 *  si elle n'existe pas déjà dans la BDD
+	 * @param event :On va crï¿½er un ï¿½vï¿½nement newCity pour pouvoir rajouter une ville 
+	 *  si elle n'existe pas dï¿½jï¿½ dans la BDD
 	 */
 	@FXML
 	private void newCity (ActionEvent event) {
 		ChoiceBox catCity  = (ChoiceBox)event.getTarget();
 		String tmp = (String) catCity.getValue();
 		if(tmp.equals("(new city)")) {
-			System.out.println("new city");
 			this.loadSubScene("../AddCpCity2/AddCpCityView2.fxml");
-
 		}
 	}
 	/**
-	 * @param event :On va créer un événement handlePostalcode pour pouvoir rajouter un code postal 
-	 *  s'l n'existe pas déjà dans la BDD
+	 * @param event :On va crï¿½er un ï¿½vï¿½nement handlePostalcode pour pouvoir rajouter un code postal 
+	 *  s'l n'existe pas dï¿½jï¿½ dans la BDD
 	 */
 	@FXML 
 	private void handlePostalcode (ActionEvent event) {
@@ -123,7 +121,6 @@ public class AddUserController extends ControllerBase {
 		ChoiceBox catPostalcode  = (ChoiceBox)event.getTarget();
 		String tmp = (String)catPostalcode.getValue();
 		if(tmp.equals("(new postalcode)")) {
-			System.out.println("new postal code");
 			this.loadSubScene("../AddCpCity2/AddCpCityView2.fxml");
 		}
 		else {
@@ -137,65 +134,100 @@ public class AddUserController extends ControllerBase {
 	}
 	/**
 	 * 
-	 * @param Event : Création d'un evénement avec le bouton ok pour rajouter(set) un owner dans la BDD
-	 * En testant à chaque fois les differents paramètres/champs;
-	 * Dans l'idéal, il aurait aussi fallu tester l'égalité des champs pwd et confirm_pwd;
+	 * @param Event : Crï¿½ation d'un evï¿½nement avec le bouton ok pour rajouter(set) un owner dans la BDD
+	 * En testant ï¿½ chaque fois les differents paramï¿½tres/champs;
+	 * Dans l'idï¿½al, il aurait aussi fallu tester l'ï¿½galitï¿½ des champs pwd et confirm_pwd;
 	 * Puis renvoyer une erreur si les deux champs ne sont pas identiques
-	 * Après l'ajout on est redirigé vers la page d'authentification
+	 * Aprï¿½s l'ajout on est redirigï¿½ vers la page d'authentification
 	 */
 	@FXML
 	private void handleButtonOk(ActionEvent Event) {
+		/*
+		 * L'objet <CpCity> ("cpcity",crÃ©Ã© vide) est reliÃ© Ã  un cpcity de la base via une query 
+		 */
 		
-		
-		try{
-			cpcity.setPostalCode(postalcode.getValue());
+		Query z = em.createQuery("SELECT p FROM CpCity p WHERE p.postalCode =:postalcode AND p.city =:city", CpCity.class);
+		if (postalcode.getValue()!=null && city.getValue()!=null){
+			z.setParameter("postalcode", postalcode.getValue());
+			z.setParameter("city", city.getValue());
 		}
-		catch(NullPointerException e){
-			errpostalcode.setText(e.getMessage());
-			return;
-		}
-		try{
-			cpcity.setCity(city.getValue());
-		}
-		catch(NullPointerException e){
+		else {
+			errpostalcode.setText("Please choose an existing postal code or add one");
 			errcity.setText("Please choose an existing city or add one");
 			return;
 		}
 		
-		
 		try {
-			address.setLine1(owner_id_address1.getText());
+			cpcity=(CpCity)z.getSingleResult();
 		}
-		catch(IllegalArgumentException e){
-			erraddress1.setText(e.getMessage());
-			return;
-		}
-		address.setLine2(owner_id_address2.getText()); // L'address2 peut être vide
-		try {
-			address.setCpCity(cpcity);
-		}
-		catch(NullPointerException e){	
+		catch (NoResultException err){
 			return;
 		}
 		
+		/*
+		 * L'objet <Address> ("address",crÃ©Ã© vide) est retrouvÃ© dans la base ou rempli via les setters en testant chaque champ
+		 */
+		
+		Query q = em.createQuery("SELECT a FROM Address a WHERE a.line1 = :line1 AND a.line2 =:line2 AND a.cpCity =:cpcity", Address.class);
+		q.setParameter("line1", owner_id_address1.getText());
+		q.setParameter("line2", owner_id_address2.getText());
+		q.setParameter("cpcity", cpcity);
+		try {
+				address=(Address)q.getSingleResult(); //si adresse dÃ©jÃ  existante
+		}
+		catch (NoResultException err) {
+			try {
+				address.setLine1(owner_id_address1.getText());
+			}
+			catch(IllegalArgumentException e){
+				erraddress1.setText(e.getMessage());
+				return;
+			}
+			address.setLine2(owner_id_address2.getText()); // L'address2 peut ï¿½tre vide
+			try {
+				address.setCpCity(cpcity);
+			}
+			catch(NullPointerException e){	
+				return;
+			}
+			/*
+			 * Si l'adresse n'existe pas dÃ©jÃ  elle est commit dans la base
+			 */
+			em.getTransaction().begin();
+			em.persist(address);
+			try{
+				em.getTransaction().commit();
+			}
+			catch(Exception e) {
+				em.getTransaction().rollback();
+				return;
+			}
+		}
+		/*
+		 * L'objet <Owner> ("owner",crÃ©Ã© vide) est rempli via les setters en testant chaque champ 
+		 */
 		
 		try {
 			owner.setLogin(login.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errlogin.setText(" The login cannot be empty");
+			return;
 		}
 		catch (NullPointerException e) {
 			errlogin.setText(" The login cannot be null");
+			return;
 		}
 		try {
 			owner.setPwd(BCrypt.hashpw(pwd.getText(), BCrypt.gensalt(12)));
 		}
 		catch  (IllegalArgumentException e) {
 			errpwd.setText(" The password cannot be empty");
+			return;
 		}
 		catch (NullPointerException e) {
 			errpwd.setText(" The password cannot be null");
+			return;
 		}
 		
 		try {
@@ -203,56 +235,63 @@ public class AddUserController extends ControllerBase {
 		}
 		catch  (IllegalArgumentException e) {
 			errname.setText(" The owner name cannot be empty");
+			return;
 		}
 		catch  (NullPointerException e) {
 			errname.setText(" The owner name cannot be null");
+			return;
 		}
 		try {
 			owner.setFirstName(owner_firstname.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errfirstname.setText(" The owner firstname cannot be empty");
+			return;
 		}
 		catch  (NullPointerException e) {
 			errfirstname.setText(" The owner firstname cannot be null");
+			return;
 		}
 		try {
 			owner.setMail(owner_mail.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errmail.setText(" The owner email cannot be empty");
+			return;
 		}
 		try {
 			owner.setPhoneNumber(owner_phonenumber.getText());
 		}
 		catch  (IllegalArgumentException e) {
 			errphonenumber.setText(" The owner phonenumber cannot be empty");
+			return;
 		}
 		try {
 			owner.setBirthdate(DateUtils.LocalDateToDate(owner_birthdate.getValue()));
 		}
 		catch  (IllegalArgumentException e) {
 			errbirthdate.setText(" The owner birthdate cannot be empty");
+			return;
 		}
 		catch (NullPointerException e) {
 			errbirthdate.setText(" The birthdate cannot be null");
+			return;
 		}
 		try {
 			owner.setAddress(address);
 		}
 		catch(NullPointerException e){	
+			return;
 		}
 		
 		/**
-		 * Ajout d'un vouvel utilisateur dans la BDD
+		 * Ajout d'un nouvel utilisateur dans la BDD
 		 */
 		
 		em.getTransaction().begin();
 		em.persist(owner);
-		em.persist(address);
 		try{
 			em.getTransaction().commit();
-			
 		}
 		catch(Exception e) {
 			em.getTransaction().rollback();
@@ -266,7 +305,7 @@ public class AddUserController extends ControllerBase {
 		
 	}
 	/**
-	 * @param event : L'événement du bouton cancel va permettre  de revenir dans la fenêtre des comptes 
+	 * @param event : L'ï¿½vï¿½nement du bouton cancel va permettre  de revenir dans la fenï¿½tre des comptes 
 	 * si jamais on ne veut plus ajouter de nouvel utilisateur, tout en demandant une confirmation
 	 */
 	@FXML
@@ -287,7 +326,7 @@ public class AddUserController extends ControllerBase {
 		
 	}
 	/**
-	 * Affiche les erreurs relatives à la base de données (e.g : champs inexistants, incompatibles, etc...)
+	 * Affiche les erreurs relatives ï¿½ la base de donnï¿½es (e.g : champs inexistants, incompatibles, etc...)
 	 * @param e : PersistenceException
 	 */
 	private void processPersistenceException(PersistenceException e) {

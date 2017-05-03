@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -70,7 +71,6 @@ public class Address {
 			this.line2 = "";
 		}
 		else this.line2 = line2;
-		this.line2 = line2;
 	}
 	@ManyToOne
 	@JoinColumn(name="id_postalcode")
@@ -81,7 +81,7 @@ public class Address {
 		this.cpCity = cpc;
 	}
 	
-	/*@Override
+	@Override
 	public boolean equals(Object obj){
 		if(obj instanceof Address){
 			Address tmp = (Address)obj;
@@ -94,7 +94,7 @@ public class Address {
 			else return false;
 		}
 		else return false;
-	}*/
+	}
 	
 	private int id;
 	private String line1;
