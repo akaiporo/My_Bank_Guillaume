@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -37,10 +38,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.util.Pair;
 import javafx.scene.control.Alert.AlertType;
 import metier.Account;
@@ -83,6 +87,8 @@ public class CompteCourantController extends ControllerBase {
 	@FXML private Label labelCycleType;
 	@FXML private Label thresh;
 	@FXML private PieChart pieChart;
+	@FXML private TextField threshAlert;
+	@FXML private Label resultThrashUpdate;
 
 	
 	//non FXML var
@@ -132,6 +138,7 @@ public class CompteCourantController extends ControllerBase {
 			Account account = em.find(Account.class, tmp.getId());
 			this.setTransactionList(account);
 		}
+		
 	
 		this.categories = em.createNamedQuery("Category.findAll").getResultList();
 		this.choiceCategory.setItems(FXCollections.observableList(categories));
@@ -159,6 +166,18 @@ public class CompteCourantController extends ControllerBase {
 				updateForm(newVal); 
 			}
 		});	
+		this.threshAlert.setOnKeyPressed(new EventHandler<KeyEvent>()
+	    {
+	        @Override
+	        public void handle(KeyEvent ke)
+	        {
+	        	TextField val = (TextField)ke.getTarget();
+	            if (ke.getCode().equals(KeyCode.ENTER) && !val.equals(threshAlert.getText()))
+	            {
+	                updateAlert(Integer.parseInt(val.getText()));
+	            }
+	        }
+	    });
 	}
 	
 	/**
@@ -185,6 +204,37 @@ public class CompteCourantController extends ControllerBase {
 	
 		this.setPieChart();
 	}
+	
+	private void updateAlert(int value){
+		Account tmp = em.find(Account.class, currentAccount.getId());
+		em.getTransaction().begin();
+		try {
+			tmp.setTransactions(Transactions);
+			tmp.setAlertThresh(value);
+			em.getTransaction().commit();
+			this.resultThrashUpdate.setText("OK !");
+			this.resultThrashUpdate.setTextFill(Paint.valueOf("GREEN"));
+			this.resultThrashUpdate.setVisible(true);
+			
+			new java.util.Timer().schedule( 
+			        new java.util.TimerTask() {
+			            @Override
+			            public void run() {
+			            	resultThrashUpdate.setVisible(false);
+			            }
+			        }, 
+			        5000 
+			);
+		}
+		catch(RollbackException e) {
+			this.resultThrashUpdate.setText("Erreur !");
+			this.resultThrashUpdate.setTextFill(Paint.valueOf("RED"));
+			this.resultThrashUpdate.setVisible(true);
+		}
+		
+		
+	}
+	
 	/**
 	 * Calcul le solde en fonction du solde de départ et des lignes de compte
 	 */
@@ -193,7 +243,16 @@ public class CompteCourantController extends ControllerBase {
 		for(PeriodicTransaction pt : Transactions){
 			solde += pt.getTransactionValue();
 		}
+		if(solde <= this.currentAccount.getAlertThresh()){
+			Alert alert  = new Alert(AlertType.CONFIRMATION, "Vous venez de dépasser votre seuil d'alerte !", ButtonType.OK);
+			String text = String.format("Votre seuil d'alerte est de %01d. \\nVous êtes actuellement à %.2f", this.currentAccount.getAlertThresh(), solde);
+			alert.setContentText(text);
+			alert.showAndWait();
+		}
 		this.thresh.setText(String.format("%s", Double.toString(solde)));
+		if(solde < (currentAccount.getOverdraft()*-1)){
+			this.thresh.setTextFill(Paint.valueOf("RED"));
+		}
 	}
 	
 	/**
@@ -251,6 +310,7 @@ public class CompteCourantController extends ControllerBase {
 		ChoiceBox choiceAccount = (ChoiceBox)event.getTarget();
 		this.currentAccount = (Account)choiceAccount.getValue();
 		this.currentAccount = em.find(Account.class, currentAccount.getId());
+		this.threshAlert.setText(Integer.toString(this.currentAccount.getAlertThresh()));
 		this.setTransactionList(currentAccount);
 	} 
 	/**

@@ -33,17 +33,32 @@
                                     <Insets left="5.0" top="8.0" />
                                  </HBox.margin>
                               </ChoiceBox>
-                              <Label text="Solde : ">
+                              <Label prefHeight="17.0" prefWidth="126.0" text="Solde : ">
                                  <HBox.margin>
-                                    <Insets left="80.0" top="10.0" />
+                                    <Insets left="50.0" top="10.0" />
                                  </HBox.margin>
                               </Label>
-                              <Label fx:id="thresh">
+                              <Label fx:id="thresh" prefHeight="27.0" prefWidth="135.0">
                                  <padding>
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
-                              <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRIB" text="Calculate RIB" textAlignment="RIGHT">
+                              <Label prefHeight="17.0" prefWidth="164.0" text="Seuil d'alerte : ">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="threshAlert">
+                                 <HBox.margin>
+                                    <Insets top="7.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label fx:id="resultThrashUpdate" visible="false" prefHeight="17.0" prefWidth="168.0">
+                                 <HBox.margin>
+                                    <Insets top="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleRIB" prefHeight="25.0" prefWidth="171.0" text="Calculate RIB" textAlignment="RIGHT">
                                  <HBox.margin>
                                     <Insets left="300.0" top="5.0" />
                                  </HBox.margin>
