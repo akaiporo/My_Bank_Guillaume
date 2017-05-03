@@ -2,8 +2,6 @@ package metier;
 
 import java.util.Date;
 
-import javax.persistence.AssociationOverride;
-import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;

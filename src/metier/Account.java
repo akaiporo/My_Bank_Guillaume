@@ -186,6 +186,9 @@ public class Account implements Serializable {
 		return this.countryCode;
 	}
 	public void setCountryCode(CountryCode country){
+		if(country == null){
+			throw new NullPointerException("Un compte doit avoir un code pays");
+		}
 		this.countryCode = country;
 	}
 	
@@ -213,6 +216,9 @@ public class Account implements Serializable {
 		return this.transactions;
 	}
 	public void setTransactions(List<PeriodicTransaction> trans){
+		if(trans == null){
+			throw new NullPointerException("Une liste de transaction ne peut être null");
+		}
 		this.transactions = trans;
 	}
 	
@@ -226,52 +232,8 @@ public class Account implements Serializable {
 		}
 	}
 	
-	/*private int IBANkey(String bank_code,String counter_code,String account_number,String country_code){
-		String brut = String.format(%s%s%s%i%s, bank_code,counter_code,account_number,calculationRIBkey(bank_code,counter_code,account_number),country_code);
-		
-		String traduit="";
-		String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		
-		for (int j=0 ; j<brut.length() ; j++){
-			boolean bool=true;
-			for (int i=0 ; i<alphabet.length() ; i++){
-				if (brut.charAt(j)==alphabet.charAt(i)){
-					traduit=traduit+(i+10);
-					bool=false;
-				}
-			}
-			if (bool){
-				traduit=traduit+brut.charAt(j);
-			}
-		}
-		return 98-(Integer.parseInt(traduit))%97s;
-	}*/
-	
-	
 	@Override
 	public String toString() {
 		return String.format("%s %s %s", this.accountType.getAccountType(), this.agency.getAgencyName(), this.account_number);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
