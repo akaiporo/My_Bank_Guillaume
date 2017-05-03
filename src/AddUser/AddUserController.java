@@ -37,6 +37,7 @@ public class AddUserController extends ControllerBase {
 	private Address address = new Address();
 	List<String> cities = new ArrayList<String>();
 
+	
 	@FXML private TextField login;
 	@FXML private TextField pwd;
 	@FXML private TextField confirm_pwd;
