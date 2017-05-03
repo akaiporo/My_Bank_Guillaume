@@ -2,6 +2,8 @@ package compteCourant;
 
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -193,6 +195,9 @@ public class CompteCourantController extends ControllerBase {
 	 * Remplie la PieChart avec les valeurs des transactions du compte sélectionné
 	 */
 	private void setPieChart(){
+		
+		//Arrive pas à le trier, "duplicate children" quoique que je fasse dès que je veux donner le choix
+		//Entre update une data ou ajouter une nouvelle ligne.
 		this.transactionsValues = new ArrayList<PieChart.Data>();
 		this.transactionsValues.add(new PieChart.Data("void", 0));
 		for(PeriodicTransaction t : this.Transactions){
@@ -413,20 +418,10 @@ public class CompteCourantController extends ControllerBase {
 	private void handleBtnNew(ActionEvent event) {
 		PeriodicTransaction transaction = new PeriodicTransaction();
 		transaction.setAccount(this.currentAccount);
-		transaction.setDescription(this.txtDescription.getText());
-		transaction.setPeriodUnit(this.choiceCycle.getValue());
 		
 		/**
 		 * DEBUT Tests et gestions des erreurs
 		 */
-		try{
-			int value = Integer.parseInt(this.txtCycle.getText());
-			transaction.setDayNumber(value);
-			this.errValue.setVisible(false);
-		}
-		catch(Exception e){
-			return;
-		}
 		try{
 			double value = Double.parseDouble(this.txtValeur.getText());
 			transaction.setTransactionValue(value);
@@ -444,14 +439,27 @@ public class CompteCourantController extends ControllerBase {
 			this.errLibele.setVisible(true);
 			return;
 		}
-		try{
-			Date date = (Date.from(this.dateCycle.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-			transaction.setEndDateTransaction(date);
-			this.errDate.setVisible(false);
-		}
-		catch(Exception e){
-			this.errDate.setVisible(true);
-			return;
+		if(this.chkCycle.isSelected()){
+			try{
+				Date date = (Date.from(this.dateCycle.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+				transaction.setEndDateTransaction(date);
+				this.errDate.setVisible(false);
+			}
+			catch(Exception e){
+			
+				this.errDate.setVisible(true);
+				return;
+			}
+			try{
+				int value = Integer.parseInt(this.txtCycle.getText());
+				transaction.setDayNumber(value);
+				this.errValue.setVisible(false);
+			}
+			catch(Exception e){
+				return;
+			}
+			transaction.setDescription(this.txtDescription.getText());
+			transaction.setPeriodUnit(this.choiceCycle.getValue());
 		}
 		try{
 			Date date = Date.from(this.dateCreated.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -508,16 +516,15 @@ public class CompteCourantController extends ControllerBase {
 				}
 			}
 		}
+		em.getTransaction().begin();
 		try{
-			em.getTransaction().begin();
 			em.getTransaction().commit();
 			this.refreshTransaction(transaction);
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			
 			em.getTransaction().rollback();
 		}
-		
 		this.refreshTransaction();
 	}
 	
