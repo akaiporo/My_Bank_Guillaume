@@ -59,8 +59,8 @@ public class RIBCalculationController extends ControllerBase {
 		domiciliation.setText(String.format("%s %s %s %s", address.getLine1(), address.getLine2(), cpcity.getPostalCode(), cpcity.getCity()));
 		bank_code.setText(bank.getBankCode());
 		account_number.setText(account.getAccountNumber());
-		rib_key.setText(RIBkey.getcalculationRIBkey());
-		//iban.setText(String.format("%s %4s %4s %4s %4s %4s %4s", (FR)IBANkey(), bank.getBankCode(),agency.getCounterCode(), account.getAccountNumber(), RIBkey.getcalculationRIBkey())) ;
+		rib_key.setValue(RIBkey);
+		//iban.setText(String.format("%s %4s %4s %4s %4s %4s %4s", "FR"+IBANkey(), bank.getBankCode(),agency.getCounterCode(), account.getAccountNumber(), RIBkey)) ;
 		//bic.setText(value);
 		
 		
@@ -142,6 +142,7 @@ public class RIBCalculationController extends ControllerBase {
 	}
 	private void handleButtonPrint(ActionEvent event) {
 		
+		// A compléter ultérieurement
 	
 	}	
 	
