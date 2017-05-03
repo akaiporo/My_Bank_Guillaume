@@ -1,5 +1,6 @@
 package metier;
 
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="periodictransaction")
 @NamedQuery(name="PeriodicTransaction.findAll", query="SELECT t FROM PeriodicTransaction t")
-public class PeriodicTransaction {
+public class PeriodicTransaction{
 
 	/* VARIABLES */
 	private int id;
@@ -77,6 +78,9 @@ public class PeriodicTransaction {
 		}
 		if(targetTransaction == null){
 			throw new NullPointerException("la cible ne peut �tre null");
+		}
+		if(description == null){
+			this.description = "";
 		}
 		this.wording = wording;
 		this.transaction_value = transaction_value;
@@ -210,6 +214,9 @@ public class PeriodicTransaction {
 	public boolean equals(Object obj) {
 		if(obj instanceof PeriodicTransaction){
 			PeriodicTransaction tmp = (PeriodicTransaction)obj;
+			if(tmp.getDescription() == null){
+				tmp.setDescription("");
+			}
 			
 			if(tmp.getEndDateTransaction() == null &&  (tmp.getPeriodUnit() != null &&  tmp.getDayNumber() != 0)){
 				if(tmp.getWording().equals(this.getWording()) &&
