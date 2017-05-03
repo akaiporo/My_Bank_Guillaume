@@ -44,6 +44,11 @@
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
+                              <Button alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" text="Calculate RIB" textAlignment="RIGHT" onAction="#handleRIB">
+                                 <HBox.margin>
+                                    <Insets left="300.0" top="5.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
                         </HBox>
                         <TableView fx:id="listTransactions" minHeight="150" prefHeight="150.0" prefWidth="750">

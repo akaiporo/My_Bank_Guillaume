@@ -25,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -49,6 +50,7 @@ import metier.PeriodUnit;
 import metier.PeriodicTransaction;
 import metier.TargetTransaction;
 import metier.TransactionType;
+import ribcalculation.RIBCalculationController;
 
 public class CompteCourantController extends ControllerBase {
 
@@ -589,4 +591,12 @@ public class CompteCourantController extends ControllerBase {
 	}
 	
 
+	@FXML
+	private void handleRIB(){
+		this.loadSubScene("../ribcalculation/RIBCalculation.fxml");
+		Node n = null;
+		n = MainWindowController.contentPane.getChildren().get(0);
+		RIBCalculationController RIBController = (RIBCalculationController)n.getProperties().get("controllerData");
+		
+	}
 }
