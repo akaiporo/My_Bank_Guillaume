@@ -61,13 +61,7 @@ public class RIBCalculationController extends ControllerBase {
 			this.processPersistenceException(e);
 		}
 		
-		this.accountnumber=account.getAccountNumber();
-		this.bankcode=account.getAgency().getBank().getBankCode();
-		this.countercode=account.getAgency().getCounterCode();
-		this.countrycode=account.getCountryCode().getCountryCode();
 		
-		account_number.setText(this.accountnumber);
-		bank_code.setText(this.bankcode);
 		/*System.out.print(bankcode);
 		RIBkey=calculationRIBkey(bankcode, countercode,accountnumber);
 		IBANkey=calculationIBANkey(bankcode, countercode,accountnumber,countrycode);
@@ -168,6 +162,14 @@ public class RIBCalculationController extends ControllerBase {
 	
 	public void setAccount(Account a){
 		this.account = a;
+		
+		this.accountnumber=account.getAccountNumber();
+		this.bankcode=account.getAgency().getBank().getBankCode();
+		this.countercode=account.getAgency().getCounterCode();
+		this.countrycode=account.getCountryCode().getCountryCode();
+		
+		account_number.setText(this.accountnumber);
+		bank_code.setText(this.bankcode);
 		
 	}
 	

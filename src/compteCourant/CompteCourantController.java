@@ -597,6 +597,7 @@ public class CompteCourantController extends ControllerBase {
 		Node n = null;
 		n = MainWindowController.contentPane.getChildren().get(0);
 		RIBCalculationController RIBController = (RIBCalculationController)n.getProperties().get("controllerData");
+		System.out.print(this.currentAccount.getAgency());
 		RIBController.setAccount(this.currentAccount);
 	}
 }
