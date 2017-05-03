@@ -63,11 +63,8 @@ public class RIBCalculationController extends ControllerBase {
 		
 		
 		/*System.out.print(bankcode);
-		RIBkey=calculationRIBkey(bankcode, countercode,accountnumber);
-		IBANkey=calculationIBANkey(bankcode, countercode,accountnumber,countrycode);
-		titulaire.setText(String.format("%s %s",owner.getFirstName(), owner.getName()));
-		rib_key.setText(Integer.toString(RIBkey));
-		iban.setText(String.format(" %2s%2$d %4s %4s %4s %4s %4s", countrycode+IBANkey, countercode, accountnumber, Integer.toString(RIBkey))) ;
+		
+		
 		//bic.setText(value);*/
 		
 		
@@ -162,7 +159,7 @@ public class RIBCalculationController extends ControllerBase {
 	
 	public void setAccount(Account a){
 		this.account = a;
-		
+		this.agency = account.getAgency();
 		this.accountnumber=account.getAccountNumber();
 		this.bankcode=account.getAgency().getBank().getBankCode();
 		this.countercode=account.getAgency().getCounterCode();
@@ -170,13 +167,13 @@ public class RIBCalculationController extends ControllerBase {
 		
 		account_number.setText(this.accountnumber);
 		bank_code.setText(this.bankcode);
-		
-	}
-	
-	/*public void setAgency(Agency b){
-		this.agency = b;
 		domiciliation.setText(String.format("%s %s %s %s", agency.getAddress().getLine1(), agency.getAddress().getLine2(), agency.getAddress().getCpCity().getPostalCode(), agency.getAddress().getCpCity().getCity()));
-	}*/
+		RIBkey=calculationRIBkey(bankcode, countercode,accountnumber);
+		IBANkey=calculationIBANkey(bankcode, countercode,accountnumber,countrycode);
+		titulaire.setText(String.format("%s %s",owner.getFirstName(), owner.getName()));
+		rib_key.setText(Integer.toString(RIBkey));
+		iban.setText(String.format(" %2s%2$d %4s %4s %4s %4s %4s", countrycode+IBANkey, countercode, accountnumber, Integer.toString(RIBkey))) ;
+	}
 	
 
 
