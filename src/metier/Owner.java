@@ -104,6 +104,9 @@ public class Owner extends Person{
 		this.address = address;
 	}
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Owner){
 			Owner tmp = (Owner)obj;
@@ -132,6 +135,9 @@ public class Owner extends Person{
 	}
 	
 	@Override
+	/**
+	 * Return le nom et le prénom
+	 */
 	public String toString() {
 		return String.format("%s %s", getName(), this.getFirstName());
 	}

@@ -1,5 +1,8 @@
 package application;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -69,4 +72,21 @@ public class Tools {
 	public static Date pastDate(){
 		return new GregorianCalendar(2014,4,10).getTime();
 	}
+	
+	/**
+	 * 
+	 * @param local : Date de type javafx (date picker)
+	 * @return date de type java
+	 */
+	public static Date LocalDateToDate(LocalDate local) {
+		return Date.from(local.atStartOfDay(ZoneId.systemDefault()).toInstant());
+	}
+	/**
+	 * 
+	 * @param date : Date de type java
+	 * @return :  date de type javafx (date picker)
+	 */
+	public static LocalDate DateToLocalDate(Date date) {
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+	}	
 }
