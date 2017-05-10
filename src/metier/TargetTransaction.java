@@ -60,6 +60,9 @@ public class TargetTransaction {
 		this.IBAN = iban;
 	}
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof TargetTransaction){
 			TargetTransaction tmp = (TargetTransaction)obj;
@@ -74,6 +77,9 @@ public class TargetTransaction {
 	}
 	
 	@Override
+	/**
+	 * Return le nom de la cible
+	 */
 	public String toString(){
 		return this.target_name;
 	}

@@ -46,6 +46,9 @@ public class PeriodUnit {
 		this.unit = unit;
 	}
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof PeriodUnit){
 			PeriodUnit tmp = (PeriodUnit)obj;
@@ -59,6 +62,9 @@ public class PeriodUnit {
 	}
 	
 	@Override
+	/**
+	 * Return l'unité de périodicité (mensuelle, hebdomadaire, trimestrielle...)
+	 */
 	public String toString(){
 		return this.unit;
 	}
