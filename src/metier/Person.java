@@ -1,13 +1,12 @@
 package metier;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 
 import application.Tools;
 
@@ -74,22 +73,34 @@ public abstract class Person {
 	}
 	
 	public void setName (String nam) {
+		if(nam.isEmpty()) {
+			throw new IllegalArgumentException("The name cannot be empty");
+		}
 		this.name=nam;
 	}
 	public void setFirstName (String nam) {
+		if(nam.isEmpty()) {
+			throw new IllegalArgumentException("The firstname cannot be empty");
+		}
 		this.firstname=nam;
 	}
 	public void setPhoneNumber (String phone) {
+		if(Tools.eraseChar(phone,"\\s").length()<4||Tools.eraseChar(phone,"\\s").length()>11) {
+			throw new IllegalArgumentException("phonenumber must contain between 4 and 11 numbers");
+		}
 		this.phonenumber=phone;
 	}
 	public void setMail (String mail) {
+		if(!Tools.checkMail(mail)){
+			throw new IllegalArgumentException("mail must be of a valid format eg toto@titi.tutu");
+		}
 		this.mail=mail;
 	}
 	
 	
 	@Override
 	/**
-	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 * Return true si tout les champs sont ï¿½gaux (mais pas les addresses mï¿½moires)
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Person){

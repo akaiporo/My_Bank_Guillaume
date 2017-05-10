@@ -42,12 +42,15 @@ public class PeriodUnit {
 	public String getUnit(){
 		return this.unit;
 	}
-	private void setUnit(String unit){
+	public void setUnit(String unit){
+		if (unit.isEmpty()){
+			throw new IllegalArgumentException("unit cannot be empty, eg 'day' or 'month'");
+		}
 		this.unit = unit;
 	}
 	@Override
 	/**
-	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 * Return true si tout les champs sont ï¿½gaux (mais pas les addresses mï¿½moires)
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof PeriodUnit){
@@ -63,7 +66,7 @@ public class PeriodUnit {
 	
 	@Override
 	/**
-	 * Return l'unité de périodicité (mensuelle, hebdomadaire, trimestrielle...)
+	 * Return l'unitï¿½ de pï¿½riodicitï¿½ (mensuelle, hebdomadaire, trimestrielle...)
 	 */
 	public String toString(){
 		return this.unit;
