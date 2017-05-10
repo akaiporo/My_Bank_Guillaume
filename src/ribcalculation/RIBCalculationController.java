@@ -1,6 +1,6 @@
 package ribcalculation;
 
-import java.sql.ResultSet;
+import java.math.BigInteger;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -31,8 +31,8 @@ public class RIBCalculationController extends ControllerBase {
 	private Bank bank = new Bank();
 	private CpCity cpcity = new CpCity();
 	private Address address = new Address();
-	private int RIBkey;
-	private int IBANkey;
+	private Long RIBkey;
+	private String IBANkey;
 
 	
 	@ FXML private Label titulaire;
@@ -60,19 +60,15 @@ public class RIBCalculationController extends ControllerBase {
 		catch(PersistenceException e) {
 			this.processPersistenceException(e);
 		}
-		
-		
-		/*System.out.print(bankcode);
-		
-		
-		//bic.setText(value);*/
-		
-		
-		
-		
+		titulaire.setText(String.format("%s %s",owner.getFirstName(), owner.getName()));
+					
 	}
+	/**
+	 * Dans une premier temps, la fonction tradRIBkey va permettre de convertir en chiffres toutes les lettres se trouvant dans les données bancaires;
+	 *Le résultat est ensuite stocké dans "traduit" sous forme de "Long".
+	 */
 	
-	private int tradRIBkey(String brut){
+	private Long tradRIBkey(String brut){
 		String traduit="";
 		String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		
@@ -91,21 +87,28 @@ public class RIBCalculationController extends ControllerBase {
 				traduit=traduit+brut.charAt(j);
 			}
 		}
-		return Integer.parseInt(traduit);
+		return Long.parseLong(traduit);
 		
 		
 	}
-	
-	
-	private int calculationRIBkey(String bank_code,String counter_code,String account_number){
+	/**
+	 *  La clé RIB est ensuite calculée, en prenant soin de traduire en chiffres toutes les données bancaires pouvant contenir des lettres.
+	 */
+	private Long calculationRIBkey(String bank_code,String counter_code,String account_number){
 		 return 97-(89*tradRIBkey(bank_code)+15*tradRIBkey(counter_code)+3*tradRIBkey(account_number))%97;
 	}
-	
-	private int calculationIBANkey(String bank_code,String counter_code,String account_number,String country_code){
-	String brut = String.format("%s%s%s%1$d%s", bank_code,counter_code,account_number,calculationRIBkey(bank_code,counter_code,account_number),country_code);
+	/**
+	 * Dans un premeier temps on va traduire les données bancaires pouvant contenir des lettres en chiffres; qu'on va stocker dans "traduit".
+	 * On va ensuite calculer le modulo 97 de traduit ==> "résultat";
+	 * Si le résultat est composé de 1 chiffre, on affiche la clé IBAN en rajoutant "0" devant le "résultat".
+	 * Sinon, la clé IBAN est égale au "résultat"
+	 */
+	private String calculationIBANkey(String bank_code,String counter_code,String account_number,String country_code){
+	String brut = String.format("%s%s%s%s%s%s%s", bank_code,counter_code,account_number,Long.toString(calculationRIBkey(bank_code,counter_code,account_number)),country_code,0,0);
 	
 	String traduit="";
 	String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	BigInteger resultat;
 	
 	for (int j=0 ; j<brut.length() ; j++){
 		boolean bool=true;
@@ -119,7 +122,14 @@ public class RIBCalculationController extends ControllerBase {
 			traduit=traduit+brut.charAt(j);
 		}
 	}
-	return 98-(Integer.parseInt(traduit))%97;
+	resultat = new BigInteger(traduit).mod(BigInteger.valueOf(97));
+	resultat= BigInteger.valueOf(98).subtract(resultat);
+		if(resultat.toString().length()!=1) {
+			return resultat.toString();
+		}
+		else {
+			return "0"+resultat.toString();
+		}
 	}
 	
 	/**
@@ -167,14 +177,11 @@ public class RIBCalculationController extends ControllerBase {
 		
 		account_number.setText(this.accountnumber);
 		bank_code.setText(this.bankcode);
+		counter_code.setText(this.countercode);
 		domiciliation.setText(String.format("%s %s %s %s", agency.getAddress().getLine1(), agency.getAddress().getLine2(), agency.getAddress().getCpCity().getPostalCode(), agency.getAddress().getCpCity().getCity()));
 		RIBkey=calculationRIBkey(bankcode, countercode,accountnumber);
+		rib_key.setText(Long.toString(RIBkey));
 		IBANkey=calculationIBANkey(bankcode, countercode,accountnumber,countrycode);
-		titulaire.setText(String.format("%s %s",owner.getFirstName(), owner.getName()));
-		rib_key.setText(Integer.toString(RIBkey));
-		iban.setText(String.format(" %2s%2$d %4s %4s %4s %4s %4s", countrycode+IBANkey, countercode, accountnumber, Integer.toString(RIBkey))) ;
+		iban.setText(String.format("%s%s%s%s%s%s",countrycode,IBANkey.toString(), bankcode, countercode, accountnumber, Long.toString(RIBkey))) ;
 	}
-	
-
-
 }
