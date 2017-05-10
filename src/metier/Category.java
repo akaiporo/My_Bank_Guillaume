@@ -43,6 +43,9 @@ public class Category implements Serializable {
 		return this.wording;
 	}
 	public void setWording(String wording){
+		if (wording.isEmpty()){
+			throw new IllegalArgumentException("wording cannot be empty");
+		}
 		this.wording = wording;
 	}
 	@ManyToOne

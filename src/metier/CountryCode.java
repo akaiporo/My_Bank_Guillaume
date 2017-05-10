@@ -1,5 +1,6 @@
 package metier; 
 
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -45,7 +46,10 @@ public class CountryCode  implements Serializable {
 		return this.countryCode;
 	}
 	
-	private void setCountryCode(String code){
+	public void setCountryCode(String code){
+		if(code.length() != 2){
+			throw new IllegalArgumentException("Le code pays doit contenir exactement deux chiffres");
+		}
 		this.countryCode = code;
 	}
 	public void setId(int val){
