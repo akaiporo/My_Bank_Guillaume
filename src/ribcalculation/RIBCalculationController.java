@@ -68,7 +68,7 @@ public class RIBCalculationController extends ControllerBase {
 	 *Le résultat est ensuite stocké dans "traduit" sous forme de "Long".
 	 */
 	
-	private Long tradRIBkey(String brut){
+	public static Long tradRIBkey(String brut){
 		String traduit="";
 		String alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		
