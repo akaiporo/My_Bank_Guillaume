@@ -1,6 +1,5 @@
 package metier; 
 
-
 import java.io.Serializable;
 
 import javax.persistence.Column;
