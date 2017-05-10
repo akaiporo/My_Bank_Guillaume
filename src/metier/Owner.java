@@ -10,7 +10,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.mindrot.jbcrypt.BCrypt;
 import application.Tools;
 
 @Entity
@@ -105,7 +104,7 @@ public class Owner extends Person{
 	}
 	@Override
 	/**
-	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 * Return true si tout les champs sont ï¿½gaux (mais pas les addresses mï¿½moires)
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Owner){
@@ -136,7 +135,7 @@ public class Owner extends Person{
 	
 	@Override
 	/**
-	 * Return le nom et le prénom
+	 * Return le nom et le prï¿½nom
 	 */
 	public String toString() {
 		return String.format("%s %s", getName(), this.getFirstName());

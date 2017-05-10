@@ -22,7 +22,7 @@ public class TargetTransaction {
 	public TargetTransaction(String target_name,String IBAN) {
 		
 		if (target_name.isEmpty()){
-			throw new IllegalArgumentException("wording cannot be empty");
+			throw new IllegalArgumentException("name cannot be empty");
 		}
 		if (IBAN.length() != 27){
 			throw new IllegalArgumentException("IBAN is composed of 27 car in France");
@@ -49,19 +49,28 @@ public class TargetTransaction {
 	public String getTargetName(){
 		return this.target_name;
 	}
-	private void setTargetName(String name){
+	public void setTargetName(String name){
+		if (name.isEmpty()){
+			throw new IllegalArgumentException("name cannot be empty");
+		}
 		this.target_name = name;
 	}
 	@Column(name="IBAN")
 	public String getIBAN(){
 		return this.IBAN;
 	}
-	private void setIBAN(String iban){
+	public void setIBAN(String iban){
+		if (iban.length() != 27){
+			throw new IllegalArgumentException("IBAN is composed of 27 car in France");
+		}
+		if (!iban.toUpperCase().startsWith("FR")){
+			throw new IllegalArgumentException("IBAN begins with 'FR' in France");
+		}
 		this.IBAN = iban;
 	}
 	@Override
 	/**
-	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 * Return true si tout les champs sont ï¿½gaux (mais pas les addresses mï¿½moires)
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof TargetTransaction){

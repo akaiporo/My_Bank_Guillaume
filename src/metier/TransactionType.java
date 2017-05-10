@@ -49,6 +49,9 @@ public class TransactionType implements Serializable{
 		return this.wording;
 	}
 	public void setWording(String wording){
+		if(wording.isEmpty()){
+			throw new IllegalArgumentException("Transaction type can't be null or empty");
+		}
 		this.wording = wording;
 	}
 	public void setId(int val){
@@ -60,7 +63,7 @@ public class TransactionType implements Serializable{
 	
 	@Override
 	/**
-	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 * Return true si tout les champs sont ï¿½gaux (mais pas les addresses mï¿½moires)
 	 */
 	public boolean equals(Object obj){
 		if(obj instanceof TransactionType){
