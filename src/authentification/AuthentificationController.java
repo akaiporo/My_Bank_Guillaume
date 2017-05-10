@@ -2,6 +2,7 @@ package authentification;
 
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
@@ -95,6 +96,7 @@ public class AuthentificationController extends ControllerBase {
 	 */
 	@FXML 
 	private void handleButtonInscription(ActionEvent Event) {
+		
 		
 		/*
 		 * Ce bouton doit rediriger vers la page pour ajouter un nouveau user (AddUserView)
