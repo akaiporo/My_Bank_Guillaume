@@ -45,7 +45,7 @@ public class PasswordRecupController extends ControllerBase {
 	/**
 	 * Est censé envoyer un mail avec le nouveau mot de passe. 
 	 * Est actuellement non géré.
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonOk(ActionEvent event) {
@@ -86,7 +86,7 @@ public class PasswordRecupController extends ControllerBase {
 	}
 	/**
 	 * Renvoie vers la page de login
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel(ActionEvent event) {

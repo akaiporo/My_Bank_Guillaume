@@ -52,7 +52,7 @@ public class AuthentificationController extends ControllerBase {
 
 	/**
 	 * Test si les champs sont remplis Si oui, appel la fnction isSameCredentials
-	 * @param Event
+	 * @param Event : évènement de l'utilisateur
 	 */
 	@FXML 
 	private void handleButtonConnexion(ActionEvent Event) {
@@ -79,7 +79,7 @@ public class AuthentificationController extends ControllerBase {
 	
 	/**
 	 * Renvoie vers la page d'oublie du mot de passe
-	 * @param Event
+	 * @param Event : évènement de l'utilisateur
 	 */
 	@FXML 
 	private void handleButtonForgottenpwd(ActionEvent Event) {
@@ -91,7 +91,7 @@ public class AuthentificationController extends ControllerBase {
 	}
 	/**
 	 * Envoie vers la page d'inscription
-	 * @param Event
+	 * @param Event : évènement de l'utilisateur
 	 */
 	@FXML 
 	private void handleButtonInscription(ActionEvent Event) {
@@ -111,8 +111,8 @@ public class AuthentificationController extends ControllerBase {
 	}
 	/**
 	 * Test si le login passé existe. Si il est, il test le mot de passe associé.
-	 * @return boolean
-	 * @throws SQLException
+	 * @return boolean : 
+	 * @throws SQLException : 
 	 */
 	public boolean isSameCredentials() throws SQLException {
 		

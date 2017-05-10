@@ -18,9 +18,14 @@ import application.Tools;
 @NamedQuery(name="Advisor.findAll", query="SELECT ad FROM Advisor ad")
 public class Advisor extends Person {
 	/**
-	 * @param date_assignment : Advisor assignment date
-	 * @param agency : Advisor agency
-	 */ 
+	 * 
+	 * @param name : 
+	 * @param firstname : 
+	 * @param phonenumber : 
+	 * @param mail : 
+	 * @param date_assignment : 
+	 * @param agency : 
+	 */
 
 	public Advisor(String name, String firstname, String phonenumber, String mail, Date date_assignment,Agency agency) {
 		super(name, firstname, phonenumber, mail);

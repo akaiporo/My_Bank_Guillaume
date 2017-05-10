@@ -16,10 +16,9 @@ import javax.persistence.Table;
 public class Address {
 	/**
 	 * 
-	 * @param id
-	 * @param line1
-	 * @param line2
-	 * @param cpCity
+	 * @param line1 : 
+	 * @param line2 : 
+	 * @param cpcity : 
 	 */
 
 	public Address(String line1, String line2, CpCity cpcity) {

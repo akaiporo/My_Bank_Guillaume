@@ -56,7 +56,7 @@ public class MainWindowController extends ControllerBase{
 	}
 	/**
 	 * Si l'utilisateur clique sur quitter, lui demande confirmation
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleMenuFileQuit(ActionEvent event) {

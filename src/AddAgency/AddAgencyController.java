@@ -76,6 +76,7 @@ public class AddAgencyController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† la s√©lection d'un postalcode ou de (new postal code)
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void handleChoicePostalCode(ActionEvent event){
@@ -102,6 +103,7 @@ public class AddAgencyController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† la s√©lection de (new bank)
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void addBank (ActionEvent event){
@@ -117,6 +119,7 @@ public class AddAgencyController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† la s√©lection de (new city)
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void addCity (ActionEvent event){
@@ -132,6 +135,7 @@ public class AddAgencyController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton OK
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
@@ -247,6 +251,7 @@ public class AddAgencyController extends ControllerBase {
 
 	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton cancel : la page pr√©c√©dente AddAccountView est charg√©e
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

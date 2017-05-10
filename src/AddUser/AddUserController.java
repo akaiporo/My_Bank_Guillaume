@@ -307,7 +307,7 @@ public class AddUserController extends ControllerBase {
 	}
 	/**L'évènement du bouton cancel va permettre  de revenir dans la fenêtre des comptes 
 	 * si jamais on ne veut plus ajouter de nouvel utilisateur, tout en demandant une confirmation
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel(ActionEvent event) {

@@ -21,14 +21,14 @@ public class Owner extends Person{
 	
 	/**
 	 * Constructor
-	 * @param owner_name : The owner name
-	 * @param owner_firstname
-	 * @param phone_number
-	 * @param mail
-	 * @param birthdate
-	 * @param login
-	 * @param pwd
-	 * @param address
+	 * @param name : The owner name
+	 * @param firstname : 
+	 * @param phonenumber : 
+	 * @param mail : 
+	 * @param birthdate : 
+	 * @param login : 
+	 * @param pwd : 
+	 * @param address : 
 	 */
 	public Owner(String name, String firstname, String phonenumber, String mail, Date birthdate, String login, String pwd, Address address) {
 		super(name, firstname, phonenumber, mail);

@@ -17,11 +17,10 @@ import javax.persistence.Table;
 public class Agency {
 	/**
 	 * 
-	 * @param id
-	 * @param agency_name
-	 * @param counter_code
-	 * @param address
-	 * @param bank
+	 * @param agency_name : 
+	 * @param counter_code : 
+	 * @param address : 
+	 * @param bank : 
 	 */
 
 	public Agency(String agency_name, String counter_code, Address address, Bank bank) {

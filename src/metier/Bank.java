@@ -21,11 +21,11 @@ public class Bank implements Serializable {
 	private String bank_code;
 	
 
-	/**
-	 * @param id			: id de la banque
-	 * @param bank_name		: nom de la banque
-	 * @param bank_code		: code de la banque (� 5 chiffres)
-	 */
+/**
+ * 
+ * @param bank_name : 
+ * @param bank_code : 
+ */
 
 	public Bank(String bank_name, String bank_code) {
 		if(bank_name.isEmpty()) {

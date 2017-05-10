@@ -33,7 +33,7 @@ public class AddCpCityController2 extends ControllerBase {
 	}
 	/**
 	 * Pour créer un owner avec des nouveaux postalcode et city:
-	 * @param Event : Création d'un evénement avec le bouton ok pour rajouter une ville et/ ou un code postal
+	 * @param event : Création d'un evénement avec le bouton ok pour rajouter une ville et/ ou un code postal
 	 * En testant à chaque fois les differents paramètres/champs;
 	 * Puis renvoie vers la page de création de owner/user quand la ville et/oule code postal est rentré!
 	 */
@@ -65,7 +65,7 @@ public class AddCpCityController2 extends ControllerBase {
 	}
 	/**
 	 * Ce bouton renvoie vers la page de création de owner/user si on ne veut plus rajouter!
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

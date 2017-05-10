@@ -31,7 +31,7 @@ public class AddBankController extends ControllerBase {
 	}
 	/**
 	 * Crée une banque avc les informations du FXML
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
@@ -62,7 +62,7 @@ public class AddBankController extends ControllerBase {
 	}
 	/**
 	 * Revient à la page de création de compte sns modifications
-	 * @param event
+	 * @param event : évènement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

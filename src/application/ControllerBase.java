@@ -35,7 +35,7 @@ public abstract class ControllerBase {
 	 * @param fxml : fxml à charger
 	 * @param mediator : mediator à passer
 	 * @return : le Parent loadé
-	 * @throws IOException
+	 * @throws IOException : 
 	 */
 	public static Parent loadFxml(String fxml, Mediator mediator) throws IOException {
 		FXMLLoader loader = new FXMLLoader(Main.class.getResource(fxml));

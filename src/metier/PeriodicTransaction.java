@@ -34,21 +34,23 @@ public class PeriodicTransaction{
 	private PeriodUnit periodUnit;
 	//Utile uniquement pour faire le lien avec la bdd
 	private Account account;
-	/**
-	 * 
-	 * @param wording			   : Libelï¿½ de a transaction
-	 * @param transaction_value    : Valeur de la transaction (positive ou nï¿½gative)
-	 * @param date_operation       : Date de crï¿½ation de l'opï¿½ration. Peut ï¿½tre dans le futur (planification)
-	 * @param end_date_transaction : Date de fin, si c'est une pï¿½ration cyclique dont on connait la fin
-	 * @param day_number		   : ï¿½niï¿½me jour du cycle. Dï¿½pend de periodUnit.	
-	 * @param description          : Facultatif
-	 * @param transactionType      : Type de transaction (cb, chï¿½que, retrait...)
-	 * @param category		       : Category (alimentaire, transport...)  
-	 * @param periodUnit		   : Mensuel, hebdomadaire, annuel, bi-mensuel				
-	 */
+
 	public PeriodicTransaction(){
 	}
 	
+	/**
+	 * 
+	 * @param wording : libelé
+	 * @param transaction_value : valeur
+	 * @param date_operation : date active
+	 * @param end_date_transaction : date de fin de cycle (optionnelle)
+	 * @param day_number : jour actif du cycle
+	 * @param description : optionnelle
+	 * @param transactionType : type de transaction (virement, chèque...)
+	 * @param targetTransaction : compte ciblé
+	 * @param category	: 	
+	 * @param periodUnit : type de cycle (mensuel,hebdo...)
+	 */
 	public PeriodicTransaction(String wording, Double transaction_value, Date date_operation, Date end_date_transaction,
 							  int day_number, String description, TransactionType transactionType, TargetTransaction targetTransaction, Category category,
 							  PeriodUnit periodUnit){
@@ -147,8 +149,11 @@ public class PeriodicTransaction{
 		return this.day_number;
 	}
 	public void setDayNumber(int day){
-		if(day < 0){
+		if(day <= 0){
 			throw new IllegalArgumentException("La cycle ne peut être négatif");
+		}
+		else if(this.getPeriodUnit() == null){
+			throw new IllegalAccessError("L'unité n'a pas été déclarée. Utilisez la méthod setPeriodParam()");
 		}
 		this.day_number = day;
 	}
@@ -198,7 +203,25 @@ public class PeriodicTransaction{
 		return this.periodUnit;
 	}
 	public void setPeriodUnit(PeriodUnit pu){
+		if(this.getPeriodUnit() == null){
+			throw new IllegalAccessError("Le numéro de jour cyclique n'a pas été déclaré. Utilisez la méthod setPeriodParam()");
+		}
 		this.periodUnit = pu;
+	}
+	
+	/**
+	 * Set les deux paramètres étant donnés qu'ils sont liés
+	 * @param pu : type de périodicité (annuelle, mensuelle...)
+	 * @param daynumber : Jour actif(3e jour de chaque mois, 6e jour de la semaine...)
+	 */
+	public void setPeriodParam(PeriodUnit pu, int daynumber){
+		if(pu != null && daynumber > 0){
+			this.periodUnit = pu;
+			this.day_number = daynumber;
+		}
+		else{
+			throw new IllegalArgumentException("Le type de cycle et le jour actif doivent être tout les deux renseigné");
+		}
 	}
 	
 	@ManyToOne

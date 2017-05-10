@@ -84,6 +84,7 @@ public class AddAccountController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† la s√©lection d'une agence ou de (new agency)
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void addAgency (ActionEvent event){
@@ -110,6 +111,7 @@ public class AddAccountController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† la s√©lection de (new advisor)
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void addAdvisor (ActionEvent event){
@@ -126,6 +128,7 @@ public class AddAccountController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton OK
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonOK (ActionEvent event){
@@ -220,6 +223,7 @@ public class AddAccountController extends ControllerBase {
 	
 	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton cancel : chargement de la page principale
+	 * @param event : ÈvËnement de l'utilisateur
 	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

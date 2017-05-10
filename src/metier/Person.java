@@ -18,10 +18,10 @@ public abstract class Person {
 	 * 
 	 * @param name : name of the person
 	 * @param firstname : first name of the person
-	 * @param phone_number : phone number of the person
+	 * @param phonenumber : phone number of the person
 	 * @param mail : email of the person
 	 */
-
+	
 	public Person(String name, String firstname, String phonenumber, String mail) {
 		if(name.isEmpty()) {
 			throw new IllegalArgumentException("The name cannot be empty");
