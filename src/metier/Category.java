@@ -64,6 +64,9 @@ public class Category implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Category){
 			Category tmp = (Category)obj;
@@ -84,6 +87,9 @@ public class Category implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return le nom de la catégorie
+	 */
 	public String toString(){
 		return this.wording;
 	}

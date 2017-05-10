@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 
 import application.ControllerBase;
 import application.Mediator;
+import application.Tools;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import metier.Advisor;
 import metier.Agency;
-import metier.DateUtils;
 
 public class AddAdvisorController extends ControllerBase {
 	private EntityManager em;
@@ -106,7 +106,7 @@ public class AddAdvisorController extends ControllerBase {
 			advisor_error.setText(e.getMessage());
 		}
 		try {
-			currentAdvisor.setDateAssignment(DateUtils.LocalDateToDate(date_assignment.getValue()));
+			currentAdvisor.setDateAssignment(Tools.LocalDateToDate(date_assignment.getValue()));
 		}
 		catch  (IllegalArgumentException e) {
 			advisor_error.setText(e.getMessage());

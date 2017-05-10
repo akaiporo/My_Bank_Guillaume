@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import application.ControllerBase;
 import application.MainWindowController;
 import application.Mediator;
+import application.Tools;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,6 @@ import metier.Agency;
 import metier.Assign;
 import metier.AssignPK;
 import metier.CountryCode;
-import metier.DateUtils;
 
 
 public class AddAccountController extends ControllerBase {
@@ -145,7 +145,7 @@ public class AddAccountController extends ControllerBase {
 			account_error.setText(e.getMessage());
 		}
 		try{
-			currentAccount.setCreationDate(DateUtils.LocalDateToDate(this.date_creation.getValue()));
+			currentAccount.setCreationDate(Tools.LocalDateToDate(this.date_creation.getValue()));
 		}
 		catch (IllegalArgumentException e){
 			account_error.setText(e.getMessage());

@@ -13,6 +13,7 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import application.ControllerBase;
 import application.Mediator;
+import application.Tools;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,7 +29,6 @@ import metier.Owner;
 import metier.Address;
 import metier.Advisor;
 import metier.CpCity;
-import metier.DateUtils;
 
 public class AddUserController extends ControllerBase { 
 	private EntityManager em;
@@ -268,7 +268,7 @@ public class AddUserController extends ControllerBase {
 			return;
 		}
 		try {
-			owner.setBirthdate(DateUtils.LocalDateToDate(owner_birthdate.getValue()));
+			owner.setBirthdate(Tools.LocalDateToDate(owner_birthdate.getValue()));
 		}
 		catch  (IllegalArgumentException e) {
 			errbirthdate.setText(" The owner birthdate cannot be empty");

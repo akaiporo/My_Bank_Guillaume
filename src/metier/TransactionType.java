@@ -59,6 +59,9 @@ public class TransactionType implements Serializable{
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof TransactionType){
 			TransactionType tmp = (TransactionType)obj;
@@ -72,6 +75,9 @@ public class TransactionType implements Serializable{
 	}
 	
 	@Override
+	/**
+	 * Return le type de la transaction;
+	 */
 	public String toString(){
 		return this.wording;
 	}

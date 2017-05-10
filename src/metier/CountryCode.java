@@ -59,6 +59,9 @@ public class CountryCode  implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof CountryCode){
 			CountryCode tmp = (CountryCode)obj;
@@ -72,6 +75,9 @@ public class CountryCode  implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return le code pays
+	 */
 	public String toString() {
 		return this.countryCode;
 	}
