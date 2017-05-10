@@ -1,6 +1,5 @@
 package metier;
 
-import java.util.Comparator;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -107,6 +106,7 @@ public class PeriodicTransaction{
 		}
 		this.id = val;
 	}
+	
 	@Column(name="wording")
 	public String getWording(){
 		return this.wording;
@@ -114,13 +114,19 @@ public class PeriodicTransaction{
 	public void setWording(String wording){
 		this.wording = wording;
 	}
+	
 	@Column(name="transaction_value")
 	public double getTransactionValue(){
+		
 		return this.transaction_value;
 	}
-	public void setTransactionValue(double val){
+	public void setTransactionValue(Double val){
+		if(val == null){
+			throw new NullPointerException("La valeur de la ligne ne peut ï¿½tre vide ou null");
+		}
 		this.transaction_value = val;
 	}
+	
 	@Column(name="date_operation")
 	@Temporal(TemporalType.DATE)
 	public Date getDateOperation(){
@@ -129,7 +135,7 @@ public class PeriodicTransaction{
 	
 	public void setDateOperation(Date date){
 		if(date == null){
-			throw new NullPointerException("La date ne peut être null");
+			throw new NullPointerException("La date ne peut ï¿½tre null");
 		}
 		this.date_operation = date;
 	}
@@ -148,7 +154,7 @@ public class PeriodicTransaction{
 	}
 	public void setDayNumber(int day){
 		if(day < 0){
-			throw new IllegalArgumentException("La cycle ne peut être négatif");
+			throw new IllegalArgumentException("La cycle ne peut ï¿½tre nï¿½gatif");
 		}
 		this.day_number = day;
 	}
@@ -166,7 +172,7 @@ public class PeriodicTransaction{
 	}
 	public void setTransactionType(TransactionType tt){
 		if(tt == null){
-			throw new NullPointerException("Le type ne peut être null");
+			throw new NullPointerException("Le type ne peut ï¿½tre null");
 		}
 		this.transactionType = tt;
 	}
@@ -177,7 +183,7 @@ public class PeriodicTransaction{
 	}
 	public void setTargetTransaction(TargetTransaction target){
 		if(target == null){
-			throw new NullPointerException("La cible ne peut être null");
+			throw new NullPointerException("La cible ne peut ï¿½tre null");
 		}
 		this.targetTransaction = target;
 	}
@@ -188,7 +194,7 @@ public class PeriodicTransaction{
 	}
 	public void setCategory(Category cat){
 		if(cat == null){
-			throw new NullPointerException("La catégorie ne peut être null");
+			throw new NullPointerException("La catï¿½gorie ne peut ï¿½tre null");
 		}
 		this.category = cat;
 	}
