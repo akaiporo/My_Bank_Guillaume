@@ -134,12 +134,12 @@ public class AddUserController extends ControllerBase {
 		}
 	}
 	/**
-	 * 
-	 * @param Event : Crï¿½ation d'un evï¿½nement avec le bouton ok pour rajouter(set) un owner dans la BDD
-	 * En testant ï¿½ chaque fois les differents paramï¿½tres/champs;
-	 * Dans l'idï¿½al, il aurait aussi fallu tester l'ï¿½galitï¿½ des champs pwd et confirm_pwd;
+	 * Création d'un evénement avec le bouton ok pour rajouter(set) un owner dans la BDD
+	 * En testant à chaque fois les differents paramètres/champs;
+	 * Dans l'idéal, il aurait aussi fallu tester l'égalité des champs pwd et confirm_pwd;
 	 * Puis renvoyer une erreur si les deux champs ne sont pas identiques
-	 * Aprï¿½s l'ajout on est redirigï¿½ vers la page d'authentification
+	 * Après l'ajout on est redirigé vers la page d'authentification
+	 * @param Event : 
 	 */
 	@FXML
 	private void handleButtonOk(ActionEvent Event) {
@@ -285,7 +285,7 @@ public class AddUserController extends ControllerBase {
 			return;
 		}
 		
-		/**
+		/*
 		 * Ajout d'un nouvel utilisateur dans la BDD
 		 */
 		
@@ -299,15 +299,15 @@ public class AddUserController extends ControllerBase {
 			return;
 		} 
 		 
-		/**
+		/*
 		 * Chargement de la page d'authentification de l'application
 		 */
 		this.loadSubScene("../authentification/AuthentificationView.fxml");	
 		
 	}
-	/**
-	 * @param event : L'ï¿½vï¿½nement du bouton cancel va permettre  de revenir dans la fenï¿½tre des comptes 
+	/**L'évènement du bouton cancel va permettre  de revenir dans la fenêtre des comptes 
 	 * si jamais on ne veut plus ajouter de nouvel utilisateur, tout en demandant une confirmation
+	 * @param event
 	 */
 	@FXML
 	private void handleButtonCancel(ActionEvent event) {

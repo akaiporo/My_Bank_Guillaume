@@ -64,8 +64,8 @@ public class AddCpCityController2 extends ControllerBase {
 		this.loadSubScene("../AddUser/AddUserView.fxml");		
 	}
 	/**
-	 * 
-	 * @param event : Ce bouton renvoie vers la page de création de owner/user si on ne veut plus rajouter!
+	 * Ce bouton renvoie vers la page de création de owner/user si on ne veut plus rajouter!
+	 * @param event
 	 */
 	@FXML
 	private void handleButtonCancel (ActionEvent event){

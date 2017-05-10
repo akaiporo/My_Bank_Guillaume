@@ -72,6 +72,9 @@ public class Advisor extends Person {
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Advisor){
 			Advisor tmp = (Advisor)obj;
@@ -96,6 +99,9 @@ public class Advisor extends Person {
 	}
 	
 	@Override
+	/**
+	 * Return : Une chaîne formée du nom et du prénom
+	 */
 	public String toString() {
 		return String.format("%s %s", getName(), this.getFirstName());
 	}

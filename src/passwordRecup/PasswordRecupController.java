@@ -43,7 +43,7 @@ public class PasswordRecupController extends ControllerBase {
 		
 	}
 	/**
-	 * Est censé envoyer un mail avec le nouveau mot de passe (donc, orienté WEB)
+	 * Est censé envoyer un mail avec le nouveau mot de passe. 
 	 * Est actuellement non géré.
 	 * @param event
 	 */

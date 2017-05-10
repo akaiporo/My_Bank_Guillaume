@@ -204,7 +204,10 @@ public class CompteCourantController extends ControllerBase {
 	
 		this.setPieChart();
 	}
-	
+	/**
+	 * Met à jour le seuil d'alerte en BDD
+	 * @param value : nouvelle valeur
+	 */
 	private void updateAlert(int value){
 		Account tmp = em.find(Account.class, currentAccount.getId());
 		em.getTransaction().begin();
@@ -652,8 +655,10 @@ public class CompteCourantController extends ControllerBase {
 	private void processPersistenceException(PersistenceException e) {
 		new Alert(AlertType.ERROR, "Database error : "+e.getLocalizedMessage(), ButtonType.OK).showAndWait();
 	}
-	
 
+	/**
+	 * Envoie sur la page de calcul du rib, et envoie le compte actuel dans le nouveau controlleur
+	 */
 	@FXML
 	private void handleRIB(){
 		this.loadSubScene("../ribcalculation/RIBCalculation.fxml");
