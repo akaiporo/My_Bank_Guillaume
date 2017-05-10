@@ -21,7 +21,7 @@ public class PeriodicTransaction{
 	/* VARIABLES */
 	private int id;
 	private String wording;
-	private Double transaction_value;
+	private double transaction_value;
 	private Date date_operation;
 	private Date end_date_transaction;
 	private int day_number;
@@ -38,24 +38,24 @@ public class PeriodicTransaction{
 	
 	/**
 	 * 
-	 * @param wording : libelé
+	 * @param wording : libelï¿½
 	 * @param transaction_value : valeur
 	 * @param date_operation : date active
 	 * @param end_date_transaction : date de fin de cycle (optionnelle)
 	 * @param day_number : jour actif du cycle
 	 * @param description : optionnelle
-	 * @param transactionType : type de transaction (virement, chèque...)
-	 * @param targetTransaction : compte ciblé
+	 * @param transactionType : type de transaction (virement, chï¿½que...)
+	 * @param targetTransaction : compte ciblï¿½
 	 * @param category	: 	
 	 * @param periodUnit : type de cycle (mensuel,hebdo...)
 	 */
-	public PeriodicTransaction(String wording, Double transaction_value, Date date_operation, Date end_date_transaction,
+	public PeriodicTransaction(String wording, double transaction_value, Date date_operation, Date end_date_transaction,
 							  int day_number, String description, TransactionType transactionType, TargetTransaction targetTransaction, Category category,
 							  PeriodUnit periodUnit){
 		if(wording.isEmpty()){
 			throw new IllegalArgumentException("Le libelï¿½ ne peut ï¿½tre vide");
 		}
-		if(transaction_value == null){
+		if(transaction_value == 0.0){
 			throw new NullPointerException("La valeur de la ligne ne peut ï¿½tre vide ou null");
 		}
 		if(date_operation == null){
@@ -113,6 +113,9 @@ public class PeriodicTransaction{
 		return this.wording;
 	}
 	public void setWording(String wording){
+		if(wording.isEmpty()){
+			throw new IllegalArgumentException("Le libelï¿½ ne peut ï¿½tre vide");
+		}
 		this.wording = wording;
 	}
 	
@@ -121,8 +124,8 @@ public class PeriodicTransaction{
 		
 		return this.transaction_value;
 	}
-	public void setTransactionValue(Double val){
-		if(val == null){
+	public void setTransactionValue(double val){
+		if(val == 0.0){
 			throw new NullPointerException("La valeur de la ligne ne peut ï¿½tre vide ou null");
 		}
 		this.transaction_value = val;
@@ -155,13 +158,10 @@ public class PeriodicTransaction{
 	}
 	public void setDayNumber(int day){
 		if(day <= 0){
-			throw new IllegalArgumentException("La cycle ne peut être négatif");
+			throw new IllegalArgumentException("La cycle ne peut ï¿½tre nï¿½gatif");
 		}
 		else if(this.getPeriodUnit() == null){
-			throw new IllegalAccessError("L'unité n'a pas été déclarée. Utilisez la méthod setPeriodParam()");
-		}
-		if(day < 0){
-			throw new IllegalArgumentException("La cycle ne peut ï¿½tre nï¿½gatif");
+			throw new IllegalAccessError("L'unitï¿½ n'a pas ï¿½tï¿½ dï¿½clarï¿½e. Utilisez la mï¿½thod setPeriodParam()");
 		}
 		this.day_number = day;
 	}
@@ -170,6 +170,9 @@ public class PeriodicTransaction{
 		return this.description;
 	}
 	public void setDescription(String desc){
+		if(desc == null){
+			this.description = "";
+		}
 		this.description = desc;
 	}
 	@ManyToOne
@@ -212,14 +215,17 @@ public class PeriodicTransaction{
 	}
 	public void setPeriodUnit(PeriodUnit pu){
 		if(this.day_number == 0){
-			throw new IllegalAccessError("Le numéro de jour cyclique n'a pas été déclaré. Utilisez la méthod setPeriodParam()");
+			throw new IllegalAccessError("Le numï¿½ro de jour cyclique n'a pas ï¿½tï¿½ dï¿½clarï¿½. Utilisez la mï¿½thod setPeriodParam()");
+		}
+		else if (pu==null){
+			throw new IllegalAccessError("Une period ou un jour d'ï¿½chï¿½ance ne peuvent ï¿½tre dï¿½clarï¿½ l'un sans l'autre");
 		}
 		this.periodUnit = pu;
 	}
 	
 	/**
-	 * Set les deux paramètres étant donnés qu'ils sont liés
-	 * @param pu : type de périodicité (annuelle, mensuelle...)
+	 * Set les deux paramï¿½tres ï¿½tant donnï¿½s qu'ils sont liï¿½s
+	 * @param pu : type de pï¿½riodicitï¿½ (annuelle, mensuelle...)
 	 * @param daynumber : Jour actif(3e jour de chaque mois, 6e jour de la semaine...)
 	 */
 	public void setPeriodParam(PeriodUnit pu, int daynumber){
@@ -228,7 +234,7 @@ public class PeriodicTransaction{
 			this.day_number = daynumber;
 		}
 		else{
-			throw new IllegalArgumentException("Le type de cycle et le jour actif doivent être tout les deux renseigné");
+			throw new IllegalArgumentException("Le type de cycle et le jour actif doivent ï¿½tre tout les deux renseignï¿½");
 		}
 	}
 	
