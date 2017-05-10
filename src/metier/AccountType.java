@@ -50,6 +50,9 @@ public class AccountType {
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof AccountType){
 			AccountType tmp = (AccountType)obj;
@@ -63,6 +66,9 @@ public class AccountType {
 	}
 	
 	@Override
+	/**
+	 * Return : le nom du type de compte
+	 */
 	public String toString() {
 		return this.accountType;
 	}

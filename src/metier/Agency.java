@@ -104,8 +104,10 @@ public class Agency {
 		}
 		this.bank = bank;
 	}
-	@Override // redï¿½finition de la fonction equals pour la comparaison de ts les champs quand on a  un objet
-	
+	@Override 
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Agency){
 			Agency tmp = (Agency)obj;
@@ -127,6 +129,9 @@ public class Agency {
 	}
 	
 	@Override
+	/**
+	 * Return le nom de l'agence
+	 */
 	public String toString() {
 		return this.agency_name;
 	}

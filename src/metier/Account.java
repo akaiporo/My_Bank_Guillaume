@@ -247,8 +247,10 @@ public class Account implements Serializable {
 		return 98-(Integer.parseInt(traduit))%97s;
 	}*/
 	
-	
 	@Override
+	/**
+	 * Return : Une chaine formé à partir du type de compte, du nom de l'agence, et tu numéro de compte
+	 */
 	public String toString() {
 		return String.format("%s %s %s", this.accountType.getAccountType(), this.agency.getAgencyName(), this.account_number);
 	}

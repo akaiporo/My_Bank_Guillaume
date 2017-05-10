@@ -100,7 +100,7 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action consécutive à la sélection de (new bank)
 	 */
 	@FXML
@@ -115,7 +115,7 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action consécutive à la sélection de (new city)
 	 */
 	@FXML
@@ -130,7 +130,7 @@ public class AddAgencyController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action consécutive à l'utilisation du bouton OK
 	 */
 	@FXML
@@ -245,7 +245,7 @@ public class AddAgencyController extends ControllerBase {
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 
-	/*
+	/**
 	 * Gere une action consécutive à l'utilisation du bouton cancel : la page précédente AddAccountView est chargée
 	 */
 	@FXML

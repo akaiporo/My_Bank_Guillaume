@@ -108,7 +108,7 @@ public class AddAccountController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action cons√©cutive √† la s√©lection de (new advisor)
 	 */
 	@FXML
@@ -124,7 +124,7 @@ public class AddAccountController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton OK
 	 */
 	@FXML
@@ -200,6 +200,10 @@ public class AddAccountController extends ControllerBase {
 		this.loadSubScene("../compteCourant/CompteCourantList.fxml");
 	}
 	
+	/**
+	 * Lie le compte nouvelle crÈÈ ‡ l'utilisateur actuel
+	 * @param currentAccount : compte qui vient d'Ítre crÈÈ
+	 */
 	private void linkAccount(Account currentAccount){
 		AssignPK tmp = new AssignPK(currentAccount.getId(), MainWindowController.currentOwner.getId());
 		Assign assign = new Assign(tmp);
@@ -214,7 +218,7 @@ public class AddAccountController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action cons√©cutive √† l'utilisation du bouton cancel : chargement de la page principale
 	 */
 	@FXML

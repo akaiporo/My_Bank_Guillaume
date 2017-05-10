@@ -73,7 +73,7 @@ public class AddAdvisorController extends ControllerBase {
 		}
 	}
 	
-	/*
+	/**
 	 * Gere une action consécutive à l'utilisation du bouton OK
 	 */
 	@FXML 
@@ -139,7 +139,7 @@ public class AddAdvisorController extends ControllerBase {
 		this.loadSubScene("../AddAccount/AddAccountView.fxml");
 	}
 	
-	/*
+	/**
 	 * Gere une action consécutive à l'utilisation du bouton cancel : chargement de la page AddAccountView
 	 */
 	@FXML 

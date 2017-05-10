@@ -64,8 +64,8 @@ public class AddCpCityController extends ControllerBase {
 		this.loadSubScene("../AddAgency/AddAgencyView.fxml");		
 	}
 	/**
-	 * 
-	 * @param event : Ce bouton renvoie vers la page de création de l'agence si on ne veut plus rajouter!
+	 * Ce bouton renvoie vers la page de création de l'agence si on ne veut plus rajouter!
+	 * @param event
 	 */
 	
 	@FXML

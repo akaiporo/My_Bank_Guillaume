@@ -74,6 +74,9 @@ public class Bank implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return true si tout les champs sont égaux (mais pas les addresses mémoires)
+	 */
 	public boolean equals(Object obj){
 		if(obj instanceof Bank){
 			Bank tmp = (Bank)obj;
@@ -91,6 +94,9 @@ public class Bank implements Serializable {
 	}
 	
 	@Override
+	/**
+	 * Return : ne nom de la banque
+	 */
 	public String toString() {
 		return this.bank_name;
 	}
