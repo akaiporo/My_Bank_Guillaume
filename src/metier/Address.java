@@ -8,7 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -78,6 +77,9 @@ public class Address {
 		return this.cpCity;
 	}
 	public void setCpCity(CpCity cpc){
+		if(cpc == null){
+			throw new NullPointerException("PostalCode and City can't be null");
+		}
 		this.cpCity = cpc;
 	}
 	

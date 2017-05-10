@@ -2,6 +2,7 @@ package application;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,9 +23,9 @@ public class Tools {
 	
 	/**
 	 * 
-	 * @param sep : Pour les espaces, passer "\\s" en paramètre
-	 * @param str : Chaine à spliter selon sep
-	 * @return La chaine splitée selon le séparateur entré en paramètre
+	 * @param sep : Pour les espaces, passer "\\s" en paramï¿½tre
+	 * @param str : Chaine ï¿½ spliter selon sep
+	 * @return La chaine splitï¿½e selon le sï¿½parateur entrï¿½ en paramï¿½tre
 	 */
 	public static StringBuilder eraseChar(String str, String sep){
 		String[] string = str.split(sep);
@@ -59,5 +60,13 @@ public class Tools {
 	 */
 	public static Date today(){
 		return Calendar.getInstance().getTime();
+	}
+	public static Date futureDate(){
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH,1);
+		return cal.getTime();
+	}
+	public static Date pastDate(){
+		return new GregorianCalendar(2014,4,10).getTime();
 	}
 }

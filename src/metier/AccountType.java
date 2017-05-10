@@ -25,7 +25,6 @@ public class AccountType {
 		this.accountType = account_type;
 	}
 	public AccountType(){
-		
 	}
 	
 	/* GETTERS & SETTERS */
@@ -39,7 +38,10 @@ public class AccountType {
 	public String getAccountType(){
 		return this.accountType;
 	}
-	private void setAccountType(String acc){
+	public void setAccountType(String acc){
+		if(acc.isEmpty()){
+			throw new IllegalArgumentException();
+		}
 		this.accountType = acc;
 	}
 	public void setId(int val){
